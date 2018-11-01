@@ -1,2 +1,9 @@
 # relaxng.org
-The relaxng.org website
+
+1 November 2018
+
+Norm is working with Mike and James to get the relaxng.org website
+hosted here.
+
+Stay tuned.
+
