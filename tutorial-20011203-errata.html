@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+<title>RELAX NG Tutorial Errata</title>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii" >
+<meta http-equiv="Content-Style-Type" content="text/css" >
+<link rel="stylesheet" href="tr.css" type="text/css">
+</head>
+<body>
+<div class="article">
+
+<div class="titlepage"><p class="logo"><a
+href="http://www.oasis-open.org/"><img src="http://www.oasis-open.org/committees/relax-ng/oasis.png" alt="OASIS"
+border="0"></a></p></div>
+
+<h1 class="title">RELAX NG Tutorial Errata</h1>
+
+<p>This document lists errata in the <a
+href="http://www.oasis-open.org/committees/relax-ng/tutorial-20011203.html"
+>RELAX NG Tutorial</a>.</p>
+
+<hr>
+
+<h2>Errata at <a href="http://lists.oasis-open.org/archives/relax-ng/200202/msg00049.html">2002-02-28</a></h2>
+
+
+<h3>E1 (technical)</h3>
+
+<p><a href="http://www.oasis-open.org/committees/relax-ng/tutorial-20011203.html#IDAIRZR">Section 14</a></p>
+
+<div class="instruction">
+<p>Replace</p>
+<pre>            &lt;interleave&gt;
+              &lt;text/&gt;
+              &lt;optional&gt;
+                &lt;element name="span"&gt;
+                  &lt;attribute name="class"&gt;
+                    &lt;value&gt;givenName&lt;/value&gt;
+                  &lt;/attribute&gt;
+                  &lt;text/&gt;
+                &lt;/element&gt;
+              &lt;/optional&gt;
+              &lt;optional&gt;
+                &lt;element name="span"&gt;
+                  &lt;attribute name="class"&gt;
+                    &lt;value&gt;familyName&lt;/value&gt;
+                  &lt;/attribute&gt;
+                  &lt;text/&gt;
+                &lt;/element&gt;
+              &lt;/optional&gt;
+            &lt;/interleave&gt;
+</pre>
+<p>by</p>
+<pre>            &lt;mixed&gt;
+              &lt;optional&gt;
+                &lt;element name="span"&gt;
+                  &lt;attribute name="class"&gt;
+                    &lt;value&gt;givenName&lt;/value&gt;
+                  &lt;/attribute&gt;
+                  &lt;text/&gt;
+                &lt;/element&gt;
+              &lt;/optional&gt;
+              &lt;optional&gt;
+                &lt;element name="span"&gt;
+                  &lt;attribute name="class"&gt;
+                    &lt;value&gt;familyName&lt;/value&gt;
+                  &lt;/attribute&gt;
+                  &lt;text/&gt;
+                &lt;/element&gt;
+              &lt;/optional&gt;
+            &lt;/mixed&gt;
+</pre>
+</p>
+</div>
+<p>Source:
+<a href="http://lists.oasis-open.org/archives/relax-ng/200202/msg00007.html">http://lists.oasis-open.org/archives/relax-ng/200202/msg00007.html</a>
+</p>
+
+</div>
+<hr>
+<p>Last updated $Date: 2003/03/27 03:05:55 $ by $Author: jjc $.</p>
+</body>
+</html>

@@ -1,0 +1,1052 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>RELAX NG Compact Syntax Tutorial</title><link rel="stylesheet" href="tr.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.60.1"><meta name="description" content="RELAX NG is a simple schema language for XML, based on  and . A RELAX NG schema
+specifies a pattern for the structure and content of an XML
+document. A RELAX NG schema thus identifies a class of XML documents
+consisting of those documents that match the pattern. Two syntaxes have been defined for RELAX NG.  The original
+syntax uses XML; with this syntax an RELAX NG schema is itself an XML
+document.  Subsequently, a compact non-XML syntax has been
+defined. This document is a tutorial for RELAX NG version 1.0 using the
+compact
+syntax."><meta http-equiv="content-style-type" content="text/css"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="article" lang="en"><div class="titlepage"><p class="logo"><a href="http://www.oasis-open.org/"><img src="oasis.png" alt="OASIS" border="0"></a></p><div><h1 class="title"><a name="id2811948"></a>RELAX NG Compact Syntax Tutorial</h1></div><div><h2>Working Draft 26 March 2003</h2></div><div><dl><dt>This version:</dt><dd>Working Draft: 26 March 2003</dd></dl></div><div><dl><dt>Editors:</dt><dd>James Clark <tt class="email">&lt;<a href="mailto:jjc@jclark.com">jjc@jclark.com</a>&gt;</tt>, John Cowan <tt class="email">&lt;<a href="mailto:jcowan@reutershealth.com">jcowan@reutershealth.com</a>&gt;</tt>, MURATA Makoto <tt class="email">&lt;<a href="mailto:EB2M-MRT@asahi-net.or.jp">EB2M-MRT@asahi-net.or.jp</a>&gt;</tt></dd></dl></div><div></div><div><div class="legalnotice"><p>Copyright © The Organization for the Advancement of
+Structured Information Standards [OASIS] 2001, 2003. All Rights
+Reserved.</p><p>This document and translations of it may be copied and furnished
+to others, and derivative works that comment on or otherwise explain
+it or assist in its implementation may be prepared, copied, published
+and distributed, in whole or in part, without restriction of any kind,
+provided that the above copyright notice and this paragraph are
+included on all such copies and derivative works. However, this
+document itself may not be modified in any way, such as by removing
+the copyright notice or references to OASIS, except as needed for the
+purpose of developing OASIS specifications, in which case the
+procedures for copyrights defined in the OASIS Intellectual Property
+Rights document must be followed, or as required to translate it into
+languages other than English.</p><p>The limited permissions granted above are perpetual and will not
+be revoked by OASIS or its successors or assigns.</p><p>This document and the information contained herein is provided
+on an &quot;<span class="quote">AS IS</span>&quot; basis and OASIS DISCLAIMS ALL WARRANTIES,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE
+USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY
+IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR
+PURPOSE.</p></div></div><div><hr><div class="abstract"><h2><a name="id2811750"></a>Abstract</h2><p>RELAX NG is a simple schema language for XML, based on [<a href="#relax"><span class="abbrev">RELAX</span></a>] and [<a href="#trex"><span class="abbrev">TREX</span></a>]. A RELAX NG schema
+specifies a pattern for the structure and content of an XML
+document. A RELAX NG schema thus identifies a class of XML documents
+consisting of those documents that match the pattern.</p><p>Two syntaxes have been defined for RELAX NG.  The original
+syntax uses XML; with this syntax an RELAX NG schema is itself an XML
+document.  Subsequently, a compact non-XML syntax has been
+defined.</p><p>This document is a tutorial for RELAX NG version 1.0 using the
+compact
+syntax.</p></div></div><div><div class="legalnotice"><h2>Status of this Document</h2><p>This is a working draft constructed by the editors. It is not an
+official committee work product and may not reflect the consensus
+opinion of the committee.  Comments on this document may be sent to
+<a href="mailto:relax-ng-comment@lists.oasis-open.org" target="_top">relax-ng-comment@lists.oasis-open.org</a>.</p></div></div></div><div class="toc"><h2>Table of Contents</h2><dl><dt>1. <a href="#id2814005">Getting started</a></dt><dt>2. <a href="#id2814120">Choice</a></dt><dt>3. <a href="#id2814218">Attributes</a></dt><dt>4. <a href="#id2814516">Named patterns</a></dt><dt>5. <a href="#id2814737">Datatyping</a></dt><dt>6. <a href="#id2814955">Enumerations</a></dt><dt>7. <a href="#id2815107">Lists</a></dt><dt>8. <a href="#id2815185">Interleaving</a></dt><dt>9. <a href="#id2815432">Modularity</a></dt><dd><dl><dt>9.1. <a href="#id2815440">Referencing external patterns</a></dt><dt>9.2. <a href="#id2815524">Combining definitions</a></dt><dt>9.3. <a href="#id2815634">Merging grammars</a></dt><dt>9.4. <a href="#id2815849">Replacing definitions</a></dt></dl></dd><dt>10. <a href="#id2815943">Namespaces</a></dt><dd><dl><dt>10.1. <a href="#id2815950">Qualified names</a></dt><dt>10.2. <a href="#default-namespace">Default namespace</a></dt></dl></dd><dt>11. <a href="#id2816343">Name classes</a></dt><dt>12. <a href="#id2816664">Internationalization</a></dt><dt>13. <a href="#annotations">Annotations</a></dt><dd><dl><dt>13.1. <a href="#id2816743">Applying annotations</a></dt><dt>13.2. <a href="#id2816799">String literal syntax</a></dt><dt>13.3. <a href="#id2816874">Documentation syntax</a></dt><dt>13.4. <a href="#id2816926">Grouping definitions</a></dt></dl></dd><dt>14. <a href="#id2816990">Nested grammars</a></dt><dt>15. <a href="#id2817095">Non-restrictions</a></dt><dt>16. <a href="#id2817156">Advanced features</a></dt><dd><dl><dt>16.1. <a href="#id2817166">inherit keyword</a></dt><dt>16.2. <a href="#id2817360">Grammar-level annotations</a></dt><dt>16.3. <a href="#id2817392">&gt;&gt; annotations</a></dt></dl></dd><dt>17. <a href="#id2817433">Further information</a></dt></dl><h3>Appendixes</h3><dl><dt>A. <a href="#keywords">List of keywords</a></dt><dt>B. <a href="#id2817637">Comparison with XML DTDs</a></dt><dt><a href="#id2817758">References</a></dt></dl></div><hr><div class="section" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="id2814005"></a>1. Getting started</h2></div></div><p>Consider a simple XML representation of an email address book:</p><pre class="programlisting">&lt;addressBook&gt;
+  &lt;card&gt;
+    &lt;name&gt;John Smith&lt;/name&gt;
+    &lt;email&gt;js@example.com&lt;/email&gt;
+  &lt;/card&gt;
+  &lt;card&gt;
+    &lt;name&gt;Fred Bloggs&lt;/name&gt;
+    &lt;email&gt;fb@example.net&lt;/email&gt;
+  &lt;/card&gt;
+&lt;/addressBook&gt;</pre><p>The DTD (as an internal subset) would be as follows:</p><pre class="programlisting">&lt;!DOCTYPE addressBook [
+&lt;!ELEMENT addressBook (card*)&gt;
+&lt;!ELEMENT card (name, email)&gt;
+&lt;!ELEMENT name (#PCDATA)&gt;
+&lt;!ELEMENT email (#PCDATA)&gt;
+]&gt;</pre><p>A RELAX NG pattern for this could be written as follows:</p><pre class="programlisting">element addressBook {
+  element card {
+    element name { text },
+    element email { text }
+  }*
+}</pre><p>If the <tt class="literal">addressBook</tt> is required to be non-empty, then
+we can use <tt class="literal">+</tt> instead of
+<tt class="literal">*</tt>:</p><pre class="programlisting">element addressBook {
+  element card {
+    element name { text },
+    element email { text }
+  }+
+}</pre><p>Now let's change it to allow each <tt class="literal">card</tt> to have an
+optional <tt class="literal">note</tt> element:</p><pre class="programlisting">element addressBook {
+  element card {
+    element name { text },
+    element email { text },
+    element note { text }?
+  }*
+}</pre><p>Note that the <tt class="literal">text</tt> pattern matches arbitrary text,
+including empty text. Note also that whitespace separating tags is
+ignored when matching against a pattern.</p><p>Comments start with a <tt class="literal">#</tt> and
+continue to the end of the line:</p><pre class="programlisting"># A RELAX NG compact syntax pattern
+# for an address book.
+element addressBook {
+  # an entry in the address book
+  element card {
+    element name { text },
+    element email { text }  # an email address
+  }*
+}</pre><p>Comments starting with <tt class="literal">##</tt> are
+treated specially; see <a href="#annotations" title="13. Annotations">Section 13, &#8220;Annotations&#8221;</a>.</p></div><div class="section" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="id2814120"></a>2. Choice</h2></div></div><p>Now suppose we want to allow the <tt class="literal">name</tt> to be broken
+down into a <tt class="literal">givenName</tt> and a <tt class="literal">familyName</tt>,
+allowing an <tt class="literal">addressBook</tt> like this:</p><pre class="programlisting">&lt;addressBook&gt;
+  &lt;card&gt;
+    &lt;givenName&gt;John&lt;/givenName&gt;
+    &lt;familyName&gt;Smith&lt;/familyName&gt;
+    &lt;email&gt;js@example.com&lt;/email&gt;
+  &lt;/card&gt;
+  &lt;card&gt;
+    &lt;name&gt;Fred Bloggs&lt;/name&gt;
+    &lt;email&gt;fb@example.net&lt;/email&gt;
+  &lt;/card&gt;
+&lt;/addressBook&gt;</pre><p>We can use the following pattern:</p><pre class="programlisting">element addressBook {
+  element card {
+    (element name { text }
+     | (element givenName { text },
+        element familyName { text })),
+    element email { text },
+    element note { text }?
+  }*
+}</pre><p>This corresponds to the following DTD:</p><pre class="programlisting">&lt;!DOCTYPE addressBook [
+&lt;!ELEMENT addressBook (card*)&gt;
+&lt;!ELEMENT card ((name | (givenName, familyName)), email, note?)&gt;
+&lt;!ELEMENT name (#PCDATA)&gt;
+&lt;!ELEMENT email (#PCDATA)&gt;
+&lt;!ELEMENT givenName (#PCDATA)&gt;
+&lt;!ELEMENT familyName (#PCDATA)&gt;
+&lt;!ELEMENT note (#PCDATA)&gt;
+]&gt;</pre><p>Just as with DTDs, there is no implicit
+precedence between connectors. For example,
+<tt class="literal"><i class="replaceable"><tt>x</tt></i>|<i class="replaceable"><tt>y</tt></i>,<i class="replaceable"><tt>z</tt></i></tt>
+is not allowed; the precedence must be made explicit by using
+<tt class="literal">(<i class="replaceable"><tt>x</tt></i>|<i class="replaceable"><tt>y</tt></i>),<i class="replaceable"><tt>z</tt></i></tt>
+or
+<tt class="literal"><i class="replaceable"><tt>x</tt></i>|(<i class="replaceable"><tt>y</tt></i>,<i class="replaceable"><tt>z</tt></i>)</tt>
+must be used.</p></div><div class="section" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="id2814218"></a>3. Attributes</h2></div></div><p>Suppose we want the <tt class="literal">card</tt> element to have attributes
+rather than child elements. The DTD might look like this:</p><pre class="programlisting">&lt;!DOCTYPE addressBook [
+&lt;!ELEMENT addressBook (card*)&gt;
+&lt;!ELEMENT card EMPTY&gt;
+&lt;!ATTLIST card
+  name CDATA #REQUIRED
+  email CDATA #REQUIRED&gt;
+]&gt;</pre><p>Just change each <tt class="literal">element</tt> pattern to an
+<tt class="literal">attribute</tt> pattern:</p><pre class="programlisting">element addressBook {
+  element card {
+    attribute name { text },
+    attribute email { text }
+  }*
+}</pre><p>In XML, the order of attributes is traditionally not significant.
+RELAX NG follows this tradition.  The above pattern would match both</p><pre class="programlisting">&lt;card name=&quot;John Smith&quot; email=&quot;js@example.com&quot;/&gt;</pre><p>and</p><pre class="programlisting">&lt;card email=&quot;js@example.com&quot; name=&quot;John Smith&quot;/&gt;</pre><p>In contrast, the order of elements is significant. The pattern</p><pre class="programlisting">element card {
+  element name { text },
+  element email { text }
+}</pre><p>would <span class="strong">not</span> match</p><pre class="programlisting">&lt;card&gt;&lt;email&gt;js@example.com&lt;/email&gt;&lt;name&gt;John Smith&lt;/name&gt;&lt;/card&gt;</pre><p>Note that an <tt class="literal">attribute</tt> pattern by itself indicates a
+required attribute, just as an <tt class="literal">element</tt> pattern by itself
+indicates a required element. To specify an optional attribute, use
+<tt class="literal">?</tt> just as with <tt class="literal">element</tt>:</p><pre class="programlisting">element addressBook {
+  element card {
+    attribute name { text },
+    attribute email { text },
+    attribute note { text }?
+  }*
+}</pre><p>The <tt class="literal">,</tt> and <tt class="literal">|</tt> connectors can be
+applied to <tt class="literal">attribute</tt> patterns in the same way they are
+applied to <tt class="literal">element</tt> patterns.  For example, if we wanted
+to allow either a <tt class="literal">name</tt> attribute or both a
+<tt class="literal">givenName</tt> and a <tt class="literal">familyName</tt> attribute, we can
+specify this in the same way that we would if we were using
+elements:</p><pre class="programlisting">element addressBook {
+  element card {
+    (attribute name { text }
+     | (attribute givenName { text },
+        attribute familyName { text })),
+    attribute email { text }
+  }*
+}</pre><p>The <tt class="literal">,</tt> and <tt class="literal">|</tt> connectors can combine <tt class="literal">element</tt> and
+<tt class="literal">attribute</tt> patterns without restriction. For
+example, the following pattern would allow a choice of elements and
+attributes independently for both the <tt class="literal">name</tt> and the
+<tt class="literal">email</tt> part of a <tt class="literal">card</tt>:</p><pre class="programlisting">element addressBook {
+  element card {
+    (element name { text }
+     | attribute name { text }),
+    (element email { text }
+     | attribute email { text })
+  }*
+}</pre><p>As usual, the relative order of elements is significant, but the
+relative order of attributes is not. Thus the above would match any
+of:</p><pre class="programlisting">&lt;card name=&quot;John Smith&quot; email=&quot;js@example.com&quot;/&gt;
+&lt;card email=&quot;js@example.com&quot; name=&quot;John Smith&quot;/&gt;
+&lt;card email=&quot;js@example.com&quot;&gt;&lt;name&gt;John Smith&lt;/name&gt;&lt;/card&gt;
+&lt;card name=&quot;John Smith&quot;&gt;&lt;email&gt;js@example.com&lt;/email&gt;&lt;/card&gt;
+&lt;card&gt;&lt;name&gt;John Smith&lt;/name&gt;&lt;email&gt;js@example.com&lt;/email&gt;&lt;/card&gt;</pre><p>However, it would not match</p><pre class="programlisting">&lt;card&gt;&lt;email&gt;js@example.com&lt;/email&gt;&lt;name&gt;John Smith&lt;/name&gt;&lt;/card&gt;</pre><p>because the pattern for <tt class="literal">card</tt> requires any
+<tt class="literal">email</tt> child element to follow any <tt class="literal">name</tt> child
+element.</p><p>When an <tt class="literal">element</tt> pattern does
+not contain any patterns matching attributes, then an element that
+matches the pattern cannot have any attributes. Similarly, when any
+<tt class="literal">element</tt> pattern does not contain any patterns
+matching elements or strings, then an element that matches the pattern
+cannot have any children.  This can be made more explicit by using the
+<tt class="literal">empty</tt> pattern.  For example,</p><pre class="programlisting">element card {
+  attribute email { text },
+  empty
+}</pre><p>is equivalent to</p><pre class="programlisting">element card {
+  attribute email { text }
+}</pre><p>The use of the <tt class="literal">empty</tt> pattern
+is necessary only when an element has neither attributes nor
+children. For example,</p><pre class="programlisting">element addressBook {
+  element card {
+    element name { text },
+    element email { text },
+    element prefersHTML { empty }?
+  }*
+}
+</pre></div><div class="section" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="id2814516"></a>4. Named patterns</h2></div></div><p>For a non-trivial RELAX NG pattern, it is often convenient to be able
+to give names to parts of the pattern.  Instead of</p><pre class="programlisting">element addressBook {
+  element card {
+    element name { text },
+    element email { text }
+  }*
+}</pre><p>we can write</p><pre class="programlisting">grammar {
+  start =
+    element addressBook {
+      element card { cardContent }*
+    }
+  cardContent =
+    element name { text },
+    element email { text }
+}</pre><p>A <tt class="literal">grammar</tt> pattern contains one
+or more definitions.  Each definition associates a name with a
+pattern.  Inside a <tt class="literal">grammar</tt>, a pattern consisting of
+just a name references the definition of that name in the
+<tt class="literal">grammar</tt>.  The name <tt class="literal">start</tt> is
+special.  A <tt class="literal">grammar</tt> pattern is matched by matching
+the definition of <tt class="literal">start</tt>.  A
+<tt class="literal">grammar</tt> pattern must define
+<tt class="literal">start</tt>.</p><p>We can use the <tt class="literal">grammar</tt> pattern to write RELAX NG in a
+style similar to DTDs:</p><pre class="programlisting">grammar {
+  start = AddressBook
+  AddressBook = element addressBook { Card* }
+  Card = element card { Name, Email }
+  Name = element name { text }
+  Email = element email { text }
+}</pre><p>The opening <tt class="literal">grammar {</tt> and
+closing <tt class="literal">}</tt> are required only when a
+<tt class="literal">grammar</tt> pattern is nested within another
+pattern. In the typical case, when the <tt class="literal">grammar</tt>
+pattern is the outermost pattern, they can omitted.  For example, the
+above pattern can be written as:</p><pre class="programlisting">start = AddressBook
+AddressBook = element addressBook { Card* }
+Card = element card { Name, Email }
+Name = element name { text }
+Email = element email { text }</pre><p>Recursive references are allowed.  For example,</p><pre class="programlisting">inline =
+  (text
+   | element bold { inline }
+   | element italic { inline }
+   | element span {
+       attribute style { text }?,
+       inline
+     })*</pre><p>However, recursive references must be within an
+<tt class="literal">element</tt> pattern.  Thus, the following is <span class="strong">not</span>
+allowed:</p><pre class="programlisting">inline =
+  (text
+   | element bold { inline }
+   | element italic { inline }
+   | element span {
+       attribute style { text }?,
+       inline
+     }),
+  inline?</pre><p>To use a keyword such as
+<tt class="literal">element</tt>, <tt class="literal">attribute</tt>,
+<tt class="literal">text</tt>, <tt class="literal">empty</tt>,
+<tt class="literal">grammar</tt> as the name of a definition, it must be
+quoted with <tt class="literal">\</tt>.  For example,</p><pre class="programlisting">start = \element
+\element = element element { text }</pre><p>is equivalent to</p><pre class="programlisting">start = e
+e = element element { text }</pre><p>Note that keywords need not be quoted when
+specifying element or attribute names. A complete list of keywords is
+in <a href="#keywords" title="A. List of keywords">Appendix A, <i>List of keywords</i></a>.</p></div><div class="section" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="id2814737"></a>5. Datatyping</h2></div></div><p>RELAX NG allows patterns to reference externally-defined
+datatypes.  RELAX NG implementations may differ in what datatypes they
+support.  You can only use datatypes that are supported by the
+implementation you plan to use. The most commonly used datatypes are
+those defined by [<a href="#xmlschema-2"><span class="abbrev">W3C XML Schema Datatypes</span></a>].</p><p>A pattern consisting of a name qualified with a
+prefix matches a string that represents a value of a named datatype.
+The prefix identifies the library of datatypes being used and the rest
+of the name specifies the name of the datatype in that library.  The
+prefix <tt class="literal">xsd</tt> identifies the datatype library defined
+by [<a href="#xmlschema-2"><span class="abbrev">W3C XML Schema Datatypes</span></a>].  Assuming your RELAX NG
+implementation supports this library (most do), you could use:</p><pre class="programlisting">element number { xsd:integer }</pre><p>If the children of an element or an attribute match a
+datatype pattern, then the complete content of the element or
+attribute must match that datatype pattern.  It is not
+permitted to have a pattern which allows part of the content to match
+a datatype pattern, and another part to match another
+pattern. For example, the following pattern is <span class="strong">not</span>
+allowed:</p><pre class="programlisting">element bad {
+  xsd:int,
+  element note { text }
+}</pre><p>However, this would be fine:</p><pre class="programlisting">element ok {
+  xsd:int,
+  attribute note { text }
+}</pre><p>Note that this restriction does not apply to the
+<tt class="literal">text</tt> pattern.</p><p>Datatypes may have parameters. For example, a string datatype may
+have a parameter controlling the length of the string.  The parameters
+applicable to any particular datatype are determined by the datatyping
+vocabulary. In the case of [<a href="#xmlschema-2"><span class="abbrev">W3C XML Schema Datatypes</span></a>], the
+applicable parameters correspond to the facets defined in
+[<a href="#xmlschema-2"><span class="abbrev">W3C XML Schema Datatypes</span></a>] with the exception of the
+<tt class="literal">enumeration</tt> and <tt class="literal">whiteSpace</tt>
+facets. Parameters are specified by
+following the datatype name with a list of one or more
+<i class="replaceable"><tt>name</tt></i><tt class="literal">=</tt><i class="replaceable"><tt>value</tt></i>
+parameter assignments in braces. For example, the following
+constrains the <tt class="literal">email</tt> element to contain a string at
+least 6 characters long and at most 127 characters long:</p><pre class="programlisting">element email {
+  xsd:string { minLength = &quot;6&quot; maxLength = &quot;127&quot; }
+}</pre><p>The value of a parameter is a string literal.  As in XML, string
+literals can be delimited using either <tt class="literal">&quot;</tt> or
+<tt class="literal">'</tt>.</p><p>A companion document, [<a href="#guidelines"><span class="abbrev">Guidelines</span></a>], describes
+exactly how the datatypes defined in [<a href="#xmlschema-2"><span class="abbrev">W3C XML Schema Datatypes</span></a>] can
+be used as a RELAX NG datatype library.</p><p>To use a datatype pattern with a prefix other
+than <tt class="literal">xsd</tt>, a <tt class="literal">datatypes</tt>
+declaration must be added to the beginning of the file.
+The <tt class="literal">datatypes</tt> declaration associates the
+prefix with the URI of a datatype library.  The URI of datatype
+library identified by <tt class="literal">xsd</tt> prefix is
+<tt class="literal">http://www.w3.org/2001/XMLSchema-datatypes</tt>. So, for
+example:</p><pre class="programlisting">datatypes xs = &quot;http://www.w3.org/2001/XMLSchema-datatypes&quot;
+
+element number { xs:integer }</pre><p>is equivalent to</p><pre class="programlisting">element number { xsd:integer }</pre></div><div class="section" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="id2814955"></a>6. Enumerations</h2></div></div><p>Many markup vocabularies have attributes whose value is constrained
+to be one of a set of specified strings. A pattern
+consisting of a literal string matches that string. For example,</p><pre class="programlisting">element card {
+  attribute name { text },
+  attribute email { text },
+  attribute preferredFormat { &quot;html&quot; | &quot;text&quot; }
+}</pre><p>allows the <tt class="literal">preferredFormat</tt> attribute to have the value
+<tt class="literal">html</tt> or <tt class="literal">text</tt>.  This corresponds to the
+DTD:</p><pre class="programlisting">&lt;!DOCTYPE card [
+&lt;!ELEMENT card EMPTY&gt;
+&lt;!ATTLIST card
+  name CDATA #REQUIRED
+  email CDATA #REQUIRED
+  preferredFormat (html|text) #REQUIRED&gt;
+]&gt;</pre><p>Literal string patterns are not restricted to attribute
+values. For example, the following is allowed:</p><pre class="programlisting">element card {
+  element name { text },
+  element email { text },
+  element preferredFormat { &quot;html&quot; | &quot;text&quot; }
+}</pre><p>The prohibition against a datatype pattern's matching
+only part of the content of an element also applies to
+literal string patterns.</p><p>By default, a literal string pattern will consider the string
+in the pattern to match the string in the document if the two strings
+are the same after the whitespace in both strings is normalized.
+Whitespace normalization strips leading and trailing whitespace
+characters, and collapses sequences of one or more whitespace
+characters to a single space character.  This corresponds to the
+behaviour of an XML parser for an attribute that is declared as other
+than CDATA. Thus the above pattern will match any of:</p><pre class="programlisting">&lt;card name=&quot;John Smith&quot; email=&quot;js@example.com&quot; preferredFormat=&quot;html&quot;/&gt;
+&lt;card name=&quot;John Smith&quot; email=&quot;js@example.com&quot; preferredFormat=&quot;  html  &quot;/&gt;</pre><p>The way that a literal string pattern compares the
+pattern string with the document string can be controlled by
+preceding the literal string with a prefixed name, which identifies a
+datatype in the same way as for the datatype pattern.
+The pattern string matches the document string if they both represent
+the same value of the specified datatype. Thus, whereas a datatype pattern matches an arbitrary value of a
+datatype, a literal string pattern matches a specific
+value of a datatype.</p><p>There are two datatypes built-in to
+every RELAX NG implementation. These are named
+<tt class="literal">string</tt> and <tt class="literal">token</tt>:
+<tt class="literal">token</tt> corresponds to the
+default comparison behavior of a literal string pattern;
+<tt class="literal">string</tt> compares strings
+without any whitespace normalization (other than the end-of-line and
+attribute value normalization automatically performed by an XML processor).  For
+example,</p><pre class="programlisting">element card {
+  attribute name { text },
+  attribute email { text },
+  attribute preferredFormat { string &quot;html&quot; | string &quot;text&quot; }
+}</pre><p>will <span class="strong">not</span> match</p><pre class="programlisting">&lt;card name=&quot;John Smith&quot; email=&quot;js@example.com&quot; preferredFormat=&quot;  html  &quot;/&gt;</pre></div><div class="section" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="id2815107"></a>7. Lists</h2></div></div><p>The <tt class="literal">list</tt> pattern matches a whitespace-separated
+sequence of tokens; it contains a pattern that the sequence of
+individual tokens must match.  The <tt class="literal">list</tt> pattern
+splits a string into a list of strings, and then matches the resulting
+list of strings against the pattern inside the <tt class="literal">list</tt>
+pattern.</p><p>For example, suppose we want to have a <tt class="literal">vector</tt>
+element that contains two floating point numbers separated by
+whitespace.  We could use <tt class="literal">list</tt> as follows:</p><pre class="programlisting">element vector {
+  list { xsd:float, xsd:float }
+}</pre><p>Or suppose we want the <tt class="literal">vector</tt> element to
+contain a list of one or more floating point numbers separated by
+whitespace:</p><pre class="programlisting">element vector {
+  list { xsd:double+ }
+}</pre><p>Or suppose we want a <tt class="literal">path</tt> element containing
+an even number of floating point numbers:</p><pre class="programlisting">element path {
+  list { (xsd:double, xsd:double)+ }
+}</pre></div><div class="section" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="id2815185"></a>8. Interleaving</h2></div></div><p>In addition to the <tt class="literal">,</tt> and
+<tt class="literal">|</tt> connectors, RELAX NG provides the
+<tt class="literal">&amp;</tt> connector.  This is useful when child
+elements are allowed
+in any order. For example, the following would allow the
+<tt class="literal">card</tt> element to contain the <tt class="literal">name</tt> and
+<tt class="literal">email</tt> elements in any order:</p><pre class="programlisting">element addressBook {
+  element card {
+    element name { text }
+    &amp; element email { text }
+  }*
+}</pre><p>The <tt class="literal">&amp;</tt> connector is called the
+interleave connector because of how it
+works with patterns that match more than one element.  Suppose we want
+to write a pattern for the HTML <tt class="literal">head</tt> element which
+requires exactly one <tt class="literal">title</tt> element, at most one
+<tt class="literal">base</tt> element and zero or more <tt class="literal">style</tt>,
+<tt class="literal">script</tt>, <tt class="literal">link</tt> and <tt class="literal">meta</tt> elements
+and suppose we are writing a <tt class="literal">grammar</tt> pattern that has one
+definition for each element.  Then we could define the pattern for
+<tt class="literal">head</tt> as follows:</p><pre class="programlisting">head = element head { title &amp; base? &amp; style* &amp; script* &amp; link* &amp; meta* }</pre><p>Suppose we had a <tt class="literal">head</tt> element that contained a
+<tt class="literal">meta</tt> element, followed by a <tt class="literal">title</tt> element,
+followed by a <tt class="literal">meta</tt> element.  This would match the pattern
+because it is an interleaving of a sequence of two <tt class="literal">meta</tt>
+elements, which match the child pattern</p><pre class="programlisting">meta*</pre><p>and a sequence of one <tt class="literal">title</tt> element, which matches
+the child pattern</p><pre class="programlisting">title</pre><p>The semantics of the <tt class="literal">&amp;</tt> connector are that a
+sequence of elements matches a
+pattern <tt class="literal"><i class="replaceable"><tt>x</tt></i> &amp;
+<i class="replaceable"><tt>y</tt></i></tt> if it is an interleaving of a
+sequence that matches <i class="replaceable"><tt>x</tt></i> and a sequence that
+matches <i class="replaceable"><tt>y</tt></i>.  Note that this is different from the
+<tt class="literal">&amp;</tt> connector in SGML: <tt class="literal">A* &amp; B</tt> matches
+the sequence of elements <tt class="literal">A A B</tt> or the sequence of
+elements <tt class="literal">B A A</tt> but not the sequence of elements <tt class="literal">A B
+A</tt>.</p><p>One special case of interleaving is very common:
+interleaving <tt class="literal">text</tt> with a pattern
+<i class="replaceable"><tt>p</tt></i> represents a pattern that matches what <i class="replaceable"><tt>p</tt></i>
+matches but also allows characters to occur as children.  The
+<tt class="literal">mixed</tt> pattern is a shorthand for this.</p><pre class="programlisting">mixed { <i class="replaceable"><tt>p</tt></i> }</pre><p>is short for</p><pre class="programlisting">text &amp; <i class="replaceable"><tt>p</tt></i></pre></div><div class="section" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="id2815432"></a>9. Modularity</h2></div></div><div class="section" lang="en"><div class="titlepage"><div><h3 class="title"><a name="id2815440"></a>9.1. Referencing external patterns</h3></div></div><p>The <tt class="literal">external</tt> pattern can be used to
+reference a pattern defined in a separate file.  The <tt class="literal">external</tt> keyword is followed by a quoted string specifying the URL of a file containing the pattern.  The <tt class="literal">external</tt> pattern matches if
+the pattern contained in the specified URL matches. Suppose for
+example, you have a RELAX NG pattern that matches HTML inline content
+stored in <tt class="literal">inline.rnc</tt>:</p><pre class="programlisting">start = inline
+inline =
+  (text
+   | element code { inline }
+   | element em { inline }
+     # etc
+     )*</pre><p>Then we could allow the <tt class="literal">note</tt> element to contain
+inline HTML markup by using <tt class="literal">external</tt> as follows:</p><pre class="programlisting">element addressBook {
+  element card {
+    element name { text },
+    element email { text },
+    element note { external &quot;inline.rnc&quot; }?
+  }*
+}</pre><p>For another example, suppose you have two RELAX NG patterns stored in
+files <tt class="literal">pattern1.rnc</tt> and <tt class="literal">pattern2.rnc</tt>. Then
+the following is a pattern that matches anything matched
+by either of those patterns:</p><pre class="programlisting">external &quot;pattern1.rnc&quot; | external &quot;pattern2.rnc&quot;</pre></div><div class="section" lang="en"><div class="titlepage"><div><h3 class="title"><a name="id2815524"></a>9.2. Combining definitions</h3></div></div><p>If a grammar contains multiple definitions with the same name,
+then the definitions must specify how they are to be combined into a
+single definition by using <tt class="literal">|=</tt> or <tt class="literal">&amp;=</tt> instead of <tt class="literal">=</tt>. For
+example,</p><pre class="programlisting">inline.class |= element bold { inline }
+inline.class |= element italic { inline }</pre><p>is equivalent to</p><pre class="programlisting">inline.class =
+  element bold { inline }
+  | element italic { inline }</pre><p>When combining attributes, <tt class="literal">&amp;=</tt>
+is typically used.  For example,</p><pre class="programlisting">start =
+  element addressBook {
+    element card { card.attlist }*
+  }
+card.attlist &amp;= attribute name { text }
+card.attlist &amp;= attribute email { text }</pre><p>is equivalent to</p><pre class="programlisting">start =
+  element addressBook {
+    element card { card.attlist }*
+  }
+card.attlist =
+  attribute name { text }
+  &amp; attribute email { text }</pre><p>which is equivalent to</p><pre class="programlisting">start =
+  element addressBook {
+    element card { card.attlist }*
+  }
+card.attlist =
+  attribute name { text },
+  attribute email { text }</pre><p>since combining attributes with <tt class="literal">&amp;</tt>
+has the same effect as combining them with
+<tt class="literal">,</tt>.</p><p>It is an error for the same name to be defined using both <tt class="literal">&amp;=</tt> and <tt class="literal">|=</tt>. Note that the order
+of definitions within a grammar is not significant.</p></div><div class="section" lang="en"><div class="titlepage"><div><h3 class="title"><a name="id2815634"></a>9.3. Merging grammars</h3></div></div><p>The <tt class="literal">include</tt> directive allows
+grammars to be merged together. Along with definitions, a
+<tt class="literal">grammar</tt> pattern contain <tt class="literal">include</tt>
+directives.  An <tt class="literal">include</tt> directive consists of the
+<tt class="literal">include</tt> keywords followed by a quoted string
+specifying the URL of a file containing a <tt class="literal">grammar</tt>
+pattern.  The definitions in the referenced <tt class="literal">grammar</tt>
+pattern will be included in <tt class="literal">grammar</tt> pattern
+containing the <tt class="literal">include</tt> directive.</p><p>Both <tt class="literal">|=</tt> and <tt class="literal">&amp;=</tt> are particularly useful
+in conjunction with <tt class="literal">include</tt>.  For example, suppose
+a RELAX NG pattern <tt class="literal">inline.rnc</tt> provides a pattern
+for inline content, which allows <tt class="literal">bold</tt> and
+<tt class="literal">italic</tt> elements arbitrarily nested:</p><pre class="programlisting">inline = inline.class*
+inline.class =
+  text
+  | element bold { inline }
+  | element italic { inline }</pre><p>Another RELAX NG pattern could use <tt class="literal">inline.rnc</tt>
+and add <tt class="literal">code</tt> and <tt class="literal">em</tt> to the set
+of inline elements as follows:</p><pre class="programlisting">include &quot;inline.rnc&quot;
+start =
+  element doc {
+    element p { inline }*
+  }
+inline.class |=
+  element code { inline }
+  | element em { inline }</pre><p>This would be equivalent to</p><pre class="programlisting">inline = inline.class*
+inline.class =
+  text
+  | element bold { inline }
+  | element italic { inline }
+start =
+  element doc {
+    element p { inline }*
+  }
+inline.class |=
+  element code { inline }
+  | element em { inline }</pre><p>which is equivalent to</p><pre class="programlisting">inline = inline.class*
+inline.class =
+  text
+  | element bold { inline }
+  | element italic { inline }
+  | element code { inline }
+  | element em { inline }
+start =
+  element doc {
+    element p { inline }*
+  }</pre><p>Note that it is allowed for one of the definitions of a name to
+use <tt class="literal">=</tt> rather than <tt class="literal">|=</tt> or <tt class="literal">&amp;=</tt>.  However, it is an
+error if there is more than one definition that does so.</p><p>The <tt class="literal">notAllowed</tt> pattern is useful when merging
+grammars. The <tt class="literal">notAllowed</tt> pattern never matches
+anything.  Just as combining a pattern
+with empty using the , connector does not change the semantics of the
+pattern, so combining a pattern with notAllowed using the | connector
+also does not change the semantics of the
+pattern.  It is typically used to allow an including pattern to
+specify additional choices with <tt class="literal">|=</tt>.
+For example, if <tt class="literal">inline.rnc</tt> were written like
+this:</p><pre class="programlisting">inline =
+  (text
+   | element bold { inline }
+   | element italic { inline }
+   | inline.extra)*
+inline.extra = notAllowed</pre><p>then it could be customized to allow inline
+<tt class="literal">code</tt> and <tt class="literal">em</tt> elements as
+follows:</p><pre class="programlisting">include &quot;inline.rnc&quot;
+start =
+  element doc {
+    element p { inline }*
+  }
+inline.extra |=
+  element code { inline }
+  | element em { inline }</pre></div><div class="section" lang="en"><div class="titlepage"><div><h3 class="title"><a name="id2815849"></a>9.4. Replacing definitions</h3></div></div><p>The <tt class="literal">include</tt> directive may be
+followed by a list of definitions in braces. These definitions replace
+definitions in the included <tt class="literal">grammar</tt> pattern.</p><p>Suppose the file <tt class="literal">addressBook.rnc</tt>
+contains:</p><pre class="programlisting">start =
+  element addressBook {
+    element card { cardContent }*
+  }
+cardContent =
+  element name { text },
+  element email { text }</pre><p>Suppose we wish to modify this pattern so that the
+<tt class="literal">card</tt> element contains an
+<tt class="literal">emailAddress</tt> element instead of an
+<tt class="literal">email</tt> element. Then we could replace the definition
+of <tt class="literal">cardContent</tt> as follows:</p><pre class="programlisting">include &quot;addressBook.rnc&quot; {
+  cardContent =
+    element name { text },
+    element emailAddress { text }
+}</pre><p>This would be equivalent to</p><pre class="programlisting">start =
+  element addressBook {
+    element card { cardContent }*
+  }
+cardContent =
+  element name { text },
+  element emailAddress { text }</pre><p>Definitions of <tt class="literal">start</tt> can be
+replaced in exactly the same way as other definitions.</p></div></div><div class="section" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="id2815943"></a>10. Namespaces</h2></div></div><div class="section" lang="en"><div class="titlepage"><div><h3 class="title"><a name="id2815950"></a>10.1. Qualified names</h3></div></div><p>The name following an <tt class="literal">element</tt> or
+<tt class="literal">attribute</tt> keyword may be qualified with a prefix.
+Each such prefix must be associated with a namespace URI using a
+namespace declaration. Namespace declarations occur at the beginning
+of the file, before the pattern. For example,</p><pre class="programlisting">namespace ab = &quot;http://www.example.com/address&quot;
+
+element ab:addressBook {
+  element ab:card {
+    element ab:name { text },
+    element ab:email { text }
+  }*
+}</pre><p>Multiple namespace declarations are allowed:</p><pre class="programlisting">namespace a = &quot;http://www.example.com/address&quot;
+namespace ab = &quot;http://www.example.com/addressBook&quot;
+
+element ab:addressBook {
+  element ab:card {
+    element a:name { text },
+    element a:email { text }
+  }*
+}</pre><p>When an <tt class="literal">element</tt> or <tt class="literal">attribute</tt>
+pattern is matched against an element or attribute in the XML document,
+namespace URIs rather than prefixes are used.  Thus,</p><pre class="programlisting">namespace eg = &quot;http://www.example.com&quot;
+
+element eg:foo { empty }</pre><p>would match any of</p><pre class="programlisting">&lt;foo xmlns=&quot;http://www.example.com&quot;/&gt;
+&lt;e:foo xmlns:e=&quot;http://www.example.com&quot;/&gt;
+&lt;eg:foo xmlns:eg=&quot;http://www.example.com&quot;/&gt;
+&lt;example:foo xmlns:example=&quot;http://www.example.com&quot;/&gt;</pre><p>but not any of</p><pre class="programlisting">&lt;foo/&gt;
+&lt;eg:foo xmlns:eg=&quot;http://www.example.com/example&quot;/&gt;
+&lt;eg:foo xmlns:eg=&quot;http://WWW.EXAMPLE.COM&quot;/&gt;
+&lt;example:foo xmlns:example=&quot;http://www.example.net&quot;/&gt;</pre><p>The prefix <tt class="literal">xml</tt> is predeclared as in XML: no
+namespace declaration is required for the <tt class="literal">xml</tt>
+prefix.</p><p>Namespace declarations and <tt class="literal">datatypes</tt>
+declarations can be mixed togther at the beginning of the file in any
+order.</p><p>Unlike in XML, namespace declarations cannot be nested.  A
+prefix is therefore always consistently bound to a single namespace
+URI throughout an entire file.</p><p>Namespace declarations apply only to the file in which they
+occur.  A file referenced using <tt class="literal">include</tt> or
+<tt class="literal">external</tt> must declare whatever prefixes occur in
+that file; it cannot take advantage of the namespace declarations in
+the referencing file.</p></div><div class="section" lang="en"><div class="titlepage"><div><h3 class="title"><a name="default-namespace"></a>10.2. Default namespace</h3></div></div><p>A single default namespace can be declared. For example,</p><pre class="programlisting">default namespace = &quot;http://www.example.com/address&quot;
+
+element addressBook {
+  element card {
+    element name { text },
+    element email { text }
+  }*
+}</pre><p>is equivalent to</p><pre class="programlisting">namespace ab = &quot;http://www.example.com/address&quot;
+
+element ab:addressBook {
+  element ab:card {
+    element ab:name { text },
+    element ab:email { text }
+  }*
+}</pre><p>As with XML, the default namespace does not apply to attribute
+patterns.  Thus,</p><pre class="programlisting">default namespace = &quot;http://www.example.com/address&quot;
+
+element addressBook {
+  element card {
+    attribute name { text },
+    attribute email { text }
+  }*
+}</pre><p>is equivalent to</p><pre class="programlisting">namespace ab = &quot;http://www.example.com/address&quot;
+
+element ab:addressBook {
+  element ab:card {
+    attribute name { text },
+    attribute email { text }
+  }*
+}</pre><p>and so will match</p><pre class="programlisting">&lt;addressBook xmlns=&quot;http://www.example.com&quot;&gt;
+  &lt;card name=&quot;John Smith&quot; email=&quot;js@example.com&quot;/&gt;
+&lt;/addressBook&gt;</pre><p>or</p><pre class="programlisting">&lt;example:addressBook xmlns:example=&quot;http://www.example.com&quot;&gt;
+  &lt;example:card name=&quot;John Smith&quot; email=&quot;js@example.com&quot;/&gt;
+&lt;/example:addressBook&gt;</pre><p>but not</p><pre class="programlisting">&lt;example:addressBook xmlns:example=&quot;http://www.example.com&quot;&gt;
+  &lt;example:card example:name=&quot;John Smith&quot; example:email=&quot;js@example.com&quot;/&gt;
+&lt;/example:addressBook&gt;</pre><p>Default namespace declarations can be mixed with normal
+namespace declarations.  For example,</p><pre class="programlisting">default namespace = &quot;http://www.example.com/address&quot;
+namespace ab = &quot;http://www.example.com/addressBook&quot;
+
+element ab:addressBook {
+  element ab:card {
+    element name { text },
+    element email { text }
+  }*
+}</pre><p>is equivalent to</p><pre class="programlisting">namespace a = &quot;http://www.example.com/address&quot;
+namespace ab = &quot;http://www.example.com/addressBook&quot;
+
+element ab:addressBook {
+  element ab:card {
+    element a:name { text },
+    element a:email { text }
+  }*
+}</pre><p>A default namespace declaration and a normal declaration for the
+same URI can be combined into a single declaration:</p><pre class="programlisting">default namespace eg = &quot;http://www.example.com&quot;</pre><p>is equivalent to</p><pre class="programlisting">default namespace = &quot;http://www.example.com&quot;
+namespace eg = &quot;http://www.example.com&quot;</pre><p>If a file does not declare a default namespace and is
+referenced from another file using <tt class="literal">include</tt> or
+<tt class="literal">external</tt>, then it inherits the default namespace of
+the referencing file. Thus, if <tt class="literal">address.rnc</tt>
+contains</p><pre class="programlisting">element addressBook {
+  element card {
+    element name { text },
+    element email { text }
+  }*
+}</pre><p>then</p><pre class="programlisting">default namespace = &quot;http://www.example.com/address&quot;
+
+external &quot;address.rnc&quot;</pre><p>is equivalent to</p><pre class="programlisting">default namespace = &quot;http://www.example.com/address&quot;
+
+element addressBook {
+  element card {
+    element name { text },
+    element email { text }
+  }*
+}</pre><p>If a file does not declare a default namespace and is a
+top-level file that is not referenced from another file using
+<tt class="literal">include</tt> or <tt class="literal">external</tt>, then the
+default namespace is the absent or null namespace.  Thus, a top-level
+file containing</p><pre class="programlisting">element foo { empty }</pre><p>matches any of:</p><pre class="programlisting">&lt;foo xmlns=&quot;&quot;/&gt;
+&lt;foo/&gt;</pre><p>but not any of:</p><pre class="programlisting">&lt;foo xmlns=&quot;http://www.example.com&quot;/&gt;
+&lt;e:foo xmlns:e=&quot;http://www.example.com&quot;/&gt;</pre><p>A namespace declaration can refer to the null or absent
+namespace by using a namespace URI of <tt class="literal">&quot;&quot;</tt> (like with
+the <tt class="literal">xmlns</tt> attribute). A file can ensure that its
+default namespace will be the null or absent namespace and will not be
+inherited from any referencing file by explicitly declaring the
+default namespace as <tt class="literal">&quot;&quot;</tt>:</p><pre class="programlisting">default namespace = &quot;&quot;</pre></div></div><div class="section" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="id2816343"></a>11. Name classes</h2></div></div><p>In all the examples up to now, the
+<tt class="literal">element</tt> and <tt class="literal">attribute</tt> keywords
+have been followed by a name, possibly qualified with a prefix.
+However, in general, the <tt class="literal">element</tt> and
+<tt class="literal">attribute</tt> keywords are followed by a
+<span class="emphasis"><em>name-class</em></span>.  A name is one particular simple kind
+of a name-class: a name specifies a name-class with that name as its
+only member.  An <tt class="literal">element</tt> or
+<tt class="literal">attribute</tt> pattern will only match an element or
+attribute in the XML document if the name of the element of attribute
+is a member of the name-class in the pattern.  Another simple kind of
+name-class is <tt class="literal">*</tt> which contains all names,
+regardless of their local name and namespace URI. For example, the
+following pattern matches any well-formed XML document:</p><pre class="programlisting">start = anyElement
+anyElement =
+  element * {
+    (attribute * { text }
+     | text
+     | anyElement)*
+  }</pre><p>A name-class
+<tt class="literal"><i class="replaceable"><tt>ns</tt></i>:*</tt> contains all names
+with the namespace URI declared for the prefix
+<i class="replaceable"><tt>ns</tt></i>.</p><p>Name-classes can be combined using the
+<tt class="literal">|</tt> connector. A name-class
+<tt class="literal"><i class="replaceable"><tt>x</tt></i> |
+<i class="replaceable"><tt>y</tt></i></tt> contains the union of
+<i class="replaceable"><tt>x</tt></i> and <i class="replaceable"><tt>y</tt></i>.  In
+other words, a name is a member of
+<tt class="literal"><i class="replaceable"><tt>x</tt></i> |
+<i class="replaceable"><tt>y</tt></i></tt> if it is a member of
+<i class="replaceable"><tt>x</tt></i> and/or a member of
+<i class="replaceable"><tt>y</tt></i>.</p><p>Name-classes can also be combined using the
+<tt class="literal">-</tt> connector. A name-class
+<tt class="literal"><i class="replaceable"><tt>x</tt></i> -
+<i class="replaceable"><tt>y</tt></i></tt> contains the difference of
+<i class="replaceable"><tt>x</tt></i> and <i class="replaceable"><tt>y</tt></i>.  In
+other words, a name is a member of
+<tt class="literal"><i class="replaceable"><tt>x</tt></i> -
+<i class="replaceable"><tt>y</tt></i></tt> if it is a member of
+<i class="replaceable"><tt>x</tt></i> but not a member of
+<i class="replaceable"><tt>y</tt></i>. The left-hand name-class to be combined
+with the <tt class="literal">-</tt> connector must be a <tt class="literal">*</tt>
+or <tt class="literal"><i class="replaceable"><tt>ns</tt></i>:*</tt> name class.  As
+with patterns, there is no implicit precedence between connectors and
+parentheses must be used to make precedence explicit. For
+example,</p><pre class="programlisting">namespace local = &quot;&quot;
+default namespace ex = &quot;http://www.example.com&quot;
+
+element card {
+  attribute * - (ex:* | local:*) { text }*,
+  text
+}</pre><p>would allow the <tt class="literal">card</tt> element to have any number of
+namespace-qualified attributes provided that they were qualified with
+namespace other than that of the <tt class="literal">card</tt> element.</p><p>Note that an <tt class="literal">attribute</tt> pattern matches a single
+attribute even if it has a name-class that contains multiple names.
+To match zero or more attributes, <tt class="literal">*</tt>
+must be used.</p><p>Some schema languages have a concept of <span class="emphasis"><em>lax</em></span> validation,
+where an element or attribute is validated against a definition only
+if there is one.  We can implement this concept in RELAX NG with name
+classes that use the <tt class="literal">-</tt> connector.
+Suppose, for example, we wanted to allow an element to have any
+attribute with a qualified name, but we still wanted to ensure that if
+there was an <tt class="literal">xml:space</tt> attribute, it had the value
+<tt class="literal">default</tt> or <tt class="literal">preserve</tt>.  It wouldn't work to
+use</p><pre class="programlisting">element example {
+  attribute * { text }*,
+  attribute xml:space { &quot;default&quot; | &quot;preserve&quot; }?
+}</pre><p>because an <tt class="literal">xml:space</tt> attribute with a value
+other than <tt class="literal">default</tt> or <tt class="literal">preserve</tt>
+would match</p><pre class="programlisting">attribute * { text }</pre><p>even though it did not match</p><pre class="programlisting">attribute xml:space { &quot;default&quot; | &quot;preserve&quot; }</pre><p>The solution is to use the <tt class="literal">-</tt> connector:</p><pre class="programlisting">element example {
+  attribute * - xml:space { text }*,
+  attribute xml:space { &quot;default&quot; | &quot;preserve&quot; }?
+}</pre><p>Note that definitions cannot define name-classes;
+they can only define patterns.</p></div><div class="section" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="id2816664"></a>12. Internationalization</h2></div></div><p>In the absence of externally supplied information, a RELAX NG
+Compact Syntax file will be assumed to be in Unicode using either the
+UTF-8 or UTF-16 encoding.  RELAX NG processors can automatically
+choose between UTF-8 and UTF-16 by using the byte order mark that
+almost all text editors automatically put at the beginning of a UTF-16
+file.  Although particular RELAX NG processors may allow you to use a
+legacy encoding, it is best to use UTF-8 or UTF-16 for
+interchange.</p><p>Unicode characters can be entered using an escape sequence of
+the form <tt class="literal">\x{<i class="replaceable"><tt>N</tt></i>}</tt>, where
+<i class="replaceable"><tt>N</tt></i> is the hex code of the character.  For
+example, <tt class="literal">\x{A9}</tt> can be used to represent represent
+the copyright sign.  Unlike XML character references, the
+<tt class="literal">\x</tt> escape sequence can be used anywhere, even in
+names of elements, attributes and definitions.  For example,</p><pre class="programlisting">element \x{E14}\x{E35} { empty }</pre></div><div class="section" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="annotations"></a>13. Annotations</h2></div></div><p>When a RELAX NG pattern is to be used for purposes other than
+validation, it is often desirable to be able to annotate it with
+additional information. For example, if a RELAX NG pattern is intended
+to be read by a human, it is desirable to be able to annotate it
+with documentation; when a RELAX NG pattern is converted into another
+schema language, it is desirable to be able to annotate it
+with information to guide the conversion.</p><div class="section" lang="en"><div class="titlepage"><div><h3 class="title"><a name="id2816743"></a>13.1. Applying annotations</h3></div></div><p>RELAX NG allows an annotation to be placed in square brackets
+immediately preceding the construct to be annotated.  Abstractly, an
+annotation is a fragment of XML consisting of zero or more attributes
+followed by zero or more elements. An attribute is written in a
+similar way to XML. For example,</p><pre class="programlisting">namespace doc = &quot;http://www.example.com/documentation&quot;
+
+[doc:href=&quot;address.html#addressBook&quot;]
+element addressBook {
+  [doc:href=&quot;address.html#card&quot;]
+  element card {
+    [doc:href=&quot;address.html#name&quot;]
+    element name { text },
+    [doc:href=&quot;address.html#email&quot;]
+    element email { text }
+  }*
+}</pre><p>An attribute in an annotation must be qualified with a prefix;
+the prefix must be declared in a namespace declaration with a
+non-empty URI.</p><p>An element in an annotation consists of the element name
+followed by the attributes and children in square brackets.</p><pre class="programlisting">namespace a = &quot;http://www.example.com/annotation&quot;
+
+element addressBook {
+  [ a:documentation [ xml:lang=&quot;en&quot; &quot;Information about a single address.&quot; ] ]
+  element card {
+    element name { text },
+    element email { text }
+  }*
+}</pre><p>The constructs that can be annotated are patterns, name classes,
+parameters, definitions and the include directive.</p></div><div class="section" lang="en"><div class="titlepage"><div><h3 class="title"><a name="id2816799"></a>13.2. String literal syntax</h3></div></div><p>String literals that are delimited with <tt class="literal">'</tt> or
+<tt class="literal">&quot;</tt> are not allowed to contain unescaped newlines. An
+escaped newline <tt class="literal">\x{A}</tt> can be used to include a
+newline in a literal.  Alternatively, string literals can be delimited
+with triple quotes (<tt class="literal">'''</tt> or <tt class="literal">&quot;&quot;&quot;</tt>)
+as in Python. Such string literals are allowed to contain unescaped
+newlines. String literals can be concatenated using
+<tt class="literal">~</tt>.  For example,</p><pre class="programlisting">&quot;A string can contain both '&quot; ~ 'and &quot;.'</pre><p>is equivalent to</p><pre class="programlisting">&quot;&quot;&quot;A string can contain both ' and &quot;.&quot;&quot;&quot;</pre><p>and</p><pre class="programlisting">&quot;Line 1\x{A}&quot; ~
+&quot;Line 2&quot;</pre><p>is equivalent to</p><pre class="programlisting">'''Line 1
+Line 2'''</pre></div><div class="section" lang="en"><div class="titlepage"><div><h3 class="title"><a name="id2816874"></a>13.3. Documentation syntax</h3></div></div><p>A companion specification, RELAX NG DTD Compatibility [<a href="#compat"><span class="abbrev">Compatibility</span></a>], defines annotations to implement some features of
+XML DTDs. It also provides a <tt class="literal">documentation</tt> element
+for use as an annotation. There is a special shorthand syntax for
+this.  Comments starting with <tt class="literal">##</tt> are equivalent to
+an annotation consisting of a <tt class="literal">documentation</tt> element
+from the RELAX NG DTD Compatibility namespace.  For example,</p><pre class="programlisting">## Represents an
+## address book.
+element addressBook {
+  element card {
+    element name { text },
+    element email { text }
+  }*
+}</pre><p>is equivalent to</p><pre class="programlisting">namespace a = &quot;http://relaxng.org/ns/compatibility/annotations/1.0&quot;
+
+[
+  a:documentation [
+    &quot;Represents an\x{A}&quot; ~
+    &quot;address book.
+  ]
+]
+element addressBook {
+  element card {
+    element name { text },
+    element email { text }
+  }*
+}</pre></div><div class="section" lang="en"><div class="titlepage"><div><h3 class="title"><a name="id2816926"></a>13.4. Grouping definitions</h3></div></div><p>RELAX NG also provides a <tt class="literal">div</tt> construct which
+allows an annotation to be applied to a group of definitions in a
+grammar.  For example, you might want to divide up the definitions of
+the grammar into modules:</p><pre class="programlisting">namespace m = &quot;http://www.example.com/module&quot;
+
+[ m:name = &quot;inline&quot; ]
+div {
+  code = <i class="replaceable"><tt>pattern</tt></i>
+  em = <i class="replaceable"><tt>pattern</tt></i>
+  var = <i class="replaceable"><tt>pattern</tt></i>
+}
+[ m:name = &quot;block&quot; ]
+div {
+  p = <i class="replaceable"><tt>pattern</tt></i>
+  ul = <i class="replaceable"><tt>pattern</tt></i>
+  ol = <i class="replaceable"><tt>pattern</tt></i>
+}</pre><p>This would allow you easily to generate variants of the grammar
+based on a selection of modules.</p></div></div><div class="section" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="id2816990"></a>14. Nested grammars</h2></div></div><p>There is no prohibition against nesting grammar patterns.  A
+name refers to the definition from the innermost containing grammar pattern. There is also a
+<tt class="literal">parent</tt> pattern that escapes out of the current
+grammar and references a definition from the parent of the current
+grammar. A <tt class="literal">parent</tt> pattern
+consists of the <tt class="literal">parent</tt> keyword followed
+by the name of the definition.</p><p>Imagine the problem of writing a pattern for tables.  The pattern
+for tables only cares about the structure of tables; it doesn't care
+about what goes inside a table cell.  First, we create a RELAX NG pattern
+<tt class="literal">table.rnc</tt> as follows:</p><pre class="programlisting">cell.content = notAllowed
+start =
+  element table {
+    element tr {
+      element td { cell.content }+
+    }+
+  }</pre><p>Patterns that include <tt class="literal">table.rnc</tt> must redefine
+<tt class="literal">cell.content</tt>. By using a nested
+<tt class="literal">grammar</tt> pattern containing a
+<tt class="literal">parent</tt> pattern, the including pattern can
+redefine <tt class="literal">cell.content</tt> to be a pattern defined in
+the including pattern's grammar, thus effectively importing a pattern
+from the parent grammar into the child grammar:</p><pre class="programlisting">start =
+  element doc {
+    (element p { inline }
+     | grammar {
+         include &quot;table.rnc&quot; {
+           cell.content = parent inline
+         }
+       })*
+  }
+inline =
+  (text
+   | element em { inline })*</pre><p>Of course, in a trivial case like this, there is no advantage in
+nesting the grammars: we could simply have included
+<tt class="literal">table.rnc</tt> within the outer <tt class="literal">grammar</tt> pattern.
+However, when the included grammar has many definitions, nesting it
+avoids the possibility of name conflicts between the including grammar
+and the included grammar.</p></div><div class="section" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="id2817095"></a>15. Non-restrictions</h2></div></div><p>RELAX NG does not require patterns to be &quot;deterministic&quot; or
+&quot;unambiguous&quot;.</p><p>Suppose we wanted to write the email address book in HTML, but use
+class attributes to specify the structure:</p><pre class="programlisting">element html {
+  element head {
+    element title { text }
+  },
+  element body {
+    element table {
+      attribute class { &quot;addressBook&quot; },
+      element tr {
+        attribute class { &quot;card&quot; },
+        element td {
+          attribute class { &quot;name&quot; },
+          mixed {
+            element span {
+              attribute class { &quot;givenName&quot; },
+              text
+            }?,
+            element span {
+              attribute class { &quot;familyName&quot; },
+              text
+            }?
+          }
+        },
+        element td {
+          attribute class { &quot;email&quot; },
+          text
+        }
+      }+
+    }
+  }
+}</pre><p>This would match a document such as:</p><pre class="programlisting">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Example Address Book&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;table class=&quot;addressBook&quot;&gt;
+      &lt;tr class=&quot;card&quot;&gt;
+        &lt;td class=&quot;name&quot;&gt;
+          &lt;span class=&quot;givenName&quot;&gt;John&lt;/span&gt;
+          &lt;span class=&quot;familyName&quot;&gt;Smith&lt;/span&gt;
+        &lt;/td&gt;
+        &lt;td class=&quot;email&quot;&gt;js@example.com&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre><p>but not:</p><pre class="programlisting">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Example Address Book&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;table class=&quot;addressBook&quot;&gt;
+      &lt;tr class=&quot;card&quot;&gt;
+        &lt;td class=&quot;name&quot;&gt;
+          &lt;span class=&quot;givenName&quot;&gt;John&lt;/span&gt;
+          &lt;!-- Note the incorrect class attribute --&gt;
+          &lt;span class=&quot;givenName&quot;&gt;Smith&lt;/span&gt;
+        &lt;/td&gt;
+        &lt;td class=&quot;email&quot;&gt;js@example.com&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre></div><div class="section" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="id2817156"></a>16. Advanced features</h2></div></div><p>This section describes advanced features, which most users will
+probably not need.  These features exist primarily to ensure
+equivalence between the XML and compact syntaxes.</p><div class="section" lang="en"><div class="titlepage"><div><h3 class="title"><a name="id2817166"></a>16.1. <tt class="literal">inherit</tt> keyword</h3></div></div><p>Namespace inheritance is in fact a little more flexible than
+described in <a href="#default-namespace" title="10.2. Default namespace">Section 10.2, &#8220;Default namespace&#8221;</a>.</p><p>The inherited namespace need not be the same as the default
+namespace.  The inherited namespace is referenced by using a namespace
+declaration that associates a prefix with the special keyword
+<tt class="literal">inherit</tt>.</p><p>So for example, if <tt class="literal">address.rnc</tt> contains</p><pre class="programlisting">namespace ab = inherit
+
+element ab:addressBook {
+  element ab:card {
+    element ab:name { text },
+    element ab:email { text }
+  }*
+}</pre><p>then</p><pre class="programlisting">default namespace = &quot;http://www.example.com/address&quot;
+
+external &quot;address.rnc&quot;</pre><p>is equivalent to</p><pre class="programlisting">namespace ab = &quot;http://www.example.com/address&quot;
+
+element ab:addressBook {
+  element ab:card {
+    element ab:name { text },
+    element ab:email { text }
+  }*
+}</pre><p>When a file is used as a top-level file rather then being
+referenced by <tt class="literal">external</tt> or
+<tt class="literal">include</tt>, then its inherited namespace is the null
+or absent namespace. We can now describe more simply what happens when
+a file does not declare the default namespace: what happens is simply
+that a declaration of</p><pre class="programlisting">default namespace = inherit</pre><p>is assumed.</p><p>Each <tt class="literal">include</tt> and <tt class="literal">external</tt>
+can independently determine what namespace is inherited by the
+referenced file by following the URL with <tt class="literal">inherit =
+<i class="replaceable"><tt>prefix</tt></i></tt>. Thus, if
+<tt class="literal">address.rnc</tt> contains</p><pre class="programlisting">namespace ab = inherit
+
+element ab:addressBook {
+  element ab:card {
+    element ab:name { text },
+    element ab:email { text }
+  }*
+}</pre><p>then</p><pre class="programlisting">namespace a = &quot;http://www.example.com/address&quot;
+
+external &quot;address.rnc&quot; inherit = a</pre><p>is equivalent to</p><pre class="programlisting">namespace ab = &quot;http://www.example.com/address&quot;
+
+element ab:addressBook {
+  element ab:card {
+    element ab:name { text },
+    element ab:email { text }
+  }*
+}</pre><p>If an <tt class="literal">external</tt> or <tt class="literal">include</tt>
+does not specify <tt class="literal">inherit =
+<i class="replaceable"><tt>prefix</tt></i></tt>, then the referenced file
+inherits the default namespace of the referencing file.</p><p>A prefix used in the name of an attribute or element in an
+annotation cannot be associated with the <tt class="literal">inherit</tt>
+keyword.</p></div><div class="section" lang="en"><div class="titlepage"><div><h3 class="title"><a name="id2817360"></a>16.2. Grammar-level annotations</h3></div></div><p>Grammar patterns can contain element annotations interspersed
+among the definitions. For example,</p><pre class="programlisting">
+namespace x = &quot;http://www.example.com&quot;
+
+start = foo
+
+x:entity [ name=&quot;picture&quot; systemId=&quot;picture.jpeg&quot; notation=&quot;jpeg&quot; ]
+
+foo = element foo { empty }
+</pre><p>In the XML syntax, such element annotations will be children of
+the <tt class="literal">grammar</tt> element.</p></div><div class="section" lang="en"><div class="titlepage"><div><h3 class="title"><a name="id2817392"></a>16.3. <tt class="literal">&gt;&gt;</tt> annotations</h3></div></div><p>The <tt class="literal">&gt;&gt;</tt> connector creates a pattern or a
+name-class by combining a pattern or a name-class with an annotation
+element.  In the XML syntax, such element annotations will appear as
+following siblings of the element representing the pattern or
+name-class.  For example,</p><pre class="programlisting">namespace eg = &quot;http://www.example.com&quot;
+
+element foo {
+  text &gt;&gt; x[] &gt;&gt; y[]
+}</pre><p>is equivalent to the XML</p><pre class="programlisting">&lt;element name=&quot;foo&quot; xmlns:eg=&quot;http://www.example.com&quot;&gt;
+  &lt;text/&gt;
+  &lt;eg:x/&gt;
+  &lt;eg:y/&gt;
+&lt;/element&gt;</pre></div></div><div class="section" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="id2817433"></a>17. Further information</h2></div></div><p>The definitive specification of RELAX NG is [<a href="#spec"><span class="abbrev">Specification</span></a>], which uses the XML syntax.  [<a href="#compact"><span class="abbrev">Compact</span></a>] is the definitive specification for the compact
+syntax, which defines the compact syntax by mapping it to the XML
+syntax.</p><p>A tutorial for the XML syntax is available
+separately [<a href="#tutorial"><span class="abbrev">Tutorial</span></a>].</p><p>[<a href="#guidelines"><span class="abbrev">Guidelines</span></a>] defines how to use the datatypes
+defined in [<a href="#xmlschema-2"><span class="abbrev">W3C XML Schema Datatypes</span></a>] as a RELAX NG datatype
+library.</p></div><div class="appendix" lang="en"><h2 class="title" style="clear: both"><a name="keywords"></a>A. List of keywords</h2><p>The complete list of keywords is:</p><div class="itemizedlist"><ul type="disc"><li><a name="id2817503"></a><tt class="literal">attribute</tt></li><li><a name="id2817510"></a><tt class="literal">default</tt></li><li><a name="id2817517"></a><tt class="literal">datatypes</tt></li><li><a name="id2817524"></a><tt class="literal">div</tt></li><li><a name="id2817530"></a><tt class="literal">element</tt></li><li><a name="id2817537"></a><tt class="literal">empty</tt></li><li><a name="id2817544"></a><tt class="literal">external</tt></li><li><a name="id2817551"></a><tt class="literal">grammar</tt></li><li><a name="id2817558"></a><tt class="literal">include</tt></li><li><a name="id2817565"></a><tt class="literal">inherit</tt></li><li><a name="id2817572"></a><tt class="literal">list</tt></li><li><a name="id2817579"></a><tt class="literal">mixed</tt></li><li><a name="id2817586"></a><tt class="literal">namespace</tt></li><li><a name="id2817593"></a><tt class="literal">notAllowed</tt></li><li><a name="id2817600"></a><tt class="literal">parent</tt></li><li><a name="id2817607"></a><tt class="literal">start</tt></li><li><a name="id2817614"></a><tt class="literal">string</tt></li><li><a name="id2817620"></a><tt class="literal">text</tt></li><li><a name="id2817627"></a><tt class="literal">token</tt></li></ul></div></div><div class="appendix" lang="en"><h2 class="title" style="clear: both"><a name="id2817637"></a>B. Comparison with XML DTDs</h2><p>RELAX NG provides functionality that goes beyond XML DTDs. In
+particular, RELAX NG</p><div class="itemizedlist"><ul type="disc"><li><a name="id2817653"></a>provides a choice of an XML syntax or a compact
+non-XML syntax to represent schemas</li><li><a name="id2817660"></a>supports datatyping</li><li><a name="id2817665"></a>integrates attributes into content
+models</li><li><a name="id2817672"></a>supports XML namespaces</li><li><a name="id2817677"></a>supports unordered content</li><li><a name="id2817683"></a>supports context-sensitive content
+models</li></ul></div><p>ID/IDREF validation is not provided by RELAX NG; however, it is
+provided by a companion specification, RELAX NG DTD Compatibility
+[<a href="#compat"><span class="abbrev">Compatibility</span></a>].  Comprehensive support for
+cross-reference checking is planned for a future specification.</p><p>RELAX NG does not support features of XML DTDs that involve
+changing the infoset of an XML document.  In particular, RELAX
+NG</p><div class="itemizedlist"><ul type="disc"><li><a name="id2817715"></a>does not allow defaults for attributes to be
+specified; however, this is allowed by RELAX NG DTD Compatibility
+[<a href="#compat"><span class="abbrev">Compatibility</span></a>]</li><li><a name="id2817727"></a>does not allow entities to be specified</li><li><a name="id2817731"></a>does not allow notations to be specified</li><li><a name="id2817738"></a>does not specify whether whitespace is significant</li></ul></div><p>Also, whereas an XML document can associate itself with a DTD
+using a <tt class="literal">DOCTYPE</tt> declaration,
+RELAX NG does not define a way for an XML document to associate
+itself with a RELAX NG pattern.</p></div><div id="id2817758" class="bibliography"><div class="titlepage"><div><h2 class="title"><a name="id2817758"></a>References</h2></div></div><dl><dt><span class="abbrev">Compact</span></dt><dd class="bibliomixed"><a name="compact"></a>James Clark, editor. <span class="citetitle"><i class="citetitle"><a href="http://relaxng.org/compact.html" target="_top">RELAX NG
+Compact Syntax</a></i></span>.  OASIS, 2002.</dd><dt><span class="abbrev">Compatibility</span></dt><dd class="bibliomixed"><a name="compat"></a>James Clark, MURATA
+Makoto, editors.  <span class="citetitle"><i class="citetitle"><a href="http://relaxng.org/compatibility.html" target="_top">RELAX NG
+DTD Compatibility</a></i></span>.  OASIS, 2001.</dd><dt><span class="abbrev">Guidelines</span></dt><dd class="bibliomixed"><a name="guidelines"></a>James Clark, Kohsuke
+KAWAGUCHI, editors.  <span class="citetitle"><i class="citetitle"><a href="http://relaxng.org/xsd.html" target="_top">Guidelines for using W3C XML Schema Datatypes with RELAX NG</a></i></span>.  OASIS, 2001.</dd><dt><span class="abbrev">RELAX</span></dt><dd class="bibliomixed"><a name="relax"></a>MURATA Makoto.
+<span class="citetitle"><i class="citetitle"><a href="http://www.xml.gr.jp/relax/" target="_top">RELAX (Regular
+Language description for XML)</a></i></span>.  INSTAC
+(Information Technology Research and Standardization Center), 2001.</dd><dt><span class="abbrev">Specification</span></dt><dd class="bibliomixed"><a name="spec"></a>James Clark, MURATA
+Makoto, editors.  <span class="citetitle"><i class="citetitle"><a href="http://relaxng.org/spec.html" target="_top">RELAX NG
+Specification</a></i></span>.  OASIS, 2001.</dd><dt><span class="abbrev">TREX</span></dt><dd class="bibliomixed"><a name="trex"></a>James Clark.
+<span class="citetitle"><i class="citetitle"><a href="http://www.thaiopensource.com/trex/" target="_top">TREX - Tree Regular Expressions for XML</a></i></span>.
+Thai Open Source Software Center, 2001.</dd><dt><span class="abbrev">Tutorial</span></dt><dd class="bibliomixed"><a name="tutorial"></a>James Clark, MURATA Makoto, editors.  <span class="citetitle"><i class="citetitle"><a href="http://relaxng.org/tutorial.html" target="_top">RELAX
+NG Tutorial</a></i></span>.  OASIS, 2001.</dd><dt><span class="abbrev">W3C XML Schema Datatypes</span></dt><dd class="bibliomixed"><a name="xmlschema-2"></a>Paul V. Biron, Ashok Malhotra, editors.
+<span class="citetitle"><i class="citetitle"><a href="http://www.w3.org/TR/xmlschema-2/" target="_top">XML Schema Part 2: Datatypes</a></i></span>.
+W3C (World Wide Web Consortium), 2001.</dd></dl></div></div></body></html>

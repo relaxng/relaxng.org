@@ -1,0 +1,633 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <title>RELAX NG Compact Syntax</title><link rel="stylesheet" href="tr.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.57.0"><meta name="description" content="This document specifies a compact, non-XML syntax for ."><meta http-equiv="content-style-type" content="text/css"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="article" lang="en"><div class="titlepage"><p class="logo"><a href="http://www.oasis-open.org/"><img src="oasis.png" alt="OASIS" border="0"></a></p><div><h1 class="title"><a name="d0e2"></a>RELAX NG Compact Syntax</h1></div><div><h2>Committee Specification&nbsp;21 November 2002</h2></div><div><dl><dt>This version:</dt><dd>Committee Specification: 21 November 2002</dd></dl></div><div><dl><dt>Editor:</dt><dd>James Clark&nbsp;<tt>&lt;<a href="mailto:jjc@jclark.com">jjc@jclark.com</a>&gt;</tt></dd></dl></div><div></div><div><div class="legalnotice"><p>Copyright &copy; The Organization for the Advancement of
+Structured Information Standards [OASIS] 2002. All Rights
+Reserved.</p><p>This document and translations of it may be copied and furnished
+to others, and derivative works that comment on or otherwise explain
+it or assist in its implementation may be prepared, copied, published
+and distributed, in whole or in part, without restriction of any kind,
+provided that the above copyright notice and this paragraph are
+included on all such copies and derivative works. However, this
+document itself may not be modified in any way, such as by removing
+the copyright notice or references to OASIS, except as needed for the
+purpose of developing OASIS specifications, in which case the
+procedures for copyrights defined in the OASIS Intellectual Property
+Rights document must be followed, or as required to translate it into
+languages other than English.</p><p>The limited permissions granted above are perpetual and will not
+be revoked by OASIS or its successors or assigns.</p><p>This document and the information contained herein is provided
+on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE
+USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY
+IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR
+PURPOSE.</p></div></div><div><hr><div class="abstract"><h2><a name="d0e61"></a>Abstract</h2><p>This document specifies a compact, non-XML syntax for [<a href="#spec">RELAX NG</a>].</p></div></div><div><div class="legalnotice"><h2>Status of this Document</h2><p>This Committee Specification was approved for publication by the
+OASIS RELAX NG technical committee. It is a stable document which
+represents the consensus of the committee. Comments on this document
+may be sent to <a href="mailto:relax-ng-comment@lists.oasis-open.org" target="_top">relax-ng-comment@lists.oasis-open.org</a>.</p><p>A list of known errors in this document is available at <a href="http://www.oasis-open.org/committees/relax-ng/compact-20021121-errata.html" target="_top">http://www.oasis-open.org/committees/relax-ng/compact-20021121-errata.html</a>.</p></div></div></div><div class="toc"><h2>Table of Contents</h2><dl><dt>1. <a href="#d0e74">Introduction</a></dt><dt>2. <a href="#syntax">Syntax</a></dt><dt>3. <a href="#d0e171">Lexical structure</a></dt><dt>4. <a href="#d0e205">Declarations</a></dt><dt>5. <a href="#annotations">Annotations</a></dt><dd><dl><dt>5.1. <a href="#d0e331">Initial annotations</a></dt><dt>5.2. <a href="#d0e339">Documentation shorthand</a></dt><dt>5.3. <a href="#d0e377">Following annotations</a></dt><dt>5.4. <a href="#d0e385">Grammar annotations</a></dt></dl></dd><dt>6. <a href="#d0e401">Conformance</a></dt><dd><dl><dt>6.1. <a href="#d0e406">Validator</a></dt><dt>6.2. <a href="#d0e419">Structure preserving translator</a></dt><dt>6.3. <a href="#d0e456">Non-structure preserving translator</a></dt></dl></dd></dl><h3>Appendixes</h3><dl><dt>A. <a href="#formal">Formal description</a></dt><dd><dl><dt>1. <a href="#formal-syntax">Syntax</a></dt><dt>2. <a href="#d0e3892">Lexical structure</a></dt><dd><dl><dt>2.1. <a href="#d0e3901">Character encoding</a></dt><dt>2.2. <a href="#d0e3915">BOM stripping</a></dt><dt>2.3. <a href="#d0e3920">Newline normalization</a></dt><dt>2.4. <a href="#d0e3937">Escape interpretation</a></dt><dt>2.5. <a href="#d0e4256">Tokenization</a></dt></dl></dd></dl></dd><dt>B. <a href="#compact-relax-ng">Compact syntax RELAX NG schema for RELAX NG (Non-Normative)</a></dt><dt><a href="#d0e4913">References</a></dt></dl></div><hr><div class="section" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="d0e74"></a>1.&nbsp;Introduction</h2></div></div><p>This specification describes a compact, non-XML syntax for [<a href="#spec">RELAX NG</a>].</p><p>The goals of this syntax are to:</p><div class="itemizedlist"><ul type="disc"><li><a name="d0e84"></a>maximize readability;</li><li><a name="d0e87"></a>support all features of RELAX NG; it must be possible
+to translate a schema from the XML syntax to the compact syntax and
+back without losing significant information;</li><li><a name="d0e90"></a>support separate translation; a RELAX NG schema may be
+spread amongst multiple files; it must be possible to represent each
+of the files separately in the compact syntax; the representation of
+each file must not depend on the other files.</li></ul></div><p>The syntax has similarities to [<a href="#xquery">XQuery Formal Semantics</a>], to
+[<a href="#xduce">XDuce</a>] and to the DTD syntax of [<a href="#xml-rec">XML 1.0</a>].</p><p>The body of this document contains an informal description of
+the syntax and how it maps onto the XML syntax.  Developers should
+consult <a href="#formal" title="A. Formal description">Appendix&nbsp;A</a> for a complete, rigorous
+description. <a href="#compact-relax-ng" title="B. Compact syntax RELAX NG schema for RELAX NG (Non-Normative)">Appendix&nbsp;B</a> contains an example in
+the form of schema for RELAX NG.</p></div><div class="section" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="syntax"></a>2.&nbsp;Syntax</h2></div></div><p>The following is a summary of the syntax in EBNF. Square
+brackets are used to indicate optionality. The reader may find it
+helpful to compare this with the syntax in Section 3 of [<a href="#spec">RELAX NG</a>]. The start symbol is topLevel.</p><table><tr valign="baseline"><td>topLevel</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td><i>decl</i>* (<i>pattern</i> | <i>grammarContent</i>*)</td></tr><tr valign="baseline"><td>decl</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td>"<code>namespace</code>" <i>identifierOrKeyword</i> "<code>=</code>" <i>namespaceURILiteral</i><br>| "<code>default</code>" "<code>namespace</code>" [<i>identifierOrKeyword</i>] "<code>=</code>" <i>namespaceURILiteral</i><br>| "<code>datatypes</code>" <i>identifierOrKeyword</i> "<code>=</code>" <i>literal</i></td></tr><tr valign="baseline"><td>pattern</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td>"<code>element</code>" <i>nameClass</i> "<code>{</code>" <i>pattern</i> "<code>}</code>"<br>| "<code>attribute</code>" <i>nameClass</i> "<code>{</code>" <i>pattern</i> "<code>}</code>"<br>| <i>pattern</i> ("<code>,</code>" <i>pattern</i>)+<br>| <i>pattern</i> ("<code>&amp;</code>" <i>pattern</i>)+<br>| <i>pattern</i> ("<code>|</code>" <i>pattern</i>)+<br>| <i>pattern</i> "<code>?</code>"<br>| <i>pattern</i> "<code>*</code>"<br>| <i>pattern</i> "<code>+</code>"<br>| "<code>list</code>" "<code>{</code>" <i>pattern</i> "<code>}</code>"<br>| "<code>mixed</code>" "<code>{</code>" <i>pattern</i> "<code>}</code>"<br>| <i>identifier</i><br>| "<code>parent</code>" <i>identifier</i><br>| "<code>empty</code>"<br>| "<code>text</code>"<br>| [<i>datatypeName</i>] <i>datatypeValue</i><br>| <i>datatypeName</i> ["<code>{</code>" <i>param</i>* "<code>}</code>"] [<i>exceptPattern</i>]<br>| "<code>notAllowed</code>"<br>| "<code>external</code>" <i>anyURILiteral</i> [<i>inherit</i>]<br>| "<code>grammar</code>" "<code>{</code>" <i>grammarContent</i>* "<code>}</code>"<br>| "<code>(</code>" <i>pattern</i> "<code>)</code>"</td></tr><tr valign="baseline"><td>param</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td><i>identifierOrKeyword</i> "<code>=</code>" <i>literal</i></td></tr><tr valign="baseline"><td>exceptPattern</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td>"<code>-</code>" <i>pattern</i></td></tr><tr valign="baseline"><td>grammarContent</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td><i>start</i><br>| <i>define</i><br>| "<code>div</code>" "<code>{</code>" <i>grammarContent</i>* "<code>}</code>"<br>| "<code>include</code>" <i>anyURILiteral</i> [<i>inherit</i>] ["<code>{</code>" <i>includeContent</i>* "<code>}</code>"]</td></tr><tr valign="baseline"><td>includeContent</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td><i>define</i><br>| <i>start</i><br>| "<code>div</code>" "<code>{</code>" <i>includeContent</i>* "<code>}</code>"</td></tr><tr valign="baseline"><td>start</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td>"<code>start</code>" <i>assignMethod</i> <i>pattern</i></td></tr><tr valign="baseline"><td>define</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td><i>identifier</i> <i>assignMethod</i> <i>pattern</i></td></tr><tr valign="baseline"><td>assignMethod</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td>"<code>=</code>"<br>| "<code>|=</code>"<br>| "<code>&amp;=</code>"</td></tr><tr valign="baseline"><td>nameClass</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td><i>name</i><br>| <i>nsName</i> [<i>exceptNameClass</i>]<br>| <i>anyName</i> [<i>exceptNameClass</i>]<br>| <i>nameClass</i> "<code>|</code>" <i>nameClass</i><br>| "<code>(</code>" <i>nameClass</i> "<code>)</code>"</td></tr><tr valign="baseline"><td>name</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td><i>identifierOrKeyword</i><br>| <i>CName</i></td></tr><tr valign="baseline"><td>exceptNameClass</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td>"<code>-</code>" <i>nameClass</i></td></tr><tr valign="baseline"><td>datatypeName</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td><i>CName</i><br>| "<code>string</code>"<br>| "<code>token</code>"</td></tr><tr valign="baseline"><td>datatypeValue</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td><i>literal</i></td></tr><tr valign="baseline"><td>anyURILiteral</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td><i>literal</i></td></tr><tr valign="baseline"><td>namespaceURILiteral</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td><i>literal</i><br>| "<code>inherit</code>"</td></tr><tr valign="baseline"><td>inherit</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td>"<code>inherit</code>" "<code>=</code>" <i>identifierOrKeyword</i></td></tr><tr valign="baseline"><td>identifierOrKeyword</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td><i>identifier</i><br>| <i>keyword</i></td></tr><tr valign="baseline"><td>identifier</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td>(<i>NCName</i> - <i>keyword</i>)<br>| <i>quotedIdentifier</i></td></tr><tr valign="baseline"><td>quotedIdentifier</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td>"<code>\</code>" <i>NCName</i></td></tr><tr valign="baseline"><td>CName</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td><i>NCName</i> "<code>:</code>" <i>NCName</i></td></tr><tr valign="baseline"><td>nsName</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td><i>NCName</i> "<code>:*</code>"</td></tr><tr valign="baseline"><td>anyName</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td>"<code>*</code>"</td></tr><tr valign="baseline"><td>literal</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td><i>literalSegment</i> ("<code>~</code>" <i>literalSegment</i>)+</td></tr><tr valign="baseline"><td>literalSegment</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td>'<code>"</code>' (<i>Char</i> - ('<code>"</code>' | <i>newline</i>))* '<code>"</code>'<br>| "<code>'</code>" (<i>Char</i> - ("<code>'</code>" | <i>newline</i>))* "<code>'</code>"<br>| '<code>"""</code>' (['<code>"</code>'] ['<code>"</code>'] (<i>Char</i> - '<code>"</code>'))* '<code>"""</code>'<br>| "<code>'''</code>" (["<code>'</code>"] ["<code>'</code>"] (<i>Char</i> - "<code>'</code>"))* "<code>'''</code>"</td></tr><tr valign="baseline"><td>keyword</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td>"<code>attribute</code>"<br>| "<code>default</code>"<br>| "<code>datatypes</code>"<br>| "<code>div</code>"<br>| "<code>element</code>"<br>| "<code>empty</code>"<br>| "<code>external</code>"<br>| "<code>grammar</code>"<br>| "<code>include</code>"<br>| "<code>inherit</code>"<br>| "<code>list</code>"<br>| "<code>mixed</code>"<br>| "<code>namespace</code>"<br>| "<code>notAllowed</code>"<br>| "<code>parent</code>"<br>| "<code>start</code>"<br>| "<code>string</code>"<br>| "<code>text</code>"<br>| "<code>token</code>"</td></tr></table><p>NCName is defined in [<a href="#xml-names">XML Namespaces</a>].  Char is
+defined in [<a href="#xml-rec">XML 1.0</a>].</p><p>In order to use a keyword as an identifier, it must be quoted
+with <tt>\</tt>. It is not necessary to quote a keyword that
+is used as the name of an element or attribute or as datatype
+parameter.</p><p>The value of a literal is the concatenation of the values of its
+constituent literalSegments.  A literalSegment is always terminated
+only by an occurrence of the same delimiter that began it.  The
+delimiter used to begin a literalSegment may be either one or three
+occurrences of a single or double quote character.  Newlines are
+allowed only in literalSegments delimited by three quote characters.
+The value of a literal segment consists of the characters between its
+delimiters.  One way to get a literal whose value contains both a
+single and a double quote is to divide the literal into multiple
+literalSegments so that the single and double quote are in separate
+literalSegments.  Another way is to use a literalSegment delimited by
+three single or double quotes.</p><p>Annotations can be specified as described in <a href="#annotations" title="5.&nbsp;Annotations">Section&nbsp;5</a>.</p><p>There is no notion of operator precedence.  It is an error
+for patterns to combine the <tt>|</tt>, <tt>&amp;</tt>,
+<tt>,</tt> and <tt>-</tt> operators without using
+parentheses to make the grouping explicit.  For example,
+<tt>foo | bar, baz</tt> is not allowed; instead,
+either <tt>(foo | bar), baz</tt> or
+<tt>foo | (bar, baz)</tt> must be used. A similar
+restriction applies to name classes and the use of the
+<tt>|</tt> and <tt>-</tt> operators.  These
+restrictions are not expressed in the above EBNF but they are made
+explicit in the BNF in <a href="#formal-syntax" title="1.&nbsp;Syntax">Section&nbsp;1</a>.</p><p>The value of an anyURILiteral specified with
+<tt>include</tt> or <tt>external</tt> is a URI
+reference to a grammar in the compact syntax.</p></div><div class="section" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="d0e171"></a>3.&nbsp;Lexical structure</h2></div></div><p>Whitespace is allowed between tokens. Tokens are the strings
+occurring in double quotes in the EBNF in <a href="#syntax" title="2.&nbsp;Syntax">Section&nbsp;2</a>, except
+that literalSegment, nsName, CName, identifier and quotedIdentifer are
+single tokens.</p><p>Comments are also allowed between tokens.  Comments start with a
+<tt>#</tt> and continue to the end of the line.  Comments
+starting with <tt>##</tt> are treated specially; see <a href="#annotations" title="5.&nbsp;Annotations">Section&nbsp;5</a>.</p><p>A Unicode character with hex code <i><tt>N</tt></i>
+can be represented by the escape sequence
+<tt>\x{<i><tt>N</tt></i>}</tt>.  Using such an
+escape sequence is completely equivalent to the entering the
+corresponding character directly. For example,</p><pre class="programlisting">
+element \x{66}\x{6f}\x{6f} { empty }
+</pre><p>is equivalent to</p><pre class="programlisting">
+element foo { empty }
+</pre></div><div class="section" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="d0e205"></a>4.&nbsp;Declarations</h2></div></div><p>A <tt>datatypes</tt> declaration declares a prefix
+used in a QName identifying a datatype. For example,</p><pre class="programlisting">
+datatypes xsd = "http://www.w3.org/2001/XMLSchema-datatypes"
+element height { xsd:double }
+</pre><p>In fact, in the above example, the <tt>datatypes</tt>
+declaration is not required: the
+<tt>xsd</tt> prefix is predeclared to the above URI.</p><p>A <tt>namespace</tt> declaration declares a prefix used in a
+QName specifying the name of an element or attribute.  For
+example,</p><pre class="programlisting">
+namespace rng = "http://relaxng.org/ns/structure/1.0"
+element rng:text { empty }
+</pre><p>As in XML, the <tt>xml</tt> prefix is predeclared.</p><p>A <tt>default namespace</tt> declaration declares
+the namespace used for unprefixed names specifying the name
+of an element (but not of an attribute). For example,</p><pre class="programlisting">
+default namespace = "http://example.com"
+element foo { attribute bar { string } }
+</pre><p>is equivalent to</p><pre class="programlisting">
+namespace ex = "http://example.com"
+element ex:foo { attribute bar { string } }
+</pre><p>A <tt>default namespace</tt> declaration may have a prefix
+as well.  For example,</p><pre class="programlisting">
+default namespace ex = "http://example.com"
+</pre><p>is equivalent to</p><pre class="programlisting">
+default namespace = "http://example.com"
+namespace ex = "http://example.com"
+</pre><p>The URI may be empty.  This makes the prefix stand for the absent
+namespace URI.  This is necessary for specifying a name class that
+matches any name with an absent namespace URI. For example:</p><pre class="programlisting">
+namespace local = ""
+element foo { attribute * - local:* { string }* }
+</pre><p>is equivalent to</p><pre class="programlisting">
+&lt;element xmlns="http://relaxng.org/ns/structure/1.0""
+         name="foo"
+         ns="http://example.com"&gt;
+  &lt;zeroOrMore&gt;
+    &lt;attribute&gt;
+      &lt;anyName&gt;
+	&lt;except&gt;
+	  &lt;nsName ns=""/&gt;
+	&lt;/except&gt;
+      &lt;/anyName&gt;
+      &lt;data type="string"/&gt;
+    &lt;/attribute&gt;
+  &lt;zeroOrMore&gt;
+&lt;/element&gt;
+</pre><p>RELAX NG has the feature that if a file does not specify an
+<tt>ns</tt> attribute then the <tt>ns</tt>
+attribute can be inherited from the including file.  To support this
+feature, the keyword <tt>inherit</tt> can be specified in
+place of the namespace URI in a namespace declaration. For
+example,</p><pre class="programlisting">
+default namespace this = inherit
+element foo { element * - this:* { string }* }
+</pre><p>is equivalent to</p><pre class="programlisting">
+&lt;element xmlns="http://relaxng.org/ns/structure/1.0""
+         name="foo"&gt;
+  &lt;zeroOrMore&gt;
+    &lt;element&gt;
+      &lt;anyName&gt;
+	&lt;except&gt;
+	  &lt;nsName/&gt;
+	&lt;/except&gt;
+      &lt;/anyName&gt;
+      &lt;data type="string"/&gt;
+    &lt;/element&gt;
+  &lt;zeroOrMore&gt;
+&lt;/element&gt;
+</pre><p>In addition, the <tt>include</tt> and
+<tt>external</tt> patterns can specify <tt>inherit =
+<i><tt>prefix</tt></i></tt> to specify the namespace
+to be inherited by the referenced file. For example,</p><pre class="programlisting">
+namespace x = "http://www.example.com"
+external "foo.rng" inherit = x
+</pre><p>is equivalent to</p><pre class="programlisting">
+&lt;externalRef href="foo.rng"
+  ns="http://www.example.com"
+  xmlns="http://relaxng.org/ns/structure/1.0"/&gt;
+</pre><p>In the absence of an <tt>inherit</tt> parameter on
+<tt>include</tt> or <tt>external</tt>, the default
+namespace will be inherited by the referenced file.</p><p>In the absence of a <tt>default namespace</tt>
+declaration, a declaration of</p><pre class="programlisting">
+default namespace = inherit
+</pre><p>is assumed.</p></div><div class="section" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="annotations"></a>5.&nbsp;Annotations</h2></div></div><p>The RELAX NG XML syntax allows foreign elements and attributes
+to be used to annotate a RELAX NG schema.  A schema in the compact
+syntax can also have annotations, which will turn into foreign
+elements and attributes when the schema is translated into XML syntax.
+The way these annotations are specified depends on where the foreign
+elements and attributes are to appear in the translated schema.  There
+is also a special shorthand syntax when the foreign element is a
+<tt>documentation</tt> element as described in [<a href="#compat">Compatibility</a>].</p><div class="section" lang="en"><div class="titlepage"><div><h3 class="title"><a name="d0e331"></a>5.1.&nbsp;Initial annotations</h3></div></div><p>An annotation in square brackets can be inserted immediately
+before a pattern, param, nameClass, grammarContent or includeContent. It has
+the following syntax:</p><table><tr valign="baseline"><td>annotation</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td>"<code>[</code>" <i>annotationAttribute</i>* <i>annotationElement</i>* "<code>]</code>"</td></tr><tr valign="baseline"><td>annotationAttribute</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td><i>name</i> "<code>=</code>" <i>literal</i></td></tr><tr valign="baseline"><td>annotationElement</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td><i>name</i> "<code>[</code>" <i>annotationAttribute</i>* (<i>annotationElement</i> | <i>literal</i>)* "<code>]</code>"</td></tr></table><p>Each of the annotationAttributes will turn into attributes on
+the corresponding RELAX NG element.  Each of the annotationElements
+will turn into initial children of the corresponding RELAX NG element,
+except in the case where the RELAX NG element cannot have children, in
+which case they will turn into following elements.</p></div><div class="section" lang="en"><div class="titlepage"><div><h3 class="title"><a name="d0e339"></a>5.2.&nbsp;Documentation shorthand</h3></div></div><p>Comments starting with <tt>##</tt> are used to specify
+<tt>documentation</tt> elements from the
+<tt>http://relaxng.org/ns/compatibility/annotations/1.0</tt>
+namespace as described in [<a href="#compat">Compatibility</a>].  For example,</p><pre class="programlisting">
+## Represents a language
+element lang { 
+  ## English
+  "en" |
+  ## Japanese
+  "jp"
+}
+</pre><p>turns into</p><pre class="programlisting">
+&lt;element name="lang"
+    xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+    xmlns="http://relaxng.org/ns/structure/1.0"&gt;
+  &lt;a:documentation&gt;Represents a language&lt;/a:documentation&gt;
+  &lt;choice&gt;
+    &lt;value&gt;en&lt;/value&gt;
+    &lt;a:documentation&gt;English&lt;/a:documentation&gt;
+    &lt;value&gt;jp&lt;/value&gt;
+    &lt;a:documentation&gt;Japanese&lt;/a:documentation&gt;
+  &lt;/choice&gt;
+&lt;/element&gt;
+</pre><p><tt>##</tt> comments can only be used immediately
+before before a pattern, nameClass, grammarContent or includeContent.
+Multiple <tt>##</tt> comments are allowed. Multiple adjacent
+<tt>##</tt> comments without any intervening blank lines are
+merged into a single
+<tt>documentation</tt> element. Any <tt>##</tt>
+comments must precede any annotation in square brackets.</p></div><div class="section" lang="en"><div class="titlepage"><div><h3 class="title"><a name="d0e377"></a>5.3.&nbsp;Following annotations</h3></div></div><p>A pattern or nameClass may be followed by any number of
+followAnnotations with the following syntax:</p><table><tr valign="baseline"><td>followAnnotation</td><td>&nbsp;&nbsp;::=&nbsp;&nbsp;</td><td>"<code>&gt;&gt;</code>" <i>annotationElement</i></td></tr></table><p>Each such annotationElement turns into a following sibling of
+the RELAX NG element representing the pattern or nameClass.</p></div><div class="section" lang="en"><div class="titlepage"><div><h3 class="title"><a name="d0e385"></a>5.4.&nbsp;Grammar annotations</h3></div></div><p>An annotationElement may be used in any place where
+grammarContent or includeContent is allowed. For example,</p><pre class="programlisting">
+namespace x = "http://www.example.com"
+
+start = foo
+
+x:entity [ name="picture" systemId="picture.jpeg" notation="jpeg" ]
+
+foo = element foo { empty }
+</pre><p>turns into</p><pre class="programlisting">&lt;grammar xmlns:x="http://www.example.com" 
+         xmlns="http://relaxng.org/ns/structure/1.0"&gt;
+  &lt;start&gt;
+    &lt;ref name="foo"/&gt;
+  &lt;/start&gt;
+  &lt;x:entity name="picture" systemId="picture.jpeg" notation="jpeg"/&gt;
+  &lt;define name="foo"&gt;
+    &lt;element name="foo"&gt;
+      &lt;empty/&gt;
+    &lt;/element&gt;
+  &lt;/define&gt;
+&lt;/grammar&gt;</pre><p>If the name of such an element is a keyword, then it must be
+quoted with <tt>\</tt>.</p></div></div><div class="section" lang="en"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="d0e401"></a>6.&nbsp;Conformance</h2></div></div><p>There are three kinds of conformant implementation.</p><div class="section" lang="en"><div class="titlepage"><div><h3 class="title"><a name="d0e406"></a>6.1.&nbsp;Validator</h3></div></div><p>A validator conforming to this specification must be able to
+determine whether a textual object is a correct RELAX NG Compact
+Syntax schema as specified in <a href="#formal" title="A. Formal description">Appendix&nbsp;A</a>.  It must also
+be able to determine for any XML document and for any correct RELAX NG
+Compact Syntax schema whether the document is valid (as defined in
+[<a href="#spec">RELAX NG</a>]) with respect to the translation of the schema
+into XML syntax.  It need not be able to output a representation of
+the translation of the schema into XML syntax.</p><p>The requirements in the preceding paragraph are subject to the
+provisions of the second paragraph of Section 8 of [<a href="#spec">RELAX NG</a>].</p></div><div class="section" lang="en"><div class="titlepage"><div><h3 class="title"><a name="d0e419"></a>6.2.&nbsp;Structure preserving translator</h3></div></div><p>A structure preserving translator must be able to translate any
+correct RELAX NG Compact Syntax schema into an XML document whose data
+model is strictly equivalent to the translation specified in <a href="#formal" title="A. Formal description">Appendix&nbsp;A</a>.  For this purpose, two instances of the data model
+(as specified in Section 2 of [<a href="#spec">RELAX NG</a>]) are considered
+strictly equivalent if they are identical after applying the
+simplifications specified in Sections 4.2, 4.3, 4.4, 4.8, 4.9 and 4.10
+of [<a href="#spec">RELAX NG</a>], with the exception that the base URI in the
+context of elements may differ.</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>The RELAX NG compact syntax is not a representation of the
+XML syntax of a RELAX NG schema; rather it is a representation of the
+semantics of a RELAX NG schema.  Details of the XML syntax that were
+judged to be insignificant are not captured in the compact syntax.
+For example, in the XML syntax if the name class for an
+<tt>element</tt> or <tt>attribute</tt> pattern
+consists of just a single name, it can be expressed either as a
+<tt>name</tt> attribute or as a <tt>name</tt>
+element; however, in the compact syntax, there is only one way to
+express such a name class.  The simplifications listed in the previous
+paragraph correspond to those syntactic details that are not captured
+in the compact syntax.</p></div><p>When comparing two <tt>include</tt> or
+<tt>externalRef</tt> patterns in the XML source for strict
+equivalence, the value of the <tt>href</tt> attributes are
+not compared; instead the referenced XML documents are compared for
+strict equivalence.</p></div><div class="section" lang="en"><div class="titlepage"><div><h3 class="title"><a name="d0e456"></a>6.3.&nbsp;Non-structure preserving translator</h3></div></div><p>A non-structure preserving translator must be able to translate
+any correct RELAX NG Compact Syntax schema into an XML document whose
+data model is loosely equivalent to the translation specified in <a href="#formal" title="A. Formal description">Appendix&nbsp;A</a>. For this purpose, two instances of the data model
+(as specified in Section 2 of [<a href="#spec">RELAX NG</a>]) are considered
+loosely equivalent if they are such that, after applying all the
+simplifications specified in Section 4 of [<a href="#spec">RELAX NG</a>], one
+can be transformed into the other merely by reordering and renaming
+definitions.  After the simplifications have been applied, the context
+of elements is ignored when comparing the two instances.</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>A validator for the compact syntax can be implemented as a
+combination of a non-structure preserving translator for the compact
+syntax and a validator for the XML syntax.</p></div></div></div><div class="appendix" lang="en"><h2 class="title" style="clear: both"><a name="formal"></a>A. Formal description</h2><div class="section" lang="en"><div class="titlepage"><div><h3 class="title"><a name="formal-syntax"></a>1.&nbsp;Syntax</h3></div></div><p>The compact syntax is specified by a grammar in BNF.  The
+translation into the XML syntax is specified by annotations in the
+grammar.</p><p>The start symbol is <i><a href="#nt-topLevel" class="nt">topLevel</a></i>.</p><p>The BNF description consists of a set of production rules.  Each
+production rule has a left-hand side and right-hand side separated by
+<tt>::=</tt>.  The left-hand side specifies the name of a
+non-terminal.  The right-hand side specifies a list of one or more
+alternatives separated by <tt>|</tt>.  Each alternative
+consists of a sequence of terminals and non-terminals.  A non-terminal
+is specified by a name in italics.  A terminal is either a literal
+string in quotes or a named terminal specified by a name in bold
+italics.  An alternative can also be specified as <i>&#949;</i>, which
+denotes an empty sequence of tokens.</p><p>Each alternative may be followed by references to one or more
+named constraints that apply to that alternative.</p><p>The translation into XML syntax is specified by associating a
+value with each terminal and non-terminal in the derivation.  Each
+alternative in the BNF may be followed by an expression in curly
+braces, which specifies how to compute the value associated with the
+left-hand side non-terminal.  Each terminal and non-terminal on the
+right-hand side can be labelled with a subscript specifying a variable
+name.  When that variable name is used within the curly braces, it
+refers to the value associated with that terminal or non-terminal.  If
+an alternative consists of a single terminal or non-terminal, then the
+expression in curly braces can be omitted; in this case the value of
+the left-hand side is the value of that terminal or
+non-terminal.</p><p>The result of the translation is not a string containing the XML
+representation of a RELAX NG schema, but rather is an instance of the
+data model described in Section 2 of [<a href="#spec">RELAX NG</a>]; this
+instance will match the RELAX NG schema for RELAX NG.</p><p>A textual object is a correct RELAX NG Compact Syntax schema 
+if:</p><div class="itemizedlist"><ul type="disc"><li><a name="d0e503"></a>it matches the grammar specified in this section,</li><li><a name="d0e506"></a>it satisfies all the constraints specified in this section, and</li><li><a name="d0e509"></a>the result of the translation is a correct RELAX NG schema.</li></ul></div><p>The computation of the value of a non-terminal may make use of
+one or more arguments.  When the name of such a non-terminal occurs on
+the left-hand side of a production, it is followed by an argument list
+that declares the formal arguments for the non-terminal; these formal
+arguments may be referred to by expressions on the right-hand side,
+as, for example, in <i><a href="#nt-simpleNameClass" class="nt">simpleNameClass</a></i>.  When the name
+occurs on the right-hand side of a production, it may be followed by
+one or more assignments that specify the actual arguments which will
+be bound to the formal arguments during the computation of the value
+of the non-terminal.  Arguments may be passed down implicitly: if
+there is no actual argument corresponding to a particular formal
+argument, then the formal argument is bound to the value of the
+variable with the same name as the name of the formal argument.  In
+other words, for any variable <i>x</i>, a default actual
+argument of <i>x</i> := <i>x</i> is assumed.  For example, see <i><a href="#nt-nameClassChoice" class="nt">nameClassChoice</a></i>.</p><p>In addition to explicit arguments, every non-terminal implicitly
+has an argument that specifies an environment for the interpretation
+of a pattern.  By default, the implicit environment argument to each
+non-terminal is the same as its parent.  This may be overridden for a
+particular non-terminal by including <b>environment</b> in the
+argument list.  For example, see <i><a href="#nt-topLevel" class="nt">topLevel</a></i> and <i><a href="#nt-preamble" class="nt">preamble</a></i>.</p><p>An environment specifies:</p><div class="itemizedlist"><ul type="disc"><li><a name="d0e534"></a>a mapping from datatype prefixes to
+URIs;</li><li><a name="d0e537"></a>a mapping from namespace prefixes to URIs; a namespace
+prefix may be mapped to a special value <b>inherit</b> as well as to a
+URI;</li><li><a name="d0e542"></a>the default namespace; the default namespace is either
+a URI or the special value <b>inherit</b>;</li><li><a name="d0e547"></a>the base URI.</li></ul></div><p>The special value <b>inherit</b> is used to indicate that a
+namespace URI should be inherited from the referencing schema.</p><p>In the initial environment used for the start symbol,
+<tt>xml</tt> is bound as a namespace prefix to
+<tt>http://www.w3.org/XML/1998/namespace</tt>, and
+<tt>xsd</tt> is bound as a datatype prefix to
+<tt>http://www.w3.org/2001/XMLSchema-datatypes</tt>; the
+base URI is determined as specified by [<a href="#rfc2396">RFC 2396</a>].</p><p>The value of an expression is one of the following:</p><div class="itemizedlist"><ul type="disc"><li><a name="d0e573"></a>the constants true, false or
+inherit;</li><li><a name="d0e576"></a>a string;</li><li><a name="d0e579"></a>a name (a namespace URI/local name pair);</li><li><a name="d0e582"></a>a qualified-name (a prefix/local name pair);</li><li><a name="d0e585"></a>an XML fragment, where an XML fragment is a pair of a
+set of zero or more attributes and a content sequence of zero or more
+strings and elements, as described in the data model of [<a href="#spec">RELAX NG</a>]; an XML fragment is thus the same kind of thing as
+what is matched against a RELAX NG pattern;</li><li><a name="d0e590"></a>an environment.</li></ul></div><p>Each terminal and non-terminal has an associated type identified
+by a name.  A type is simply a set of values.  The value of a terminal
+or non-terminal is always a member of the set of values identified by
+the name of its type.  The name of the type of a terminal or
+non-terminal is given following the keyword returns before ::= in the
+production rule.  Similarly, each argument has a type, which is given
+immediately before the name of the argument.  The value of a
+non-terminal may also be specified to be void; no expression is given
+for the value of such a non-terminal, nor will the value of such a
+non-terminal be used in any expression.</p><p>The following types are all disjoint:</p><div class="itemizedlist"><ul type="disc"><li><a name="d0e598"></a>Boolean contains true and false;</li><li><a name="d0e603"></a>Inherit contains inherit;</li><li><a name="d0e608"></a>String contains all strings;</li><li><a name="d0e613"></a>Name contains all names;</li><li><a name="d0e618"></a>Qname contains all qualified-names;</li><li><a name="d0e623"></a>Environment contains all enviroments;</li><li><a name="d0e628"></a>Xml contains all XML fragments.</li></ul></div><p>It is also useful to identify some subtypes of Xml.  One type is
+a subtype of another if the set of values of the one type is a subset
+of the set of values of the other.</p><div class="itemizedlist"><ul type="disc"><li><a name="d0e639"></a>Content contains all XML fragments that have an empty
+set of attributes;</li><li><a name="d0e644"></a>Elements contains all XML fragments that have an empty
+set of attributes and whose content sequence does not have any string
+members; it is a subtype of content;</li><li><a name="d0e649"></a>Element contains all XML fragments that have an empty
+set of attributes and whose content sequence consists of a single
+element; it is a subtype of elements;</li><li><a name="d0e654"></a>Attributes contains all XML fragments that have an
+empty content sequence;</li><li><a name="d0e659"></a>Attribute contains all XML fragments that have an
+empty content sequence and whose attribute set consists of a single
+attribute.</li></ul></div><p>In addition it is useful to have the following union type.</p><div class="itemizedlist"><ul type="disc"><li><a name="d0e667"></a>NamespaceURI is the union of String and
+Inherit.</li></ul></div><p>Expressions use the following notation:</p><div class="itemizedlist"><ul type="disc"><li><a name="d0e681"></a><i>x</i> denotes the value of the variable
+named <i><tt>x</tt></i>;</li><li><a name="d0e688"></a>( ) denotes an empty
+XML fragment;</li><li><a name="d0e692"></a>(<i>x</i>, <i>y</i>) denotes the concatenation of the XML fragments
+<i>x</i> and <i>y</i>; the attributes of the
+resulting XML fragment consist of the union of the attributes of
+<i>x</i> and <i>y</i> and the content sequence
+consists of the concatenation of the content sequence of <i>x</i> and <i>y</i> (this is the same as the meaning of
+the comma operator in the compact syntax);</li><li><a name="d0e710"></a><b>environment</b> denotes the value of the implicit
+environment argument;</li><li><a name="d0e714"></a><b>true</b>, <b>false</b> and <b>inherit</b> are used
+to denote the corresponding special constant;</li><li><a name="d0e722"></a>"<code>xyzzy</code>" denotes a string
+consisting of the characters
+<tt>xyzzy</tt>;</li><li><a name="d0e730"></a>f(<i>x</i>, <i>y</i>, &nbsp;.&nbsp;.&nbsp;.&nbsp;) denotes the
+value of the function f applied to the arguments <i>x</i>,
+<i>y</i>, &nbsp;.&nbsp;.&nbsp;.&nbsp;; the available functions are as
+follows:<dl><dt><a name="prim-qName">qName</a>(String <i>x</i>,&nbsp;String <i>y</i>)  <b>returns</b> Qname</dt><dd>returns a
+qualified-name with prefix <i>x</i> and local part <i>y</i>;</dd><dt><a name="prim-prefix">prefix</a>(Qname <i>x</i>)  <b>returns</b> String</dt><dd>returns the prefix of the qualified-name <i>x</i>;</dd><dt><a name="prim-localPart">localPart</a>(Qname <i>x</i>)  <b>returns</b> String</dt><dd>returns the local-part of the qualified-name
+<i>x</i>;</dd><dt><a name="prim-name">name</a>(String <i>x</i>,&nbsp;String <i>y</i>)  <b>returns</b> Name</dt><dd>returns a name
+with namespace URI <i>x</i> and local name <i>y</i>;</dd><dt><a name="prim-attribute">attribute</a>(Name <i>x</i>,&nbsp;String <i>y</i>)  <b>returns</b> Attribute</dt><dd>returns an XML
+fragment consisting of an attribute with name <i>x</i> and
+value <i>y</i>;</dd><dt><a name="prim-element">element</a>(Environment <i>x</i>,&nbsp;Name <i>y</i>,&nbsp;Xml <i>z</i>)  <b>returns</b> Element</dt><dd>returns an XML fragment consisting of an element with
+name <i>y</i> and attributes and children <i>z</i>; the namespace map of the context of the element contains
+all the mappings from namespace prefixes to URIs from <i>x</i> except those mappings that map to <b>inherit</b> or to the
+empty string; the namespace map may contain an additional mapping from
+an implementation-dependent prefix to the compatibility annotations
+URI; the default namespace of namespace map of the context of the
+element is the RELAX NG namespace URI
+<tt>http://relaxng.org/ns/structure/1.0</tt>; the base URI
+of the context of the element is not
+constrained;</dd><dt><a name="prim-text">text</a>(String <i>x</i>)  <b>returns</b> Content</dt><dd>returns an XML fragment whose content sequence consists of
+<i>x</i> if <i>x</i> is not the empty string,
+and otherwise the empty XML fragment;</dd><dt><a name="prim-bindPrefix">bindPrefix</a>(Environment <i>x</i>,&nbsp;String <i>y</i>,&nbsp;NamespaceURI <i>z</i>)  <b>returns</b> Environment</dt><dd>returns an environment that is the same as
+<i>x</i> except that it has the prefix <i>y</i>
+bound to <i>z</i>;</dd><dt><a name="prim-bindDefault">bindDefault</a>(Environment <i>x</i>,&nbsp;NamespaceURI <i>y</i>)  <b>returns</b> Environment</dt><dd>returns an environment that is the same as
+<i>x</i> except it has the default namespace <i>z</i>;</dd><dt><a name="prim-bindDatatypePrefix">bindDatatypePrefix</a>(Environment <i>x</i>,&nbsp;String <i>y</i>,&nbsp;String <i>z</i>)  <b>returns</b> Environment</dt><dd>returns an environment that is the same
+as <i>x</i> except that it has <i>y</i> bound as
+a prefix for datatypes to the URI <i>z</i>;</dd><dt><a name="prim-lookupPrefix">lookupPrefix</a>(Environment <i>x</i>,&nbsp;String <i>y</i>)  <b>returns</b> String</dt><dd>returns the
+binding in the environment <i>x</i> for the prefix <i>y</i>; it is an error if there is no applicable
+binding;</dd><dt><a name="prim-lookupDefault">lookupDefault</a>(Environment <i>x</i>)  <b>returns</b> NamespaceURI</dt><dd>returns the default namespace of the
+environment <i>x</i>, or, if no default has been bound,
+<b>inherit</b>;</dd><dt><a name="prim-lookupDatatypePrefix">lookupDatatypePrefix</a>(Environment <i>x</i>,&nbsp;String <i>y</i>)  <b>returns</b> String</dt><dd>returns the
+binding as a datatype prefix in the environment <i>x</i>
+for the prefix <i>y</i>; it is an error if there is no
+applicable binding;</dd><dt><a name="prim-mapSchemaRef">mapSchemaRef</a>(Environment <i>x</i>,&nbsp;String <i>y</i>)  <b>returns</b> String</dt><dd>returns a
+URI; <i>y</i> is a URI reference of a resource containing a
+schema in the syntax described by this specification; the returned URI
+is the URI of a resource containing the translation of this schema
+into RELAX NG XML syntax; <i>y</i> is resolved into an
+absolute form as described in section 5.2 of [<a href="#rfc2396">RFC 2396</a>]
+using the base URI from the environment <i>x</i>; the
+restriction on the use of fragment identifiers specified in section
+4.5 of [<a href="#spec">RELAX NG</a>] applies to <i>y</i>;</dd><dt><a name="prim-makeNsAttribute">makeNsAttribute</a>(NamespaceURI <i>x</i>)  <b>returns</b> Attributes</dt><dd>returns an empty set if <i>x</i>
+is <b>inherit</b>, and otherwise an attribute whose namespace
+URI is the empty string, whose local name is
+<tt>ns</tt> and whose value is <i>x</i>;</dd><dt><a name="prim-applyAnnotations">applyAnnotations</a>(Xml <i>x</i>,&nbsp;Element <i>y</i>)  <b>returns</b> Element</dt><dd>returns an element
+whose name is the name of <i>y</i>, whose attributes are
+the union of the first member of <i>x</i> and the
+attributes of <i>y</i>, and whose children are the
+concatenation of the second member of <i>x</i> and the
+children of <i>y</i>;</dd><dt><a name="prim-applyAnnotationsGroup">applyAnnotationsGroup</a>(Xml <i>x</i>,&nbsp;Elements <i>y</i>)  <b>returns</b> Elements</dt><dd>returns the same as <a href="#prim-applyAnnotations">applyAnnotations</a>(<i>x</i>, <code>&lt;group</code><code>&gt;</code> <i>y</i> <code>&lt;/group&gt;</code>) unless
+<i>x</i> is equal to ( ), in which case it
+returns <i>y</i>;</dd><dt><a name="prim-applyAnnotationsChoice">applyAnnotationsChoice</a>(Xml <i>x</i>,&nbsp;Elements <i>y</i>)  <b>returns</b> Elements</dt><dd>returns the same as <a href="#prim-applyAnnotations">applyAnnotations</a>(<i>x</i>, <code>&lt;choice</code><code>&gt;</code> <i>y</i> <code>&lt;/choice&gt;</code>) unless
+<i>x</i> is equal to ( ), in which case it
+returns <i>y</i>;</dd><dt><a name="prim-stringConcat">stringConcat</a>(String <i>x</i>,&nbsp;String <i>y</i>)  <b>returns</b> String</dt><dd>returns a string that is the
+concatenation of the strings <i>x</i> and <i>y</i>;</dd><dt><a name="prim-datatypeAttributes">datatypeAttributes</a>(String <i>x</i>,&nbsp;String <i>y</i>)  <b>returns</b> Attributes</dt><dd>returns a
+set of two attributes; both attributes have the empty string as their
+namespace URI; one attribute has local name
+<tt>datatypeLibrary</tt> and value <i>x</i>; the
+other attribute has local name
+<tt>type</tt> and value <i>y</i>;</dd><dt><a name="prim-documentationElementName">documentationElementName</a>()  <b>returns</b> Name</dt><dd>returns the name of the <tt>documentation</tt> element
+defined in [<a href="#compat">Compatibility</a>], that is, the name with namespace
+URI <tt>http://relaxng.org/ns/compatibility/annotations/1.0</tt> and
+local name <tt>documentation</tt>;</dd></dl></li><li><a name="d0e1015"></a><i>x</i> ? <i>y</i> : <i>z</i> is a conditional
+expression, which denotes <i>y</i> if <i>x</i>
+is <b>true</b> and <i>z</i> if <i>x</i> is
+<b>false</b>;</li><li><a name="d0e1034"></a><code>&lt;foo</code><code> </code><i>x</i><code>&gt;</code> <i>y</i> <code>&lt;/foo&gt;</code> denotes
+an XML fragment containing an element from the RELAX NG namespace with
+local name <tt>foo</tt>, attributes <i>x</i> and
+content <i>x</i>; the context of the element is determined
+from the implicit environment argument as specified for the element
+function above.</li></ul></div><p><i><a name="nt-topLevel">topLevel</a></i> <b>returns</b> Element&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-preamble" class="nt">preamble</a></i><sub><i>e</i></sub>&nbsp;&nbsp;<i><a href="#nt-topLevelBody" class="nt">topLevelBody</a></i>(<b>environment</b> := <i>e</i>)<sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <i>x</i> }</p><p><i><a name="nt-preamble">preamble</a></i> <b>returns</b> Environment&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i>&#949;</i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <b>environment</b> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-decl" class="nt">decl</a></i><sub><i>e</i></sub>&nbsp;&nbsp;<i><a href="#nt-preamble" class="nt">preamble</a></i>(<b>environment</b> := <i>e</i>)<sub><i>d</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <i>d</i> }</p><p><i><a name="nt-decl">decl</a></i> <b>returns</b> Environment&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;"<code>namespace</code>"&nbsp;&nbsp;<i><a href="#nt-namespacePrefix" class="nt">namespacePrefix</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>=</code>"&nbsp;&nbsp;<i><a href="#nt-namespaceURILiteral" class="nt">namespaceURILiteral</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Constraint: </b><a href="#constraint-xml prefix">xml prefix</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Constraint: </b><a href="#constraint-xml namespace URI">xml namespace URI</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Constraint: </b><a href="#constraint-duplicate declaration">duplicate declaration</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-bindPrefix">bindPrefix</a>(<b>environment</b>, <i>x</i>, <i>y</i>) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>default</code>"&nbsp;&nbsp;"<code>namespace</code>"&nbsp;&nbsp;"<code>=</code>"&nbsp;&nbsp;<i><a href="#nt-namespaceURILiteral" class="nt">namespaceURILiteral</a></i><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Constraint: </b><a href="#constraint-xml namespace URI">xml namespace URI</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Constraint: </b><a href="#constraint-duplicate declaration">duplicate declaration</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-bindDefault">bindDefault</a>(<b>environment</b>, <i>x</i>) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>default</code>"&nbsp;&nbsp;"<code>namespace</code>"&nbsp;&nbsp;<i><a href="#nt-namespacePrefix" class="nt">namespacePrefix</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>=</code>"&nbsp;&nbsp;<i><a href="#nt-namespaceURILiteral" class="nt">namespaceURILiteral</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Constraint: </b><a href="#constraint-xml prefix">xml prefix</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Constraint: </b><a href="#constraint-xml namespace URI">xml namespace URI</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Constraint: </b><a href="#constraint-duplicate declaration">duplicate declaration</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-bindDefault">bindDefault</a>(<a href="#prim-bindPrefix">bindPrefix</a>(<b>environment</b>, <i>x</i>, <i>y</i>), <i>y</i>) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>datatypes</code>"&nbsp;&nbsp;<i><a href="#nt-datatypePrefix" class="nt">datatypePrefix</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>=</code>"&nbsp;&nbsp;<i><a href="#nt-literal" class="nt">literal</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Constraint: </b><a href="#constraint-xsd prefix">xsd prefix</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Constraint: </b><a href="#constraint-datatypes URI">datatypes URI</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Constraint: </b><a href="#constraint-duplicate declaration">duplicate declaration</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-bindDatatypePrefix">bindDatatypePrefix</a>(<b>environment</b>, <i>x</i>, <i>y</i>) }</p><p><i><a name="nt-namespacePrefix">namespacePrefix</a></i> <b>returns</b> String&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-identifierOrKeyword" class="nt">identifierOrKeyword</a></i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Constraint: </b><a href="#constraint-valid prefix">valid prefix</a></p><p><i><a name="nt-datatypePrefix">datatypePrefix</a></i> <b>returns</b> String&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-identifierOrKeyword" class="nt">identifierOrKeyword</a></i></p><p><i><a name="nt-namespaceURILiteral">namespaceURILiteral</a></i> <b>returns</b> NamespaceURI&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-literal" class="nt">literal</a></i><br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>inherit</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <b>inherit</b> }</p><p><i><a name="nt-topLevelBody">topLevelBody</a></i> <b>returns</b> Element&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-pattern" class="nt">pattern</a></i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Constraint: </b><a href="#constraint-single element">single element</a><br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-grammar" class="nt">grammar</a></i><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;grammar</code><code>&gt;</code> <i>x</i> <code>&lt;/grammar&gt;</code> }</p><p><i><a name="nt-grammar">grammar</a></i> <b>returns</b> Elements&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i>&#949;</i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ ( ) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-member" class="nt">member</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-grammar" class="nt">grammar</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ (<i>x</i>, <i>y</i>) }</p><p><i><a name="nt-member">member</a></i> <b>returns</b> Element&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-annotatedComponent" class="nt">annotatedComponent</a></i><br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-annotationElementNotKeyword" class="nt">annotationElementNotKeyword</a></i></p><p><i><a name="nt-annotatedComponent">annotatedComponent</a></i> <b>returns</b> Element&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-annotations" class="nt">annotations</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-component" class="nt">component</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-applyAnnotations">applyAnnotations</a>(<i>x</i>, <i>y</i>) }</p><p><i><a name="nt-component">component</a></i> <b>returns</b> Element&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-start" class="nt">start</a></i><br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-define" class="nt">define</a></i><br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-include" class="nt">include</a></i><br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-div" class="nt">div</a></i></p><p><i><a name="nt-start">start</a></i> <b>returns</b> Element&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;"<code>start</code>"&nbsp;&nbsp;<i><a href="#nt-assignOp" class="nt">assignOp</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-pattern" class="nt">pattern</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;start</code><code> </code><i>x</i><code>&gt;</code> <i>y</i> <code>&lt;/start&gt;</code> }</p><p><i><a name="nt-define">define</a></i> <b>returns</b> Element&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<b><i><a href="#t-identifier" class="nt">identifier</a></i></b><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-assignOp" class="nt">assignOp</a></i><sub><i>y</i></sub>&nbsp;&nbsp;<i><a href="#nt-pattern" class="nt">pattern</a></i><sub><i>z</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;define</code><code> </code><code>name=</code><i>x</i><code> </code><i>y</i><code>&gt;</code> <i>z</i> <code>&lt;/define&gt;</code> }</p><p><i><a name="nt-assignOp">assignOp</a></i> <b>returns</b> Attributes&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;"<code>=</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ ( ) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>|=</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-attribute">attribute</a>(<a href="#prim-name">name</a>("<code></code>", "<code>combine</code>"), "<code>choice</code>") }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>&amp;=</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-attribute">attribute</a>(<a href="#prim-name">name</a>("<code></code>", "<code>combine</code>"), "<code>interleave</code>") }</p><p><i><a name="nt-include">include</a></i> <b>returns</b> Element&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;"<code>include</code>"&nbsp;&nbsp;<i><a href="#nt-anyURILiteral" class="nt">anyURILiteral</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-optInherit" class="nt">optInherit</a></i><sub><i>y</i></sub>&nbsp;&nbsp;<i><a href="#nt-optIncludeBody" class="nt">optIncludeBody</a></i><sub><i>z</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;include</code><code> </code><code>href=</code><a href="#prim-mapSchemaRef">mapSchemaRef</a>(<b>environment</b>, <i>x</i>)<code> </code><i>y</i><code>&gt;</code> <i>z</i> <code>&lt;/include&gt;</code> }</p><p><i><a name="nt-anyURILiteral">anyURILiteral</a></i> <b>returns</b> String&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-literal" class="nt">literal</a></i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Constraint: </b><a href="#constraint-any URI">any URI</a></p><p><i><a name="nt-optInherit">optInherit</a></i> <b>returns</b> Attributes&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i>&#949;</i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-makeNsAttribute">makeNsAttribute</a>(<a href="#prim-lookupDefault">lookupDefault</a>(<b>environment</b>)) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>inherit</code>"&nbsp;&nbsp;"<code>=</code>"&nbsp;&nbsp;<i><a href="#nt-identifierOrKeyword" class="nt">identifierOrKeyword</a></i><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-makeNsAttribute">makeNsAttribute</a>(<a href="#prim-lookupPrefix">lookupPrefix</a>(<b>environment</b>, <i>x</i>)) }</p><p><i><a name="nt-optIncludeBody">optIncludeBody</a></i> <b>returns</b> Elements&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i>&#949;</i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ ( ) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>{</code>"&nbsp;&nbsp;<i><a href="#nt-includeBody" class="nt">includeBody</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>}</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <i>x</i> }</p><p><i><a name="nt-includeBody">includeBody</a></i> <b>returns</b> Elements&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i>&#949;</i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ ( ) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-includeMember" class="nt">includeMember</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-includeBody" class="nt">includeBody</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ (<i>x</i>, <i>y</i>) }</p><p><i><a name="nt-includeMember">includeMember</a></i> <b>returns</b> Element&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-annotatedIncludeComponent" class="nt">annotatedIncludeComponent</a></i><br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-annotationElementNotKeyword" class="nt">annotationElementNotKeyword</a></i></p><p><i><a name="nt-annotatedIncludeComponent">annotatedIncludeComponent</a></i> <b>returns</b> Element&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-annotations" class="nt">annotations</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-includeComponent" class="nt">includeComponent</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-applyAnnotations">applyAnnotations</a>(<i>x</i>, <i>y</i>) }</p><p><i><a name="nt-includeComponent">includeComponent</a></i> <b>returns</b> Element&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-start" class="nt">start</a></i><br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-define" class="nt">define</a></i><br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-includeDiv" class="nt">includeDiv</a></i></p><p><i><a name="nt-div">div</a></i> <b>returns</b> Element&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;"<code>div</code>"&nbsp;&nbsp;"<code>{</code>"&nbsp;&nbsp;<i><a href="#nt-grammar" class="nt">grammar</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>}</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;div</code><code>&gt;</code> <i>x</i> <code>&lt;/div&gt;</code> }</p><p><i><a name="nt-includeDiv">includeDiv</a></i> <b>returns</b> Element&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;"<code>div</code>"&nbsp;&nbsp;"<code>{</code>"&nbsp;&nbsp;<i><a href="#nt-includeBody" class="nt">includeBody</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>}</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;div</code><code>&gt;</code> <i>x</i> <code>&lt;/div&gt;</code> }</p><p><i><a name="nt-pattern">pattern</a></i> <b>returns</b> Elements&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-innerPattern" class="nt">innerPattern</a></i>(<i>anno</i> := ( ))</p><p><i><a name="nt-innerPattern">innerPattern</a></i>(Xml <i>anno</i>) <b>returns</b> Elements&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-innerParticle" class="nt">innerParticle</a></i><br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-particleChoice" class="nt">particleChoice</a></i><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-applyAnnotations">applyAnnotations</a>(<i>anno</i>, <code>&lt;choice</code><code>&gt;</code> <i>x</i> <code>&lt;/choice&gt;</code>) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-particleGroup" class="nt">particleGroup</a></i><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-applyAnnotations">applyAnnotations</a>(<i>anno</i>, <code>&lt;group</code><code>&gt;</code> <i>x</i> <code>&lt;/group&gt;</code>) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-particleInterleave" class="nt">particleInterleave</a></i><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-applyAnnotations">applyAnnotations</a>(<i>anno</i>, <code>&lt;interleave</code><code>&gt;</code> <i>x</i> <code>&lt;/interleave&gt;</code>) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-annotatedDataExcept" class="nt">annotatedDataExcept</a></i><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-applyAnnotationsGroup">applyAnnotationsGroup</a>(<i>anno</i>, <i>x</i>) }</p><p><i><a name="nt-particleChoice">particleChoice</a></i> <b>returns</b> Elements&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-particle" class="nt">particle</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>|</code>"&nbsp;&nbsp;<i><a href="#nt-particle" class="nt">particle</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ (<i>x</i>, <i>y</i>) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-particle" class="nt">particle</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>|</code>"&nbsp;&nbsp;<i><a href="#nt-particleChoice" class="nt">particleChoice</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ (<i>x</i>, <i>y</i>) }</p><p><i><a name="nt-particleGroup">particleGroup</a></i> <b>returns</b> Elements&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-particle" class="nt">particle</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>,</code>"&nbsp;&nbsp;<i><a href="#nt-particle" class="nt">particle</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ (<i>x</i>, <i>y</i>) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-particle" class="nt">particle</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>,</code>"&nbsp;&nbsp;<i><a href="#nt-particleGroup" class="nt">particleGroup</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ (<i>x</i>, <i>y</i>) }</p><p><i><a name="nt-particleInterleave">particleInterleave</a></i> <b>returns</b> Elements&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-particle" class="nt">particle</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>&amp;</code>"&nbsp;&nbsp;<i><a href="#nt-particle" class="nt">particle</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ (<i>x</i>, <i>y</i>) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-particle" class="nt">particle</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>&amp;</code>"&nbsp;&nbsp;<i><a href="#nt-particleInterleave" class="nt">particleInterleave</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ (<i>x</i>, <i>y</i>) }</p><p><i><a name="nt-particle">particle</a></i> <b>returns</b> Elements&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-innerParticle" class="nt">innerParticle</a></i>(<i>anno</i> := ( ))</p><p><i><a name="nt-innerParticle">innerParticle</a></i>(Xml <i>anno</i>) <b>returns</b> Elements&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-annotatedPrimary" class="nt">annotatedPrimary</a></i><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-applyAnnotationsGroup">applyAnnotationsGroup</a>(<i>anno</i>, <i>x</i>) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-repeatedPrimary" class="nt">repeatedPrimary</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-followAnnotations" class="nt">followAnnotations</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ (<a href="#prim-applyAnnotations">applyAnnotations</a>(<i>anno</i>, <i>x</i>), <i>y</i>) }</p><p><i><a name="nt-repeatedPrimary">repeatedPrimary</a></i> <b>returns</b> Element&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-annotatedPrimary" class="nt">annotatedPrimary</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>*</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;zeroOrMore</code><code>&gt;</code> <i>x</i> <code>&lt;/zeroOrMore&gt;</code> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-annotatedPrimary" class="nt">annotatedPrimary</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>+</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;oneOrMore</code><code>&gt;</code> <i>x</i> <code>&lt;/oneOrMore&gt;</code> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-annotatedPrimary" class="nt">annotatedPrimary</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>?</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;optional</code><code>&gt;</code> <i>x</i> <code>&lt;/optional&gt;</code> }</p><p><i><a name="nt-annotatedPrimary">annotatedPrimary</a></i> <b>returns</b> Elements&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-leadAnnotatedPrimary" class="nt">leadAnnotatedPrimary</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-followAnnotations" class="nt">followAnnotations</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ (<i>x</i>, <i>y</i>) }</p><p><i><a name="nt-annotatedDataExcept">annotatedDataExcept</a></i> <b>returns</b> Elements&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-leadAnnotatedDataExcept" class="nt">leadAnnotatedDataExcept</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-followAnnotations" class="nt">followAnnotations</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ (<i>x</i>, <i>y</i>) }</p><p><i><a name="nt-leadAnnotatedDataExcept">leadAnnotatedDataExcept</a></i> <b>returns</b> Element&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-annotations" class="nt">annotations</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-dataExcept" class="nt">dataExcept</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-applyAnnotations">applyAnnotations</a>(<i>x</i>, <i>y</i>) }</p><p><i><a name="nt-leadAnnotatedPrimary">leadAnnotatedPrimary</a></i> <b>returns</b> Elements&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-annotations" class="nt">annotations</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-primary" class="nt">primary</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-applyAnnotations">applyAnnotations</a>(<i>x</i>, <i>y</i>) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-annotations" class="nt">annotations</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>(</code>"&nbsp;&nbsp;<i><a href="#nt-innerPattern" class="nt">innerPattern</a></i>(<i>anno</i> := <i>x</i>)<sub><i>y</i></sub>&nbsp;&nbsp;"<code>)</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <i>y</i> }</p><p><i><a name="nt-primary">primary</a></i> <b>returns</b> Element&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;"<code>element</code>"&nbsp;&nbsp;<i><a href="#nt-nameClass" class="nt">nameClass</a></i>(<i>isElem</i> := <b>true</b>)<sub><i>x</i></sub>&nbsp;&nbsp;"<code>{</code>"&nbsp;&nbsp;<i><a href="#nt-pattern" class="nt">pattern</a></i><sub><i>y</i></sub>&nbsp;&nbsp;"<code>}</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;element</code><code>&gt;</code> <i>x</i> <i>y</i> <code>&lt;/element&gt;</code> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>attribute</code>"&nbsp;&nbsp;<i><a href="#nt-nameClass" class="nt">nameClass</a></i>(<i>isElem</i> := <b>false</b>)<sub><i>x</i></sub>&nbsp;&nbsp;"<code>{</code>"&nbsp;&nbsp;<i><a href="#nt-pattern" class="nt">pattern</a></i><sub><i>y</i></sub>&nbsp;&nbsp;"<code>}</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;attribute</code><code>&gt;</code> <i>x</i> <i>y</i> <code>&lt;/attribute&gt;</code> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>mixed</code>"&nbsp;&nbsp;"<code>{</code>"&nbsp;&nbsp;<i><a href="#nt-pattern" class="nt">pattern</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>}</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;mixed</code><code>&gt;</code> <i>x</i> <code>&lt;/mixed&gt;</code> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>list</code>"&nbsp;&nbsp;"<code>{</code>"&nbsp;&nbsp;<i><a href="#nt-pattern" class="nt">pattern</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>}</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;list</code><code>&gt;</code> <i>x</i> <code>&lt;/list&gt;</code> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-datatypeName" class="nt">datatypeName</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-optParams" class="nt">optParams</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;data</code><code> </code><i>x</i><code>&gt;</code> <i>y</i> <code>&lt;/data&gt;</code> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-datatypeName" class="nt">datatypeName</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-datatypeValue" class="nt">datatypeValue</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;value</code><code> </code><i>x</i><code>&gt;</code> <i>y</i> <code>&lt;/value&gt;</code> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-datatypeValue" class="nt">datatypeValue</a></i><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;value</code><code>&gt;</code> <i>x</i> <code>&lt;/value&gt;</code> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>empty</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;empty</code><code>/&gt;</code> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>notAllowed</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;notAllowed</code><code>/&gt;</code> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>empty</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;text</code><code>/&gt;</code> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-ref" class="nt">ref</a></i><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;ref</code><code> </code><code>name=</code><i>x</i><code>/&gt;</code> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>parent</code>"&nbsp;&nbsp;<i><a href="#nt-ref" class="nt">ref</a></i><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;parentRef</code><code> </code><code>name=</code><i>x</i><code>/&gt;</code> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>grammar</code>"&nbsp;&nbsp;"<code>{</code>"&nbsp;&nbsp;<i><a href="#nt-grammar" class="nt">grammar</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>}</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;grammar</code><code>&gt;</code> <i>x</i> <code>&lt;/grammar&gt;</code> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>external</code>"&nbsp;&nbsp;<i><a href="#nt-anyURILiteral" class="nt">anyURILiteral</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-optInherit" class="nt">optInherit</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;externalRef</code><code> </code><code>href=</code><a href="#prim-mapSchemaRef">mapSchemaRef</a>(<i>x</i>)<code> </code><i>y</i><code>/&gt;</code> }</p><p><i><a name="nt-dataExcept">dataExcept</a></i> <b>returns</b> Element&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-datatypeName" class="nt">datatypeName</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-optParams" class="nt">optParams</a></i><sub><i>y</i></sub>&nbsp;&nbsp;"<code>-</code>"&nbsp;&nbsp;<i><a href="#nt-leadAnnotatedPrimary" class="nt">leadAnnotatedPrimary</a></i><sub><i>z</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;data</code><code> </code><i>x</i><code>&gt;</code> <i>y</i> <code>&lt;except</code><code>&gt;</code> <i>z</i> <code>&lt;/except&gt;</code> <code>&lt;/data&gt;</code> }</p><p><i><a name="nt-ref">ref</a></i> <b>returns</b> String&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<b><i><a href="#t-identifier" class="nt">identifier</a></i></b></p><p><i><a name="nt-datatypeName">datatypeName</a></i> <b>returns</b> Attributes&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<b><i><a href="#t-CName" class="nt">CName</a></i></b><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-datatypeAttributes">datatypeAttributes</a>(<a href="#prim-lookupDatatypePrefix">lookupDatatypePrefix</a>(<b>environment</b>, <a href="#prim-prefix">prefix</a>(<i>x</i>)), <a href="#prim-localPart">localPart</a>(<i>x</i>)) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>string</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-datatypeAttributes">datatypeAttributes</a>("<code></code>", "<code>string</code>") }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>token</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-datatypeAttributes">datatypeAttributes</a>("<code></code>", "<code>token</code>") }</p><p><i><a name="nt-datatypeValue">datatypeValue</a></i> <b>returns</b> String&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-literal" class="nt">literal</a></i></p><p><i><a name="nt-optParams">optParams</a></i> <b>returns</b> Elements&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i>&#949;</i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ ( ) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>{</code>"&nbsp;&nbsp;<i><a href="#nt-params" class="nt">params</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>}</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <i>x</i> }</p><p><i><a name="nt-params">params</a></i> <b>returns</b> Elements&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i>&#949;</i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ ( ) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-param" class="nt">param</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-params" class="nt">params</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ (<i>x</i>, <i>y</i>) }</p><p><i><a name="nt-param">param</a></i> <b>returns</b> Element&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-annotations" class="nt">annotations</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-identifierOrKeyword" class="nt">identifierOrKeyword</a></i><sub><i>y</i></sub>&nbsp;&nbsp;"<code>=</code>"&nbsp;&nbsp;<i><a href="#nt-literal" class="nt">literal</a></i><sub><i>z</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-applyAnnotations">applyAnnotations</a>(<i>x</i>, <code>&lt;param</code><code> </code><code>name=</code><i>y</i><code>&gt;</code> <i>z</i> <code>&lt;/param&gt;</code>) }</p><p><i><a name="nt-nameClass">nameClass</a></i>(Boolean <i>isElem</i>) <b>returns</b> Elements&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-innerNameClass" class="nt">innerNameClass</a></i>(<i>anno</i> := ( ))</p><p><i><a name="nt-innerNameClass">innerNameClass</a></i>(Boolean <i>isElem</i>, Xml <i>anno</i>) <b>returns</b> Elements&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-annotatedSimpleNameClass" class="nt">annotatedSimpleNameClass</a></i><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-applyAnnotationsChoice">applyAnnotationsChoice</a>(<i>anno</i>, <i>x</i>) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-nameClassChoice" class="nt">nameClassChoice</a></i><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-applyAnnotations">applyAnnotations</a>(<i>anno</i>, <code>&lt;choice</code><code>&gt;</code> <i>x</i> <code>&lt;/choice&gt;</code>) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-annotatedExceptNameClass" class="nt">annotatedExceptNameClass</a></i><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-applyAnnotationsChoice">applyAnnotationsChoice</a>(<i>anno</i>, <i>x</i>) }</p><p><i><a name="nt-nameClassChoice">nameClassChoice</a></i>(Boolean <i>isElem</i>) <b>returns</b> Elements&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-annotatedSimpleNameClass" class="nt">annotatedSimpleNameClass</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>|</code>"&nbsp;&nbsp;<i><a href="#nt-annotatedSimpleNameClass" class="nt">annotatedSimpleNameClass</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ (<i>x</i>, <i>y</i>) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-annotatedSimpleNameClass" class="nt">annotatedSimpleNameClass</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>|</code>"&nbsp;&nbsp;<i><a href="#nt-nameClassChoice" class="nt">nameClassChoice</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ (<i>x</i>, <i>y</i>) }</p><p><i><a name="nt-annotatedExceptNameClass">annotatedExceptNameClass</a></i>(Boolean <i>isElem</i>) <b>returns</b> Elements&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-leadAnnotatedExceptNameClass" class="nt">leadAnnotatedExceptNameClass</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-followAnnotations" class="nt">followAnnotations</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ (<i>x</i>, <i>y</i>) }</p><p><i><a name="nt-leadAnnotatedExceptNameClass">leadAnnotatedExceptNameClass</a></i>(Boolean <i>isElem</i>) <b>returns</b> Element&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-annotations" class="nt">annotations</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-exceptNameClass" class="nt">exceptNameClass</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-applyAnnotations">applyAnnotations</a>(<i>x</i>, <i>y</i>) }</p><p><i><a name="nt-annotatedSimpleNameClass">annotatedSimpleNameClass</a></i>(Boolean <i>isElem</i>) <b>returns</b> Elements&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-leadAnnotatedSimpleNameClass" class="nt">leadAnnotatedSimpleNameClass</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-followAnnotations" class="nt">followAnnotations</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ (<i>x</i>, <i>y</i>) }</p><p><i><a name="nt-leadAnnotatedSimpleNameClass">leadAnnotatedSimpleNameClass</a></i>(Boolean <i>isElem</i>) <b>returns</b> Elements&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-annotations" class="nt">annotations</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-simpleNameClass" class="nt">simpleNameClass</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-applyAnnotations">applyAnnotations</a>(<i>x</i>, <i>y</i>) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-annotations" class="nt">annotations</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>(</code>"&nbsp;&nbsp;<i><a href="#nt-innerNameClass" class="nt">innerNameClass</a></i>(<i>anno</i> := <i>x</i>)<sub><i>y</i></sub>&nbsp;&nbsp;"<code>)</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <i>y</i> }</p><p><i><a name="nt-exceptNameClass">exceptNameClass</a></i>(Boolean <i>isElem</i>) <b>returns</b> Element&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<b><i><a href="#t-nsName" class="nt">nsName</a></i></b><sub><i>x</i></sub>&nbsp;&nbsp;"<code>-</code>"&nbsp;&nbsp;<i><a href="#nt-leadAnnotatedSimpleNameClass" class="nt">leadAnnotatedSimpleNameClass</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;nsName</code><code> </code><a href="#prim-makeNsAttribute">makeNsAttribute</a>(<a href="#prim-lookupPrefix">lookupPrefix</a>(<b>environment</b>, <i>x</i>))<code>&gt;</code> <code>&lt;except</code><code>&gt;</code> <i>y</i> <code>&lt;/except&gt;</code> <code>&lt;/nsName&gt;</code> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>*</code>"&nbsp;&nbsp;"<code>-</code>"&nbsp;&nbsp;<i><a href="#nt-leadAnnotatedSimpleNameClass" class="nt">leadAnnotatedSimpleNameClass</a></i><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;anyName</code><code>&gt;</code> <code>&lt;except</code><code>&gt;</code> <i>x</i> <code>&lt;/except&gt;</code> <code>&lt;/anyName&gt;</code> }</p><p><i><a name="nt-simpleNameClass">simpleNameClass</a></i>(Boolean <i>isElem</i>) <b>returns</b> Element&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-identifierOrKeyword" class="nt">identifierOrKeyword</a></i><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;name</code><code> </code><a href="#prim-makeNsAttribute">makeNsAttribute</a>(<i>isElem</i> ? <a href="#prim-lookupDefault">lookupDefault</a>(<b>environment</b>) : "<code></code>")<code>&gt;</code> <i>x</i> <code>&lt;/name&gt;</code> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<b><i><a href="#t-CName" class="nt">CName</a></i></b><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;name</code><code> </code><a href="#prim-makeNsAttribute">makeNsAttribute</a>(<a href="#prim-lookupPrefix">lookupPrefix</a>(<b>environment</b>, <a href="#prim-prefix">prefix</a>(<i>x</i>)))<code>&gt;</code> <a href="#prim-localPart">localPart</a>(<i>x</i>) <code>&lt;/name&gt;</code> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<b><i><a href="#t-nsName" class="nt">nsName</a></i></b><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;nsName</code><code> </code><a href="#prim-makeNsAttribute">makeNsAttribute</a>(<a href="#prim-lookupPrefix">lookupPrefix</a>(<b>environment</b>, <i>x</i>))<code>/&gt;</code> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>*</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <code>&lt;anyName</code><code>/&gt;</code> }</p><p><i><a name="nt-followAnnotations">followAnnotations</a></i> <b>returns</b> Elements&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i>&#949;</i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ ( ) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>&gt;&gt;</code>"&nbsp;&nbsp;<i><a href="#nt-annotationElement" class="nt">annotationElement</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-followAnnotations" class="nt">followAnnotations</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ (<i>x</i>, <i>y</i>) }</p><p><i><a name="nt-annotations">annotations</a></i> <b>returns</b> Xml&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-documentations" class="nt">documentations</a></i><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <i>x</i> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-documentations" class="nt">documentations</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>[</code>"&nbsp;&nbsp;<i><a href="#nt-annotationAttributes" class="nt">annotationAttributes</a></i><sub><i>y</i></sub>&nbsp;&nbsp;<i><a href="#nt-annotationElements" class="nt">annotationElements</a></i><sub><i>z</i></sub>&nbsp;&nbsp;"<code>]</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ (<i>y</i>, (<i>x</i>, <i>z</i>)) }</p><p><i><a name="nt-annotationAttributes">annotationAttributes</a></i> <b>returns</b> Attributes&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i>&#949;</i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ ( ) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-foreignAttributeName" class="nt">foreignAttributeName</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>=</code>"&nbsp;&nbsp;<i><a href="#nt-literal" class="nt">literal</a></i><sub><i>y</i></sub>&nbsp;&nbsp;<i><a href="#nt-annotationAttributes" class="nt">annotationAttributes</a></i><sub><i>z</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Constraint: </b><a href="#constraint-duplicate attributes">duplicate attributes</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ (<a href="#prim-attribute">attribute</a>(<i>x</i>, <i>y</i>), <i>z</i>) }</p><p><i><a name="nt-foreignAttributeName">foreignAttributeName</a></i> <b>returns</b> Name&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-prefixedName" class="nt">prefixedName</a></i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Constraint: </b><a href="#constraint-xmlns namespace URI">xmlns namespace URI</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Constraint: </b><a href="#constraint-unqualified name">unqualified name</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Constraint: </b><a href="#constraint-RELAX NG namespace URI">RELAX NG namespace URI</a></p><p><i><a name="nt-annotationElements">annotationElements</a></i> <b>returns</b> Elements&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i>&#949;</i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ ( ) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-annotationElement" class="nt">annotationElement</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-annotationElements" class="nt">annotationElements</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ (<i>x</i>, <i>y</i>) }</p><p><i><a name="nt-annotationElement">annotationElement</a></i> <b>returns</b> Element&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-foreignElementName" class="nt">foreignElementName</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-annotationAttributesContent" class="nt">annotationAttributesContent</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-element">element</a>(<b>environment</b>, <i>x</i>, <i>y</i>) }</p><p><i><a name="nt-foreignElementName">foreignElementName</a></i> <b>returns</b> Name&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-identifierOrKeyword" class="nt">identifierOrKeyword</a></i><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-name">name</a>("<code></code>", <i>x</i>) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-prefixedName" class="nt">prefixedName</a></i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Constraint: </b><a href="#constraint-RELAX NG namespace URI">RELAX NG namespace URI</a></p><p><i><a name="nt-annotationElementNotKeyword">annotationElementNotKeyword</a></i> <b>returns</b> Element&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-foreignElementNameNotKeyword" class="nt">foreignElementNameNotKeyword</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-annotationAttributesContent" class="nt">annotationAttributesContent</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-element">element</a>(<b>environment</b>, <i>x</i>, <i>y</i>) }</p><p><i><a name="nt-foreignElementNameNotKeyword">foreignElementNameNotKeyword</a></i> <b>returns</b> Name&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<b><i><a href="#t-identifier" class="nt">identifier</a></i></b><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-name">name</a>("<code></code>", <i>x</i>) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-prefixedName" class="nt">prefixedName</a></i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Constraint: </b><a href="#constraint-RELAX NG namespace URI">RELAX NG namespace URI</a></p><p><i><a name="nt-annotationAttributesContent">annotationAttributesContent</a></i> <b>returns</b> Xml&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;"<code>[</code>"&nbsp;&nbsp;<i><a href="#nt-nestedAnnotationAttributes" class="nt">nestedAnnotationAttributes</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-annotationContent" class="nt">annotationContent</a></i><sub><i>y</i></sub>&nbsp;&nbsp;"<code>]</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ (<i>x</i>, <i>y</i>) }</p><p><i><a name="nt-nestedAnnotationAttributes">nestedAnnotationAttributes</a></i> <b>returns</b> Attributes&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i>&#949;</i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ ( ) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-anyAttributeName" class="nt">anyAttributeName</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>=</code>"&nbsp;&nbsp;<i><a href="#nt-literal" class="nt">literal</a></i><sub><i>y</i></sub>&nbsp;&nbsp;<i><a href="#nt-nestedAnnotationAttributes" class="nt">nestedAnnotationAttributes</a></i><sub><i>z</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Constraint: </b><a href="#constraint-duplicate attributes">duplicate attributes</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ (<a href="#prim-attribute">attribute</a>(<i>x</i>, <i>y</i>), <i>z</i>) }</p><p><i><a name="nt-anyAttributeName">anyAttributeName</a></i> <b>returns</b> Name&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-identifierOrKeyword" class="nt">identifierOrKeyword</a></i><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-name">name</a>("<code></code>", <i>x</i>) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-prefixedName" class="nt">prefixedName</a></i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Constraint: </b><a href="#constraint-xmlns namespace URI">xmlns namespace URI</a></p><p><i><a name="nt-annotationContent">annotationContent</a></i> <b>returns</b> Content&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i>&#949;</i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ ( ) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-nestedAnnotationElement" class="nt">nestedAnnotationElement</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-annotationContent" class="nt">annotationContent</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ (<i>x</i>, <i>y</i>) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-literal" class="nt">literal</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-annotationContent" class="nt">annotationContent</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ (<a href="#prim-text">text</a>(<i>x</i>), <i>y</i>) }</p><p><i><a name="nt-nestedAnnotationElement">nestedAnnotationElement</a></i> <b>returns</b> Element&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-anyElementName" class="nt">anyElementName</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-annotationAttributesContent" class="nt">annotationAttributesContent</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-element">element</a>(<b>environment</b>, <i>x</i>, <i>y</i>) }</p><p><i><a name="nt-anyElementName">anyElementName</a></i> <b>returns</b> Name&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-identifierOrKeyword" class="nt">identifierOrKeyword</a></i><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-name">name</a>("<code></code>", <i>x</i>) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-prefixedName" class="nt">prefixedName</a></i></p><p><i><a name="nt-prefixedName">prefixedName</a></i> <b>returns</b> Name&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<b><i><a href="#t-CName" class="nt">CName</a></i></b><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Constraint: </b><a href="#constraint-annotation inherit">annotation inherit</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-name">name</a>(<a href="#prim-lookupPrefix">lookupPrefix</a>(<b>environment</b>, <a href="#prim-prefix">prefix</a>(<i>x</i>)), <a href="#prim-localPart">localPart</a>(<i>x</i>)) }</p><p><i><a name="nt-documentations">documentations</a></i> <b>returns</b> Elements&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i>&#949;</i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ ( ) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<b><i><a href="#t-documentation" class="nt">documentation</a></i></b><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-documentations" class="nt">documentations</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ (<a href="#prim-element">element</a>(<b>environment</b>, <a href="#prim-documentationElementName">documentationElementName</a>(), <a href="#prim-text">text</a>(<i>x</i>)), <i>y</i>) }</p><p><i><a name="nt-identifierOrKeyword">identifierOrKeyword</a></i> <b>returns</b> String&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<b><i><a href="#t-identifier" class="nt">identifier</a></i></b><br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-keyword" class="nt">keyword</a></i></p><p><i><a name="nt-keyword">keyword</a></i> <b>returns</b> String&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;"<code>attribute</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>default</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>datatypes</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>div</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>element</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>empty</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>external</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>grammar</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>include</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>inherit</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>list</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>mixed</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>namespace</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>notAllowed</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>parent</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>start</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>string</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>text</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>token</code>"</p><p><i><a name="nt-literal">literal</a></i> <b>returns</b> String&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<b><i><a href="#t-literalSegment" class="nt">literalSegment</a></i></b><br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<b><i><a href="#t-literalSegment" class="nt">literalSegment</a></i></b><sub><i>x</i></sub>&nbsp;&nbsp;"<code>~</code>"&nbsp;&nbsp;<i><a href="#nt-literal" class="nt">literal</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-stringConcat">stringConcat</a>(<i>x</i>, <i>y</i>) }</p><div class="constraint"><h4 class="title">Constraint: <a name="constraint-valid prefix">valid prefix</a></h4>
+<p>It is an error if the value of a <i><a href="#nt-namespacePrefix" class="nt">namespacePrefix</a></i> is <tt>xmlns</tt>.</p>
+</div><div class="constraint"><h4 class="title">Constraint: <a name="constraint-xml prefix">xml prefix</a></h4>
+<p>It is an error if the value of <i><a href="#nt-namespacePrefix" class="nt">namespacePrefix</a></i> is <tt>xml</tt> and the the value
+of the <i><a href="#nt-namespaceURILiteral" class="nt">namespaceURILiteral</a></i> is not
+<tt>http://www.w3.org/XML/1998/namespace</tt>.</p>
+</div><div class="constraint"><h4 class="title">Constraint: <a name="constraint-xml namespace URI">xml namespace URI</a></h4><p>It is an error if the value
+of the <i><a href="#nt-namespaceURILiteral" class="nt">namespaceURILiteral</a></i> is
+<tt>http://www.w3.org/XML/1998/namespace</tt> and the value
+of the <i><a href="#nt-namespacePrefix" class="nt">namespacePrefix</a></i> is not
+<tt>xml</tt>.</p></div><div class="constraint"><h4 class="title">Constraint: <a name="constraint-xsd prefix">xsd prefix</a></h4>
+<p>It is an error if the value of <i><a href="#nt-datatypePrefix" class="nt">datatypePrefix</a></i> is <tt>xsd</tt> and the the value
+of the <i><a href="#nt-literal" class="nt">literal</a></i> is not
+<tt>http://www.w3.org/2001/XMLSchema-datatypes</tt>.</p>
+</div><div class="constraint"><h4 class="title">Constraint: <a name="constraint-datatypes URI">datatypes URI</a></h4><p>It is an error if the value of
+the literal in a <tt>datatypes</tt> declaration is not a
+syntactically legal value for a <tt>datatypeLibrary</tt> as
+specified in Section 3 of [<a href="#spec">RELAX NG</a>].</p></div><div class="constraint"><h4 class="title">Constraint: <a name="constraint-duplicate declaration">duplicate declaration</a></h4><p>It is an error if there
+is more than one namespace declaration of a particular prefix, more
+than one default namespace declaration or more than one declaration of
+a particular datatypes prefix.</p></div><div class="constraint"><h4 class="title">Constraint: <a name="constraint-single element">single element</a></h4><p>It is an error if a top-level
+pattern translates to a sequence of more than one element (which can
+happen as the result of the use of annotations).</p></div><div class="constraint"><h4 class="title">Constraint: <a name="constraint-unqualified name">unqualified name</a></h4>
+<p>It is an error if the namespace URI of a <i><a href="#nt-prefixedName" class="nt">prefixedName</a></i> in a <i><a href="#nt-foreignAttributeName" class="nt">foreignAttributeName</a></i> is the empty string.</p>
+</div><div class="constraint"><h4 class="title">Constraint: <a name="constraint-RELAX NG namespace URI">RELAX NG namespace URI</a></h4>
+<p>It is an error if the namespace URI of a <i><a href="#nt-prefixedName" class="nt">prefixedName</a></i> in a <i><a href="#nt-foreignElementName" class="nt">foreignElementName</a></i>, a
+<i><a href="#nt-foreignElementNameNotKeyword" class="nt">foreignElementNameNotKeyword</a></i> or a <i><a href="#nt-foreignAttributeName" class="nt">foreignAttributeName</a></i> is the RELAX NG namespace URI
+<tt>http://relaxng.org/ns/structure/1.0</tt>.</p>
+</div><div class="constraint"><h4 class="title">Constraint: <a name="constraint-xmlns namespace URI">xmlns namespace URI</a></h4>
+<p>It is an error if the namespace URI of a <i><a href="#nt-prefixedName" class="nt">prefixedName</a></i> in a <i><a href="#nt-foreignAttributeName" class="nt">foreignAttributeName</a></i> or an <i><a href="#nt-anyAttributeName" class="nt">anyAttributeName</a></i> is <tt>http://www.w3.org/2000/xmlns</tt>.</p>
+</div><div class="constraint"><h4 class="title">Constraint: <a name="constraint-duplicate attributes">duplicate attributes</a></h4>
+<p>It is an error if a <i><a href="#nt-nestedAnnotationAttributes" class="nt">nestedAnnotationAttributes</a></i> or an <i><a href="#nt-annotationAttributes" class="nt">annotationAttributes</a></i> contains two attributes with the same
+namespace URI and local name.</p>
+</div><div class="constraint"><h4 class="title">Constraint: <a name="constraint-annotation inherit">annotation inherit</a></h4>
+<p>It is an error if the namespace URI in the value of a <i><a href="#nt-prefixedName" class="nt">prefixedName</a></i> is <b>inherit</b>.</p>
+</div><div class="constraint"><h4 class="title">Constraint: <a name="constraint-any URI">any URI</a></h4>
+<p>It is an error if the value of the literal used with
+<tt>external</tt> or <tt>include</tt> declaration
+does not meet the requirements for the anyURI symbol specified in
+Section 3 of [<a href="#spec">RELAX NG</a>].</p>
+</div></div><div class="section" lang="en"><div class="titlepage"><div><h3 class="title"><a name="d0e3892"></a>2.&nbsp;Lexical structure</h3></div></div><p>This section describes how to transform the textual
+representation of a RELAX NG schema in compact syntax into a sequence
+of tokens, which can be parsed using the grammar specified in <a href="#formal-syntax" title="1.&nbsp;Syntax">Section&nbsp;1</a>.</p><p>There are five distinct stages, which are logically consecutive;
+the result of each stage is the input to the following stage.</p><div class="section" lang="en"><div class="titlepage"><div><h4 class="title"><a name="d0e3901"></a>2.1.&nbsp;Character encoding</h4></div></div><p>The textual representation of the RELAX NG schema in compact
+syntax may be either a sequence of Unicode characters or a sequence of
+bytes.  In the latter case, the first stage is to transform the
+sequence of bytes to the sequence of characters.  The sequence of
+bytes may have associated metadata specifying the encoding.  One
+example of such metadata is the <tt>charset</tt> parameter
+in a MIME media type [<a href="#rfc2046">RFC 2046</a>].
+If there is such metadata, then the specified
+encoding is used.  Otherwise, the first two bytes of the sequence are
+examined.  If these are #xFF followed by #xFE or #xFE followed by
+#xFF, then an encoding of UTF-16 [<a href="#unicode">Unicode</a>] will be
+used, little-endian in the former case, big-endian in the latter case.
+Otherwise an encoding of UTF-8 [<a href="#unicode">Unicode</a>] is used.  It
+is an error if the sequence of bytes is not a legal sequence in the
+selected encoding.</p></div><div class="section" lang="en"><div class="titlepage"><div><h4 class="title"><a name="d0e3915"></a>2.2.&nbsp;BOM stripping</h4></div></div><p>If the first character of the sequence is a byte order mark
+(#xFEFF), then it is removed.</p></div><div class="section" lang="en"><div class="titlepage"><div><h4 class="title"><a name="d0e3920"></a>2.3.&nbsp;Newline normalization</h4></div></div><p>Representations of newlines are normalized to a newline
+marker. Specifically, each occurrence of</p><div class="itemizedlist"><ul type="disc"><li><a name="d0e3926"></a>a #xA character,</li><li><a name="d0e3929"></a>a #xD character that is not followed by a #xA character, or</li><li><a name="d0e3932"></a>a #xD, #xA character pair</li></ul></div><p>is transformed to a newline marker.  The result of this stage is
+thus a sequence whose members are Unicode characters and newline
+markers.</p></div><div class="section" lang="en"><div class="titlepage"><div><h4 class="title"><a name="d0e3937"></a>2.4.&nbsp;Escape interpretation</h4></div></div><p>In this stage, each escape sequence of the form
+<tt>\x{<i><tt>n</tt></i>}</tt>, where
+<i><tt>n</tt></i> is a hexadecimal number, is replaced by
+the character with Unicode code <i><tt>n</tt></i>.  The
+escape sequence must match the production <i><a href="#nt-escapeSequence" class="nt">escapeSequence</a></i>; the value computed in the BNF is the Unicode
+code of the replacement character.  It is an error if the replacement
+character does not match the <tt>Char</tt> production of
+[<a href="#xml-rec">XML 1.0</a>].  It is an error if the input character
+sequence contains a character sequence <i><a href="#nt-escapeOpen" class="nt">escapeOpen</a></i>
+that does not start an <i><a href="#nt-escapeSequence" class="nt">escapeSequence</a></i>.  After an
+escape sequence has been replaced, scanning for escape sequences
+continues following the replacement character; thus
+<tt>\x{5C}x{5C}</tt> is transformed to
+<tt>\x{5C}</tt> not to <tt>\</tt>.  The
+replacement for <tt>\x{A}</tt> or <tt>\x{D}</tt>
+is a character, as for all other escape sequences, not a newline
+marker.  Thus the sequence that results from this stage can contain #xA
+and #xD characters as well as newline markers.</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>The <tt>\</tt> character that opens an escape
+sequence may be followed by more than one <tt>x</tt>.  This
+makes it possible for there to be a reversible transformation that
+maps a schema to a form containing only ASCII characters; the
+transformation replaces adds an extra <tt>x</tt> to each
+existing escape sequence, and replaces every non-ASCII character by an
+escape sequence with exactly one <tt>x</tt>.</p></div><p><i><a name="nt-escapeSequence">escapeSequence</a></i> <b>returns</b> Number&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-escapeOpen" class="nt">escapeOpen</a></i>&nbsp;&nbsp;<i><a href="#nt-hexNumber" class="nt">hexNumber</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-escapeClose" class="nt">escapeClose</a></i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <i>x</i> }</p><p><i><a name="nt-escapeOpen">escapeOpen</a></i> <b>returns</b> Void&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;"<code>\</code>"&nbsp;&nbsp;<i><a href="#nt-xs" class="nt">xs</a></i>&nbsp;&nbsp;"<code>{</code>"</p><p><i><a name="nt-xs">xs</a></i> <b>returns</b> Void&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;"<code>x</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>x</code>"&nbsp;&nbsp;<i><a href="#nt-xs" class="nt">xs</a></i></p><p><i><a name="nt-escapeClose">escapeClose</a></i> <b>returns</b> Void&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;"<code>}</code>"</p><p><i><a name="nt-hexNumber">hexNumber</a></i> <b>returns</b> Number&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-hexDigit" class="nt">hexDigit</a></i><br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<i><a href="#nt-hexNumber" class="nt">hexNumber</a></i><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-hexDigit" class="nt">hexDigit</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ (<i>x</i> * 16) + <i>y</i> }</p><p><i><a name="nt-hexDigit">hexDigit</a></i> <b>returns</b> Number&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;"<code>0</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ 0 }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>1</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ 1 }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>2</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ 2 }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>3</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ 3 }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>4</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ 4 }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>5</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ 5 }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>6</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ 6 }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>7</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ 7 }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>8</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ 8 }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>9</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ 9 }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;[<code>A</code><code>a</code>]<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ 10 }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;[<code>B</code><code>b</code>]<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ 11 }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;[<code>C</code><code>c</code>]<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ 12 }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;[<code>D</code><code>d</code>]<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ 13 }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;[<code>E</code><code>e</code>]<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ 14 }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;[<code>F</code><code>f</code>]<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ 15 }</p></div><div class="section" lang="en"><div class="titlepage"><div><h4 class="title"><a name="d0e4256"></a>2.5.&nbsp;Tokenization</h4></div></div><p>In this stage, the sequence of characters and newline markers is
+tokenized: it is transformed into a sequence of tokens, where each
+token corresponds to a terminal in the grammar in <a href="#formal-syntax" title="1.&nbsp;Syntax">Section&nbsp;1</a>.</p><p>A sequence of characters and newline markers is tokenized by
+first finding the longest initial subsequence that:</p><div class="itemizedlist"><ul type="disc"><li><a name="d0e4266"></a>is one of the literal string terminals occurring
+in the BNF in <a href="#formal-syntax" title="1.&nbsp;Syntax">Section&nbsp;1</a>;</li><li><a name="d0e4271"></a>matches the grammar of one of the named terminals that
+is referenced in <a href="#formal-syntax" title="1.&nbsp;Syntax">Section&nbsp;1</a> and specified in this
+section, that is, <b><i><a href="#t-identifier" class="nt">identifier</a></i></b>, <b><i><a href="#t-literalSegment" class="nt">literalSegment</a></i></b>, <b><i><a href="#t-CName" class="nt">CName</a></i></b>, <b><i><a href="#t-nsName" class="nt">nsName</a></i></b>
+or <b><i><a href="#t-documentation" class="nt">documentation</a></i></b>; or</li><li><a name="d0e4286"></a>matches the grammar for <b><i><a href="#t-separator" class="nt">separator</a></i></b>.</li></ul></div><p>If the longest such initial subsequence matches <b><i><a href="#t-separator" class="nt">separator</a></i></b>, this subsequence is discarded.  Otherwise, a
+single non-terminal is produced from this initial subsequence. In
+either case, the tokenization proceeds with the rest of the sequence.
+It is an error if there is no such initial subsequence.</p><p>The production rules below use some additional notation.  Square
+brackets enclose a character class.  A character class of the form
+<tt>[^<i><tt>chars</tt></i>]</tt> specifies any
+legal XML character that does not occur in
+<i><tt>chars</tt></i>.  A legal XML character is a
+character that matches the <tt>Char</tt> production of [<a href="#xml-rec">XML 1.0</a>].  A character class of the form
+<tt>[<i><tt>chars</tt></i>]</tt>, where
+<i><tt>chars</tt></i> does not being with
+<tt>^</tt>, specifies any single character that occurs in
+<i><tt>chars</tt></i>.  XML hexadecimal character
+references are used to denote a single character, as in XML.  A
+newline marker is denoted by &amp;newline;. <i>NCName</i>
+is defined in [<a href="#xml-names">XML Namespaces</a>].</p><p>The value of a variable bound to a character class is a string
+of length 1 containing the character that matched the character class;
+if the character class matches a newline marker, then the string
+contains the character #xA.</p><p><b><i><a name="t-identifier">identifier</a></i></b> <b>returns</b> String&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i>NCName</i><sub><i>x</i></sub> - <i><a href="#nt-keyword" class="nt">keyword</a></i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <i>x</i> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>\</code>"&nbsp;&nbsp;<i>NCName</i><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <i>x</i> }</p><p><b><i><a name="t-CName">CName</a></i></b> <b>returns</b> Qname&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i>NCName</i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>:</code>"&nbsp;&nbsp;<i>NCName</i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-qName">qName</a>(<i>x</i>, <i>y</i>) }</p><p><b><i><a name="t-nsName">nsName</a></i></b> <b>returns</b> String&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i>NCName</i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>:*</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <i>x</i> }</p><p><b><i><a name="t-literalSegment">literalSegment</a></i></b> <b>returns</b> String&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;"<code>"</code>"&nbsp;&nbsp;<i><a href="#nt-stringNoQuot" class="nt">stringNoQuot</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>"</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <i>x</i> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>'</code>"&nbsp;&nbsp;<i><a href="#nt-stringNoApos" class="nt">stringNoApos</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>'</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <i>x</i> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>"""</code>"&nbsp;&nbsp;<i><a href="#nt-stringNoTripleQuot" class="nt">stringNoTripleQuot</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>"""</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <i>x</i> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>'''</code>"&nbsp;&nbsp;<i><a href="#nt-stringNoTripleApos" class="nt">stringNoTripleApos</a></i><sub><i>x</i></sub>&nbsp;&nbsp;"<code>'''</code>"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <i>x</i> }</p><p><i><a name="nt-stringNoQuot">stringNoQuot</a></i> <b>returns</b> String&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i>&#949;</i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ "<code></code>" }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;[^<code>"</code>&amp;newline;]<sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-stringNoQuot" class="nt">stringNoQuot</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-stringConcat">stringConcat</a>(<i>x</i>, <i>y</i>) }</p><p><i><a name="nt-stringNoApos">stringNoApos</a></i> <b>returns</b> String&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i>&#949;</i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ "<code></code>" }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;[^<code>'</code>&amp;newline;]<sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-stringNoApos" class="nt">stringNoApos</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-stringConcat">stringConcat</a>(<i>x</i>, <i>y</i>) }</p><p><i><a name="nt-stringNoTripleQuot">stringNoTripleQuot</a></i> <b>returns</b> String&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i>&#949;</i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ "<code></code>" }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;[^<code>"</code>]<sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-stringNoTripleQuot" class="nt">stringNoTripleQuot</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-stringConcat">stringConcat</a>(<i>x</i>, <i>y</i>) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>"</code>"&nbsp;&nbsp;[^<code>"</code>]<sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-stringNoTripleQuot" class="nt">stringNoTripleQuot</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-stringConcat">stringConcat</a>("<code>"</code>", <i>x</i>, <i>y</i>) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>""</code>"&nbsp;&nbsp;[^<code>"</code>]<sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-stringNoTripleQuot" class="nt">stringNoTripleQuot</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-stringConcat">stringConcat</a>("<code>""</code>", <i>x</i>, <i>y</i>) }</p><p><i><a name="nt-stringNoTripleApos">stringNoTripleApos</a></i> <b>returns</b> String&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i>&#949;</i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ "<code></code>" }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;[^<code>'</code>]<sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-stringNoTripleApos" class="nt">stringNoTripleApos</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-stringConcat">stringConcat</a>(<i>x</i>, <i>y</i>) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>'</code>"&nbsp;&nbsp;[^<code>'</code>]<sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-stringNoTripleApos" class="nt">stringNoTripleApos</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-stringConcat">stringConcat</a>("<code>'</code>", <i>x</i>, <i>y</i>) }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>''</code>"&nbsp;&nbsp;[^<code>'</code>]<sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-stringNoTripleApos" class="nt">stringNoTripleApos</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-stringConcat">stringConcat</a>("<code>''</code>", <i>x</i>, <i>y</i>) }</p><p><b><i><a name="t-documentation">documentation</a></i></b> <b>returns</b> String&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i><a href="#nt-documentationLine" class="nt">documentationLine</a></i><br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<b><i><a href="#t-documentation" class="nt">documentation</a></i></b><sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-documentationContinuation" class="nt">documentationContinuation</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-stringConcat">stringConcat</a>(<i>x</i>, <i>y</i>) }</p><p><i><a name="nt-documentationLine">documentationLine</a></i> <b>returns</b> String&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;"<code>##</code>"&nbsp;&nbsp;<i><a href="#nt-documentationLineContent" class="nt">documentationLineContent</a></i><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <i>x</i> }</p><p><i><a name="nt-documentationContinuation">documentationContinuation</a></i> <b>returns</b> String&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;[&amp;newline;&amp;#xA;]<sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-indent" class="nt">indent</a></i>&nbsp;&nbsp;<i><a href="#nt-documentationLine" class="nt">documentationLine</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-stringConcat">stringConcat</a>(<i>x</i>, <i>y</i>) }</p><p><i><a name="nt-indent">indent</a></i> <b>returns</b> Void&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i>&#949;</i><br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;[&amp;#x9;&amp;#x20;]<sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-indent" class="nt">indent</a></i></p><p><i><a name="nt-documentationLineContent">documentationLineContent</a></i> <b>returns</b> String&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i>&#949;</i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ "<code></code>" }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>#</code>"&nbsp;&nbsp;<i><a href="#nt-documentationLineContent" class="nt">documentationLineContent</a></i><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <i>x</i> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code> </code>"&nbsp;&nbsp;<i><a href="#nt-restOfLine" class="nt">restOfLine</a></i><sub><i>x</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <i>x</i> }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;[^&amp;newline;&amp;#xA;<code> </code><code>#</code>]<sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-restOfLine" class="nt">restOfLine</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-stringConcat">stringConcat</a>(<i>x</i>, <i>y</i>) }</p><p><i><a name="nt-restOfLine">restOfLine</a></i> <b>returns</b> String&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;<i>&#949;</i><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ "<code></code>" }<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;[^&amp;newline;&amp;#xA;]<sub><i>x</i></sub>&nbsp;&nbsp;<i><a href="#nt-restOfLine" class="nt">restOfLine</a></i><sub><i>y</i></sub><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <a href="#prim-stringConcat">stringConcat</a>(<i>x</i>, <i>y</i>) }</p><p><b><i><a name="t-separator">separator</a></i></b> <b>returns</b> Void&nbsp;&nbsp;::=<br>&nbsp;&nbsp;&nbsp;&nbsp;[&amp;#x9;&amp;#xA;&amp;#x20;&amp;newline;]<br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>#</code>"&nbsp;&nbsp;[^&amp;newline;&amp;#xA;<code>#</code>]&nbsp;&nbsp;<i><a href="#nt-restOfLine" class="nt">restOfLine</a></i><br>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;"<code>#</code>"</p></div></div></div><div class="appendix" lang="en"><h2 class="title" style="clear: both"><a name="compact-relax-ng"></a>B. Compact syntax RELAX NG schema for RELAX NG (Non-Normative)</h2><pre class="programlisting"># RELAX NG XML syntax specified in compact syntax.
+
+default namespace rng = "http://relaxng.org/ns/structure/1.0"
+namespace local = ""
+datatypes xsd = "http://www.w3.org/2001/XMLSchema-datatypes"
+
+start = pattern
+
+pattern =
+  element element { (nameQName | nameClass), (common &amp; pattern+) }
+  | element attribute { (nameQName | nameClass), (common &amp; pattern?) }
+  | element group|interleave|choice|optional
+            |zeroOrMore|oneOrMore|list|mixed { common &amp; pattern+ }
+  | element ref|parentRef { nameNCName, common }
+  | element empty|notAllowed|text { common }
+  | element data { type, param*, (common &amp; exceptPattern?) }
+  | element value { commonAttributes, type?, xsd:string }
+  | element externalRef { href, common }
+  | element grammar { common &amp; grammarContent* }
+
+param = element param { commonAttributes, nameNCName, xsd:string }
+
+exceptPattern = element except { common &amp; pattern+ }
+
+grammarContent = 
+  definition
+  | element div { common &amp; grammarContent* }
+  | element include { href, (common &amp; includeContent*) }
+
+includeContent =
+  definition
+  | element div { common &amp; includeContent* }
+
+definition =
+  element start { combine?, (common &amp; pattern+) }
+  | element define { nameNCName, combine?, (common &amp; pattern+) }
+
+combine = attribute combine { "choice" | "interleave" }
+
+nameClass = 
+  element name { commonAttributes, xsd:QName }
+  | element anyName { common &amp; exceptNameClass? }
+  | element nsName { common &amp; exceptNameClass? }
+  | element choice { common &amp; nameClass+ }
+
+exceptNameClass = element except { common &amp; nameClass+ }
+
+nameQName = attribute name { xsd:QName }
+nameNCName = attribute name { xsd:NCName }
+href = attribute href { xsd:anyURI }
+type = attribute type { xsd:NCName }
+
+common = commonAttributes, foreignElement*
+
+commonAttributes = 
+  attribute ns { xsd:string }?,
+  attribute datatypeLibrary { xsd:anyURI }?,
+  foreignAttribute*
+
+foreignElement = element * - rng:* { (anyAttribute | text | anyElement)* }
+foreignAttribute = attribute * - (rng:*|local:*) { text }
+anyElement = element * { (anyAttribute | text | anyElement)* }
+anyAttribute = attribute * { text }</pre></div><div class="bibliography"><div class="titlepage"><div><h2 class="title"><a name="d0e4913"></a>References</h2></div></div><div class="bibliodiv"><h3 class="title">Normative</h3><dl><dt>Compatibility</dt><dd class="bibliomixed"><a name="compat"></a>James Clark, Makoto
+MURATA, editors.  <span class="citetitle"><i><a href="http://www.oasis-open.org/committees/relax-ng/compatibility.html" target="_top">RELAX NG
+DTD Compatibility</a></i></span>.  OASIS, 2001.</dd><dt>RELAX NG</dt><dd class="bibliomixed"><a name="spec"></a>James Clark, Makoto
+MURATA, editors.  <span class="citetitle"><i><a href="http://www.oasis-open.org/committees/relax-ng/spec.html" target="_top">RELAX NG
+Specification</a></i></span>.  OASIS, 2001.</dd><dt>RFC 2396</dt><dd class="bibliomixed"><a name="rfc2396"></a>T. Berners-Lee, R. Fielding, L. Masinter.
+<span class="citetitle"><i><a href="http://www.ietf.org/rfc/rfc2396.txt" target="_top">RFC 2396:
+Uniform Resource Identifiers (URI): Generic
+Syntax</a></i></span>.
+IETF (Internet Engineering Task Force). 1998.</dd><dt>Unicode</dt><dd class="bibliomixed"><a name="unicode"></a>The Unicode Consortium.
+<span class="citetitle"><i>The Unicode Standard, Version 3.2 or
+later</i></span></dd><dt>XML 1.0</dt><dd class="bibliomixed"><a name="xml-rec"></a>Tim Bray,
+Jean Paoli, and
+C. M. Sperberg-McQueen, Eve Maler, editors.
+<span class="citetitle"><i><a href="http://www.w3.org/TR/REC-xml" target="_top">Extensible Markup
+Language (XML) 1.0 Second Edition</a></i></span>.
+W3C (World Wide Web Consortium), 2000.</dd><dt>XML Namespaces</dt><dd class="bibliomixed"><a name="xml-names"></a>Tim Bray,
+Dave Hollander,
+and Andrew Layman, editors.
+<span class="citetitle"><i><a href="http://www.w3.org/TR/REC-xml-names/" target="_top">Namespaces in
+XML</a></i></span>.
+W3C (World Wide Web Consortium), 1999.</dd></dl></div><div class="bibliodiv"><h3 class="title">Non-Normative</h3><dl><dt>Guidelines</dt><dd class="bibliomixed"><a name="guidelines"></a>James Clark, Kohsuke
+KAWAGUCHI, editors.  <span class="citetitle"><i><a href="http://www.oasis-open.org/committees/relax-ng/xsd.html" target="_top">Guidelines
+for using W3C XML Schema Datatypes with RELAX NG</a></i></span>.
+OASIS, 2001.</dd><dt>RFC 2046</dt><dd class="bibliomixed"><a name="rfc2046"></a>N. Freed,
+N. Borenstein.  <span class="citetitle"><i><a href="http://www.ietf.org/rfc/rfc2046.txt" target="_top">RFC 2046: Multipurpose
+Internet Mail Extensions (MIME) Part Two: Media
+Types</a></i></span>.  IETF (Internet Engineerig Task Force),
+1996.</dd><dt>W3C XML Schema Datatypes</dt><dd class="bibliomixed"><a name="xmlschema-2"></a>Paul V. Biron, Ashok Malhotra, editors.
+<span class="citetitle"><i><a href="http://www.w3.org/TR/xmlschema-2/" target="_top">XML Schema Part 2: Datatypes</a></i></span>.
+W3C (World Wide Web Consortium), 2001.</dd><dt>XDuce</dt><dd class="bibliomixed"><a name="xduce"></a>Haruo Hosoya.
+<span class="citetitle"><i><a href="http://www.kurims.kyoto-u.ac.jp/~hahosoya/papers/phdth.ps" target="_top">Regular Expression
+Types for XML</a></i></span>. PhD Thesis. The University of
+Tokyo, 2000.</dd><dt>XQuery Formal Semantics</dt><dd class="bibliomixed"><a name="xquery"></a>Peter
+Fankhauser et al., editors.<span class="citetitle"><i><a href="http://www.w3.org/TR/2001/WD-query-semantics-20010607/" target="_top">XQuery
+1.0 Formal Semantics.  W3C Working Draft 07 June
+2001</a></i></span>. W3C (World Wide Web Consortium),
+2001.</dd></dl></div></div></div></body></html>

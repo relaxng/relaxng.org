@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+<title>RELAX NG Specification Errata</title>
+<link rel="stylesheet" href="tr.css" type="text/css">
+</head>
+<body>
+<div class="article">
+
+<div class="titlepage"><p class="logo"><a
+href="http://www.oasis-open.org/"><img src="http://www.oasis-open.org/committees/relax-ng/oasis.png" alt="OASIS"
+border="0"></a></p></div>
+
+<h1 class="title">RELAX NG Specification Errata</h1>
+
+<p>This document lists errata in the <a
+href="http://www.oasis-open.org/committees/relax-ng/spec-20011203.html"
+>RELAX NG Specification</a>.</p>
+
+<p>The errata are numbered, classified as Substantive, Editorial or Clarification and listed in reverse chronological order of their date of publication. 
+<hr>
+
+<h2>Errata as of 2002-06-06<a href="http://lists.oasis-open.org/archives/relax-ng/200206/msg00010.html">(meeting report)</a></h2>
+
+<h3>E7 (editorial)</h3>
+
+<p><a href="http://www.oasis-open.org/committees/relax-ng/spec-20011203.html#IDAGHZR">Section 4.15</a></p>
+
+<div class="instruction">
+<P>Replace "transformed into a choice between <tt>oneOrMore</tt> and
+<tt>empty</tt>" with "transformed into a <tt>choice</tt> element with
+one child being an <code>&lt;oneOrMore&gt; <i><tt>p</tt></i>
+&lt;/oneOrMore&gt;</code> element and the other child being an <tt>empty</tt> element, where
+<i><tt>p</tt></i> is the child of the
+<tt>zeroOrMore</tt> element".</p>
+</div>
+
+<p>Source:
+<a href="http://lists.oasis-open.org/archives/relax-ng/200206/msg00007.html">http://lists.oasis-open.org/archives/relax-ng/200206/msg00007.html</a></p>
+
+
+<h3>E6 (editorial)</h3>
+
+<p><a href="http://www.oasis-open.org/committees/relax-ng/spec-20011203.html#IDAQGZR">Section 4.14</a></p>
+
+<div class="instruction">
+<P>Replace "transformed into a choice with <tt>empty</tt>" 
+with "transformed into a <tt>choice</tt> element with one child being
+	the child of the <tt>optional</tt> element and the other child
+	being <tt>empty</tt>".</p>
+</div>
+
+<p>Source:
+<a href="http://lists.oasis-open.org/archives/relax-ng/200206/msg00007.html">http://lists.oasis-open.org/archives/relax-ng/200206/msg00007.html</a></p>
+
+<h3>E5 (editorial)</h3>
+
+<p><a href="http://www.oasis-open.org/committees/relax-ng/spec-20011203.html#IDAJ2YR">Section 4.6</a></p>
+
+<div class="instruction">
+<p>Replace
+"an <tt>externalRef</tt> attribute" in the first paragraph 
+with 
+"an <tt>externalRef</tt> element".</p>
+</div>
+
+<p>Source:
+<a href="http://lists.oasis-open.org/archives/relax-ng/200206/msg00007.html">http://lists.oasis-open.org/archives/relax-ng/200206/msg00007.html</a></p>
+
+<h3>E4 (editorial)</h3>
+
+<p><a href="http://www.oasis-open.org/committees/relax-ng/spec-20011203.html#IDAG3YR">Section 4.7</a></p>
+
+<div class="instruction">
+<p>Replace
+"an <tt>include</tt> attribute" in the second paragraph 
+with 
+"an <tt>include</tt> element".</p>
+</div>
+
+<p>Source:
+<a href="http://lists.oasis-open.org/archives/relax-ng/200206/msg00007.html">http://lists.oasis-open.org/archives/relax-ng/200206/msg00007.html</a></p>
+
+<h3>E3 (sustantiative)</h3>
+
+<p><a href="http://www.oasis-open.org/committees/relax-ng/spec-20011203.html#IDA5MCS">Appendix A</a></p>
+
+<div class="instruction">
+<p>Replace</p>
+
+<pre>      &lt;element name="ref"&gt;
+        &lt;attribute name="name"&gt;
+          &lt;data type="NCName"/&gt;
+        &lt;/attribute&gt;
+        &lt;ref name="common-atts"/&gt;
+      &lt;/element&gt;
+</pre>
+<p>with</p>
+
+<pre>      &lt;element name="ref"&gt;
+        &lt;attribute name="name"&gt;
+          &lt;data type="NCName"/&gt;
+        &lt;/attribute&gt;
+        &lt;ref name="common-atts"/&gt;
+        &lt;ref name="other"/&gt;
+      &lt;/element&gt;
+</pre>
+<p>and replace</p>
+
+<pre>      &lt;element name="parentRef"&gt;
+        &lt;attribute name="name"&gt;
+          &lt;data type="NCName"/&gt;
+        &lt;/attribute&gt;
+        &lt;ref name="common-atts"/&gt;
+      &lt;/element&gt;
+</pre>
+<p>with</p>
+<pre>      &lt;element name="parentRef"&gt;
+        &lt;attribute name="name"&gt;
+          &lt;data type="NCName"/&gt;
+        &lt;/attribute&gt;
+        &lt;ref name="common-atts"/&gt;
+        &lt;ref name="other"/&gt;
+      &lt;/element&gt;
+</pre>
+</div>
+
+<p>Source:
+<a href="http://lists.oasis-open.org/archives/relax-ng/200205/msg00042.html">http://lists.oasis-open.org/archives/relax-ng/200205/msg00042.html</a></p>
+
+<h2>Errata as of 2002-02-28<a href="http://lists.oasis-open.org/archives/relax-ng/200202/msg00049.html">(meeting report)</a></h2>
+
+
+<h3>E2 (substantive)</h3>
+
+<p><a href="http://www.oasis-open.org/committees/relax-ng/spec-20011203.html#IDA5MCS">Appendix A</a></p>
+
+<div class="instruction">
+<p>Replace</p>
+
+<pre>
+              &lt;element name="param"&gt;
+                &lt;attribute name="name"&gt;
+                  &lt;data type="NCName"/&gt;
+                &lt;/attribute&gt;
+                &lt;text/&gt;
+              &lt;/element&gt;</pre>
+
+<p> with </p>
+
+<pre>
+              &lt;element name="param"&gt;
+                &lt;attribute name="name"&gt;
+                  &lt;data type="NCName"/&gt;
+                &lt;/attribute&gt;
+                &lt;ref name="common-atts"/&gt;
+                &lt;text/&gt;
+              &lt;/element&gt;.</pre>
+
+</div>
+
+<p>Source:
+<a href="http://lists.oasis-open.org/archives/relax-ng/200112/msg00044.html">http://lists.oasis-open.org/archives/relax-ng/200112/msg00044.html</a>
+</p>
+
+<h3>E1 (editorial)</h3>
+
+<p><a
+href="http://www.oasis-open.org/committees/relax-ng/spec-20011203.html#full-syntax-example">Section 3.1</a></p>
+
+<div class="instruction">
+<p>In the example, replace <code>&lt;/a:document&gt;</code> by
+<code>&lt;/a:documentation&gt;</code>.
+</p>
+</div>
+
+<p>Source: <a href="http://lists.oasis-open.org/archives/relax-ng/200112/msg00024.html">http://lists.oasis-open.org/archives/relax-ng/200112/msg00024.html</a></p>
+
+
+</div>
+<hr>
+<p>Last updated $Date: 2003/03/27 03:08:33 $ by $Author: jjc $.</p>
+</body>
+</html>
