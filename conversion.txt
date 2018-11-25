@@ -1,0 +1,1 @@
+ piconv -f iso-8859-1 -t utf-8 spec-20011203.html > spec-20011203-8.html

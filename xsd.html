@@ -1,0 +1,93 @@
+<html><head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Guidelines for using W3C XML Schema Datatypes with RELAX NG</title><link rel="stylesheet" href="tr.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.40"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="article"><div class="titlepage"><p class="logo"><a href="http://www.oasis-open.org/"><img src="oasis.png" alt="OASIS" border="0"></a></p><div><h1 class="title"><a name="IDAHAYR"></a>Guidelines for using W3C XML Schema Datatypes with RELAX NG</h1></div><div><h2>Committee Specification 7 September 2001</h2></div><div><dl><dt>This version:</dt><dd>Committee Specification: 7 September 2001</dd></dl></div><div><dl><dt>Editors:</dt><dd>James Clark <tt>&lt;<a href="mailto:jjc@jclark.com">jjc@jclark.com</a>&gt;</tt>, KAWAGUCHI Kohsuke <tt>&lt;<a href="mailto:kohsuke.kawaguchi@sun.com">kohsuke.kawaguchi@sun.com</a>&gt;</tt></dd></dl></div><div></div><div><div class="legalnotice"><p>Copyright © The Organization for the Advancement of
+Structured Information Standards [OASIS] 2001. All Rights
+Reserved.</p><p>This document and translations of it may be copied and furnished
+to others, and derivative works that comment on or otherwise explain
+it or assist in its implementation may be prepared, copied, published
+and distributed, in whole or in part, without restriction of any kind,
+provided that the above copyright notice and this paragraph are
+included on all such copies and derivative works. However, this
+document itself may not be modified in any way, such as by removing
+the copyright notice or references to OASIS, except as needed for the
+purpose of developing OASIS specifications, in which case the
+procedures for copyrights defined in the OASIS Intellectual Property
+Rights document must be followed, or as required to translate it into
+languages other than English.</p><p>The limited permissions granted above are perpetual and will not
+be revoked by OASIS or its successors or assigns.</p><p>This document and the information contained herein is provided
+on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE
+USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY
+IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR
+PURPOSE.</p></div></div><div><hr><div class="abstract"><h2><a name="IDAGCYR"></a>Abstract</h2><p>This document specifies guidelines for using the datatypes
+defined by <a href="#xmlschema-2" title="[W3C XML Schema Datatypes]">[W3C XML Schema Datatypes]</a> with <a href="#spec" title="[RELAX NG]">[RELAX NG]</a>.</p></div></div><div><div class="legalnotice"><h2>Status of this Document</h2><p>This committee specification was approved for publication by the
+OASIS RELAX NG technical committee.  Comments on this document may be
+sent to <a href="mailto:relax-ng-comment@lists.oasis-open.org" target="_top">relax-ng-comment@lists.oasis-open.org</a>.</p></div></div></div><div class="toc"><h2>Table of Contents</h2><dl><dt>1 <a href="#IDAZCYR">Introduction</a></dt><dt>2 <a href="#IDAMDYR">Parameters</a></dt><dt>3 <a href="#IDAVEYR"><tt>NOTATION</tt> datatype</a></dt><dt>4 <a href="#IDAOGYR"><tt>ID</tt>, <tt>IDREF</tt> and
+<tt>IDREFS</tt> datatypes</a></dt></dl><h3>Appendixes</h3><dl><dt><a href="#IDADQYR">References</a></dt></dl></div><hr><div class="section"><a name="IDAZCYR"></a><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="IDAZCYR"></a>1. Introduction</h2></div></div><p>This document specifies guidelines for using the datatypes
+defined by <a href="#xmlschema-2" title="[W3C XML Schema Datatypes]">[W3C XML Schema Datatypes]</a> as a datatype library for
+<a href="#spec" title="[RELAX NG]">[RELAX NG]</a>.  The URI</p><pre class="programlisting">http://www.w3.org/2001/XMLSchema-datatypes</pre><p>should be used to identify the datatype library.  The library
+identified by this URI contains all the builtin datatypes of <a href="#xmlschema-2" title="[W3C XML Schema Datatypes]">[W3C XML Schema Datatypes]</a>, both primitive and derived.</p></div><div class="section"><a name="IDAMDYR"></a><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="IDAMDYR"></a>2. Parameters</h2></div></div><p>Any facet can be specified as a parameter with the following
+exceptions</p><div class="itemizedlist"><ul><li><a name="IDASDYR"></a><tt>whiteSpace</tt> (the builtin derived
+datatype that specifies the desired value for the
+<tt>whiteSpace</tt> facet should be used
+instead)</li><li><a name="IDAZDYR"></a><tt>enumeration</tt> (the
+<tt>value</tt> element should be used
+instead)</li></ul></div><p>If the <tt>pattern</tt> parameter is specified more
+than once for a single <tt>data</tt> element, then a string
+matches the <tt>data</tt> element only if it matches all of
+the patterns.  It is an error to specify a parameter other than
+<tt>pattern</tt> more than once for a single
+<tt>data</tt> element.</p><p>The value of any parameter other than <tt>pattern</tt>
+should be normalized by applying the normalizeWhiteSpace function
+defined in <a href="#spec" title="[RELAX NG]">[RELAX NG]</a>.</p></div><div class="section"><a name="IDAVEYR"></a><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="IDAVEYR"></a>3. <tt>NOTATION</tt> datatype</h2></div></div><p>The relationship between the <tt>NOTATION</tt>
+datatype of <a href="#xmlschema-2" title="[W3C XML Schema Datatypes]">[W3C XML Schema Datatypes]</a> and the
+<tt>NOTATION</tt> datatype of <a href="#xml-rec" title="[XML 1.0]">[XML 1.0]</a> is
+different from the relationship between the <tt>ENTITY</tt>
+datatype of <a href="#xmlschema-2" title="[W3C XML Schema Datatypes]">[W3C XML Schema Datatypes]</a> and the
+<tt>ENTITY</tt> datatype of <a href="#xml-rec" title="[XML 1.0]">[XML 1.0]</a>.
+Whereas values of the <tt>ENTITY</tt> datatype of <a href="#xmlschema-2" title="[W3C XML Schema Datatypes]">[W3C XML Schema Datatypes]</a> refer to entities declared in the DTD of
+document being validated, values of the <tt>NOTATION</tt>
+datatype of <a href="#xmlschema-2" title="[W3C XML Schema Datatypes]">[W3C XML Schema Datatypes]</a> refer to notations declared
+in the XML Schema.  This makes it problematic to use the
+<tt>NOTATION</tt> datatype outside the context of XML Schema
+Part 1. However, since <a href="#xmlschema-2" title="[W3C XML Schema Datatypes]">[W3C XML Schema Datatypes]</a> does not allow a
+schema to use the <tt>NOTATION</tt> datatype directly, but
+requires that a value be specified for the
+<tt>enumeration</tt> facet, and since the values of the
+<tt>NOTATION</tt> datatype are QNames, the
+<tt>NOTATION</tt> datatype is, considering just validation,
+effectively equivalent to the <tt>QName</tt> datatype. It is
+therefore recommended that RELAX NG validators implement the same
+validation semantics for the <tt>NOTATION</tt> datatype as
+for the <tt>QName</tt> datatype.</p></div><div class="section"><a name="IDAOGYR"></a><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="IDAOGYR"></a>4. <tt>ID</tt>, <tt>IDREF</tt> and
+<tt>IDREFS</tt> datatypes</h2></div></div><p>The semantics defined by <a href="#xmlschema-2" title="[W3C XML Schema Datatypes]">[W3C XML Schema Datatypes]</a> for the
+<tt>ID</tt>, <tt>IDREF</tt> and
+<tt>IDREFS</tt> datatypes are purely lexical and do not
+include the cross-reference semantics of the corresponding <a href="#xml-rec" title="[XML 1.0]">[XML 1.0]</a> datatypes.  The cross-reference semantics of these
+datatypes in XML Schema comes from XML Schema Part 1.  Furthermore,
+the <a href="#xml-rec" title="[XML 1.0]">[XML 1.0]</a> cross-reference semantics of these
+datatypes do not fit into the RELAX NG model of what a datatype is.
+Therefore, RELAX NG validation will only validate the lexical aspects
+of these datatypes as defined in <a href="#xmlschema-2" title="[W3C XML Schema Datatypes]">[W3C XML Schema Datatypes]</a>.</p><p>However, <a href="#compatibility" title="[DTD
+Compatibility]">[DTD
+Compatibility]</a> defines the concept of
+an ID-type, which is an additional semantic for datatypes that allows
+datatypes to have <a href="#xml-rec" title="[XML 1.0]">[XML 1.0]</a> cross-reference
+semantics. An implementation of <a href="#compatibility" title="[DTD
+Compatibility]">[DTD
+Compatibility]</a> that
+supports these guidelines should associate the <tt>ID</tt>,
+<tt>IDREF</tt> and <tt>IDREFS</tt> datatypes of
+<a href="#xmlschema-2" title="[W3C XML Schema Datatypes]">[W3C XML Schema Datatypes]</a> with the ID-types ID, IDREF, and IDREFS
+respectively.</p></div><div id="IDADQYR" class="bibliography"><div class="titlepage"><div><h2 class="title"><a name="IDADQYR"></a>References</h2></div></div><div id="xml-rec" class="bibliomixed"><a name="xml-rec"></a><p>Tim Bray,
+Jean Paoli, and
+C. M. Sperberg-McQueen, Eve Maler, editors.
+<span class="citetitle"><i><a href="http://www.w3.org/TR/REC-xml" target="_top">Extensible Markup
+Language (XML) 1.0 Second Edition</a></i></span>.
+W3C (World Wide Web Consortium), 2000.</p></div><div id="spec" class="bibliomixed"><a name="spec"></a><p>James Clark, Makoto
+MURATA, editors.  <span class="citetitle"><i><a href="http://www.oasis-open.org/committees/relax-ng/spec.html" target="_top">RELAX NG
+Specification</a></i></span>.  OASIS, 2001.</p></div><div id="compatibility" class="bibliomixed"><a name="compatibility"></a><p>James Clark, Makoto MURATA, editors.
+<span class="citetitle"><i><a href="http://www.oasis-open.org/committees/relax-ng/compatibility.html" target="_top">RELAX
+NG DTD Compatibility</a></i></span>.  OASIS, 2001.</p></div><div id="xmlschema-2" class="bibliomixed"><a name="xmlschema-2"></a><p>Paul V. Biron, Ashok Malhotra, editors.
+<span class="citetitle"><i><a href="http://www.w3.org/TR/xmlschema-2/" target="_top">XML Schema Part 2: Datatypes</a></i></span>.
+W3C (World Wide Web Consortium), 2001.</p></div></div></div></body></html>

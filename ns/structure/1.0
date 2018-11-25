@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:rddl="http://www.rddl.org/"
+      xmlns:xlink="http://www.w3.org/1999/xlink">
+<head>
+<title>RDDL Directory for RELAX NG</title>
+</head>
+<body>
+<h1>RDDL Directory for RELAX NG</h1>
+<p>RELAX NG is a simple schema language for validating XML documents.</p>
+<div id="rng-rddl">
+<rddl:resource
+  id="rng-spec"
+  xlink:title="RELAX NG [1.0] Specification"
+  xlink:type="simple"
+  xlink:arcrole="http://www.rddl.org/purposes#normative-reference"
+  xlink:role="http://www.isi.edu/in-notes/iana/assignments/media-types/text/html"
+  xlink:href="http://relaxng.org/spec-20011203.html"
+  xlink:show="none" 
+  xlink:actuate="none"> 
+  <div id="rng-rddl-spec">
+  <h2>RELAX NG [1.0] Specification</h2>
+  <p>The <a href="http://relaxng.org/spec-20011203.html">RELAX NG [1.0] Specification</a> is a committee specification published on 3 December 2001.</p>
+  </div>
+</rddl:resource>
+<rddl:resource
+  id="rng-schema"
+  xlink:title="RELAX NG Schema for RELAX NG"
+  xlink:type="simple"
+  xlink:arcrole="http://www.rddl.org/purposes#schema-validation"
+  xlink:role="http://relaxng.org/ns/structure/1.0"
+  xlink:href="http://relaxng.org/relaxng.rng"
+  xlink:show="none" 
+  xlink:actuate="none"> 
+  <div id="rng-rddl-schema">
+  <h2>RELAX NG Schema for RELAX NG</h2>
+  <p>A correct RELAX NG schema must be valid with respect to the <a href="http://relaxng.org/relaxng.rng">RELAX NG Schema for RELAX NG</a>.</p>
+  </div>
+</rddl:resource>
+<rddl:resource
+  id="rng-tutorial"
+  xlink:title="RELAX NG [1.0] Tutorial"
+  xlink:type="simple"
+  xlink:arcrole="http://www.rddl.org/purposes#non-normative-reference"
+  xlink:role="http://www.isi.edu/in-notes/iana/assignments/media-types/text/html"
+  xlink:href="http://relaxng.org/tutorial-20011203.html"
+  xlink:show="none" 
+  xlink:actuate="none"> 
+  <div id="rng-rddl-tutorial">
+  <h2>RELAX NG [1.0] Tutorial</h2>
+  <p>The <a href="http://relaxng.org/tutorial-20011203.html">RELAX NG [1.0] Tutorial</a> is a committee specification published on 3 December 2001.</p>
+  </div>
+</rddl:resource>
+<rddl:resource
+  id="rng-dtd"
+  xlink:title="DTD for RELAX NG"
+  xlink:type="simple"
+  xlink:arcrole="http://www.rddl.org/purposes#validation"
+  xlink:role="http://www.isi.edu/in-notes/iana/assignments/media-types/application/xml-dtd"
+  xlink:href="http://relaxng.org/relaxng.dtd"
+  xlink:show="none" 
+  xlink:actuate="none"> 
+  <div id="rng-rddl-dtd">
+  <h2>DTD for RELAX NG</h2>
+  <p>The non-normative <a href="http://relaxng.org/relaxng.dtd">DTD for RELAX NG</a> was created by Bob DuCharme.</p>
+  </div>
+</rddl:resource>
+<rddl:resource
+  id="rng-xsd"
+  xlink:title="W3C XML Schema for RELAX NG"
+  xlink:type="simple"
+  xlink:arcrole="http://www.rddl.org/purposes#schema-validation"
+  xlink:role="http://www.w3.org/2001/XMLSchema"
+  xlink:href="http://relaxng.org/relaxng.xsd"
+  xlink:show="none" 
+  xlink:actuate="none"> 
+  <div id="rng-rddl-xsd">
+  <h2>W3C XML Schema for RELAX NG</h2>
+  <p>The non-normative <a href="http://relaxng.org/relaxng.xsd">W3C XML Schema for RELAX NG</a> was created by James Clark.</p>
+  </div>
+</rddl:resource>
+<rddl:resource
+  id="rng-home"
+  xlink:title="RELAX NG Home Page"
+  xlink:type="simple"
+  xlink:arcrole="http://www.rddl.org/purposes#non-normative-reference"
+  xlink:role="http://www.isi.edu/in-notes/iana/assignments/media-types/text/html"
+  xlink:href="http://relaxng.org/"
+  xlink:show="none" 
+  xlink:actuate="none"> 
+  <div id="rng-rddl-home">
+  <h2>RELAX NG Home Page</h2>
+  <p>The <a href="http://relaxng.org/">RELAX NG home page</a> contains links to many other RELAX NG-related resources.</p>
+  </div>
+</rddl:resource>
+</div>
+</body>
+</html>

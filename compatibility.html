@@ -1,0 +1,436 @@
+<html><head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>RELAX NG DTD Compatibility</title><link rel="stylesheet" href="tr.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.40"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="article"><div class="titlepage"><p class="logo"><a href="http://www.oasis-open.org/"><img src="oasis.png" alt="OASIS" border="0"></a></p><div><h1 class="title"><a name="IDAHAYR"></a>RELAX NG DTD Compatibility</h1></div><div><h2>Committee Specification 3 December 2001</h2></div><div><dl><dt>This version:</dt><dd>Committee Specification: 3 December 2001</dd></dl><dl><dt>Previous versions:</dt><dd>Committee Specification: 7 September 2001</dd></dl></div><div><dl><dt>Editors:</dt><dd>James Clark <tt>&lt;<a href="mailto:jjc@jclark.com">jjc@jclark.com</a>&gt;</tt>, MURATA Makoto <tt>&lt;<a href="mailto:EB2M-MRT@asahi-net.or.jp">EB2M-MRT@asahi-net.or.jp</a>&gt;</tt></dd></dl></div><div></div><div><div class="legalnotice"><p>Copyright © The Organization for the Advancement of
+Structured Information Standards [OASIS] 2001. All Rights
+Reserved.</p><p>This document and translations of it may be copied and furnished
+to others, and derivative works that comment on or otherwise explain
+it or assist in its implementation may be prepared, copied, published
+and distributed, in whole or in part, without restriction of any kind,
+provided that the above copyright notice and this paragraph are
+included on all such copies and derivative works. However, this
+document itself may not be modified in any way, such as by removing
+the copyright notice or references to OASIS, except as needed for the
+purpose of developing OASIS specifications, in which case the
+procedures for copyrights defined in the OASIS Intellectual Property
+Rights document must be followed, or as required to translate it into
+languages other than English.</p><p>The limited permissions granted above are perpetual and will not
+be revoked by OASIS or its successors or assigns.</p><p>This document and the information contained herein is provided
+on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE
+USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY
+IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR
+PURPOSE.</p></div></div><div><hr><div class="abstract"><h2><a name="IDAMCYR"></a>Abstract</h2><p>This specification defines datatypes and annotations for use in
+<a href="#spec" title="[RELAX NG]">[RELAX NG]</a> schemas.  The purpose of these datatypes and
+annotations is to support some of the features of XML 1.0 DTDs that
+are not supported directly by RELAX NG.</p></div></div><div><div class="legalnotice"><h2>Status of this Document</h2><p>This Committee Specification was approved for publication by the
+OASIS RELAX NG technical committee.  It is a stable document which
+represents the consensus of the committee.  Comments on this document
+may be sent to <a href="mailto:relax-ng-comment@lists.oasis-open.org" target="_top">relax-ng-comment@lists.oasis-open.org</a>.</p><p>A list of known errors in this document is available at <a href="http://www.oasis-open.org/committees/relax-ng/compatibility-20011203-errata.html" target="_top">http://www.oasis-open.org/committees/relax-ng/compatibility-20011203-errata.html</a>.</p></div></div></div><div class="toc"><h2>Table of Contents</h2><dl><dt>1 <a href="#IDACDYR">Introduction</a></dt><dd><dl><dt>1.1 <a href="#IDABEYR">Example</a></dt><dt>1.2 <a href="#IDAPEYR">Infoset modification</a></dt><dt>1.3 <a href="#IDA0EYR">Ambiguity</a></dt></dl></dd><dt>2 <a href="#IDA2FYR">Conformance</a></dt><dt>3 <a href="#default-value">Attribute default values</a></dt><dt>4 <a href="#id">ID, IDREF and IDREFS</a></dt><dt>5 <a href="#IDAC1YR">Documentation</a></dt></dl><h3>Appendixes</h3><dl><dt>A <a href="#IDAP2YR">RELAX NG schema</a></dt><dt><a href="#IDA12YR">References</a></dt></dl></div><hr><div class="section"><a name="IDACDYR"></a><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="IDACDYR"></a>1. Introduction</h2></div></div><p>RELAX NG <a href="#spec" title="[RELAX NG]">[RELAX NG]</a> provides two mechanisms for
+extensibility:</p><div class="itemizedlist"><ul><li><a name="IDALDYR"></a>RELAX NG schemas can reference external
+libraries of datatypes;</li><li><a name="IDAODYR"></a>in a RELAX NG schema, RELAX NG-defined elements can be
+annotated with child elements and attributes from other
+namespaces.</li></ul></div><p>The goal of this specification is to facilitate transition from
+XML 1.0 DTDs to RELAX NG schemas by using these extensibility
+mechanisms to support some of the features of XML 1.0 DTDs that are
+not supported by RELAX NG.</p><p>The annotations defined in this specification have the namespace
+URI:</p><pre class="programlisting">http://relaxng.org/ns/compatibility/annotations/1.0</pre><p>This rest of this specification follows the convention of using
+the prefix <tt>a</tt> to refer to this namespace URI.</p><p>Annotations with the above namespace URI can be used in
+conjunction with annotations with other namespace URIs.  Annotations
+with other namespace URIs are allowed wherever <a href="#spec" title="[RELAX NG]">[RELAX NG]</a>
+specifies that they are allowed.</p><div class="section"><a name="IDABEYR"></a><div class="titlepage"><div><h3 class="title"><a name="IDABEYR"></a>1.1. Example</h3></div></div><p>The following DTD</p><pre class="programlisting">&lt;!DOCTYPE employees [
+&lt;!-- A list of employees. --&gt;
+&lt;!ELEMENT employees (employee*)&gt;
+&lt;!-- An individual employee. --&gt;
+&lt;!ELEMENT employee (#PCDATA)&gt;
+&lt;!ATTLIST employee
+  id ID #REQUIRED
+  manages IDREFS #IMPLIED
+  managedBy IDREF #IMPLIED
+  country (US|JP) "US"
+&gt;
+]&gt;</pre><p>could be translated to the following RELAX NG schema:</p><pre class="programlisting">&lt;element name="employees"
+    xmlns="http://relaxng.org/ns/structure/1.0"
+    xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+    datatypeLibrary="http://relaxng.org/ns/compatibility/datatypes/1.0"&gt;
+  &lt;a:documentation&gt;A list of employees.&lt;/a:documentation&gt;
+  &lt;zeroOrMore&gt;
+    &lt;element name="employee"&gt;
+      &lt;a:documentation&gt;An individual employee.&lt;/a:documentation&gt;
+      &lt;attribute name="id"&gt;
+        &lt;data type="ID"/&gt;
+      &lt;/attribute&gt; 
+      &lt;optional&gt;
+        &lt;attribute name="manages"&gt;
+          &lt;data type="IDREFS"/&gt;
+        &lt;/attribute&gt;
+      &lt;/optional&gt;
+      &lt;optional&gt;
+        &lt;attribute name="managedBy"&gt;
+          &lt;data type="IDREF"/&gt;
+        &lt;/attribute&gt;
+      &lt;/optional&gt;
+      &lt;optional&gt;
+        &lt;attribute name="country" a:defaultValue="US"&gt;
+          &lt;choice&gt;
+            &lt;value&gt;US&lt;/value&gt;
+            &lt;value&gt;JP&lt;/value&gt;
+          &lt;/choice&gt;
+        &lt;/attribute&gt;
+      &lt;/optional&gt;
+      &lt;text/&gt;
+    &lt;/element&gt;
+  &lt;/zeroOrMore&gt;
+&lt;/element&gt;</pre></div><div class="section"><a name="IDAPEYR"></a><div class="titlepage"><div><h3 class="title"><a name="IDAPEYR"></a>1.2. Infoset modification</h3></div></div><p>RELAX NG itself performs only validation: it does not change the
+infoset <a href="#infoset" title="[XML Infoset]">[XML Infoset]</a> of an XML document.  Most of the
+features of XML 1.0 DTDs that are not supported by RELAX NG involve
+modification to the infoset.  In XML 1.0, validation and infoset
+modification are combined in a monolithic XML processor.  It is a goal
+of this specification to provide a clean separation between validation
+and infoset modification, so that a wide variety of implementation
+scenarios are possible. In particular, it should be possible to make
+the infoset modifications either before performing RELAX NG validation
+or after performing RELAX NG validation or without performing RELAX NG
+validation at all.  It should also be possible for an implementation
+of this specification not to modify the infoset at all and instead
+provide the application with a description of the modifications
+implied by the annotations, independently of any particular
+instance.</p><p>This specification does not provide any support for features of
+XML 1.0 DTDs, such as entity declarations, that cannot be cleanly
+separated from validation.</p></div><div class="section"><a name="IDA0EYR"></a><div class="titlepage"><div><h3 class="title"><a name="IDA0EYR"></a>1.3. Ambiguity</h3></div></div><p>In an XML 1.0 document that is valid with respect to a DTD, each
+element or attribute in the instance has a unique corresponding
+element or attribute declaration in the DTD.  With RELAX NG this is
+not always the case: it may be ambiguous which
+<tt>element</tt> or <tt>attribute</tt> pattern any
+particular element or attribute in the instance matches.  In addition,
+it is non-trivial to determine when a RELAX NG schema is ambiguous.  A
+further complication is that even when cases where it is not
+ambiguous, it may require multiple passes or lookahead to determine
+which <tt>element</tt> or <tt>attribute</tt>
+pattern a particular element or attribute matches.  Detecting this
+situation is also non-trivial.</p><p>Some features of XML 1.0 DTDs, in particular default attribute
+values and ID/IDREF/IDREFS validation, depend crucially on this
+unambiguous correspondence between elements or attributes in the
+instance and their corresponding declarations.  In order to support
+these features in RELAX NG schemas by means of datatypes and
+annotations, it is therefore necessary to impose restrictions on the
+use of these datatypes and annotations.  The goals in framing these
+restrictions were as follows:</p><div class="orderedlist"><ol type="1"><li><a name="IDAKFYR"></a>It must be possible to determine whether a schema
+satisfies the restrictions independently of any particular
+instance.</li><li><a name="IDANFYR"></a>Processing of the instance must not require lookahead
+or multiple passes.</li><li><a name="IDAQFYR"></a>The modified infoset must be XML 1.0 compatible: it
+must be an infoset that could have been produced by a validating XML
+1.0 parser for some DTD.</li><li><a name="IDATFYR"></a>Implementation of the restrictions should be
+straightforward.</li><li><a name="IDAWFYR"></a>The restrictions should not be any more restrictive
+than necessary.</li></ol></div></div></div><div class="section"><a name="IDA2FYR"></a><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="IDA2FYR"></a>2. Conformance</h2></div></div><p>This specification defines three features:</p><div class="itemizedlist"><ul><li><a name="IDACGYR"></a>attribute default values</li><li><a name="IDAFGYR"></a>ID/IDREF/IDREFS</li><li><a name="IDAIGYR"></a>documentation</li></ul></div><p>Conformance is defined separately for each feature.  A
+conformant implementation can support any combination of features. For
+each feature, this specification defines</p><div class="itemizedlist"><ul><li><a name="IDAPGYR"></a>a <i>compatibility</i> property; this
+is a property that may hold for a correct RELAX NG schema; it is
+analogous to correctness for RELAX NG;</li><li><a name="IDAUGYR"></a>a <i>soundness</i> relationship; this
+is a relationship that may hold between a RELAX NG schema for which
+the compatibility property holds and an XML instance; it is analogous
+to validity for RELAX NG;</li><li><a name="IDAZGYR"></a>for an instance and schema between which the soundness
+relationship holds, a modification of the infoset of the instance;
+there is nothing analogous to this in RELAX NG.</li></ul></div><p>For each feature, there are two levels of conformance.</p><div class="orderedlist"><ol type="1"><li><a name="IDAAHYR"></a>Level 1 is similar to RELAX NG conformance.  It has
+two parts: determining whether the compatibility property holds of a
+schema, and determining whether the soundness relationship holds
+between a compatible schema and an instance.</li><li><a name="IDADHYR"></a>Level 2 requires that an implementation provide
+information about the modification of the infoset defined for the
+feature.  An implementation can provide the application either with a
+modified infoset or with sufficient information that would allow the
+application to modify the infoset itself.</li></ol></div><p>The following table shows which aspects of conformance are
+applicable to each feature:</p><div class="informaltable" id="IDAJHYR"><a name="IDAJHYR"></a><table border="1"><colgroup><col><col><col><col></colgroup><thead><tr><th>Feature</th><th>Compatibility</th><th>Soundness</th><th>Infoset modification</th></tr></thead><tbody><tr><td>attribute default values</td><td>yes</td><td>no</td><td>yes</td></tr><tr><td>ID/IDREF/IDREFS</td><td>yes</td><td>yes</td><td>yes</td></tr><tr><td>documentation</td><td>yes</td><td>no</td><td>no</td></tr></tbody></table></div><p>A conformant implementation may support different features at
+different levels.</p><p>A conformant implementation may be an integral part of a RELAX
+NG validator or may be a separate software module.</p><p>Note that compatibility does not affect RELAX NG correctness.
+Thus, a conforming RELAX NG validator is required to be able to
+validate an instance against a correct RELAX NG schema even if that
+schema is not compatible with one or more of the features defined in
+this specification. Furthermore, soundness is completely independent
+of validity. A conforming RELAX NG validator must be able to determine
+whether an instance is valid with respect to a correct RELAX NG schema
+regardless of whether it is sound with respect to that schema for any
+of the features defined in this specifcation. A conforming
+implementation of a feature defined by this specification must be able
+to determine whether a instance is sound with respect to a compatible
+schema, regardless of whether the instance is valid with respect to
+that schema.</p></div><div class="section"><a name="default-value"></a><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="default-value"></a>3. Attribute default values</h2></div></div><p>This feature is specified by an annotation attribute. An
+<tt>a:defaultValue</tt> attribute on a RELAX NG
+<tt>attribute</tt> element specifies the default value for
+the attribute.</p><p>A correct RELAX NG schema is compatible with this feature if
+after schema simplification, for each <tt>attribute</tt>
+element that has an <tt>a:defaultValue</tt> attribute, all
+of the following hold:</p><div class="itemizedlist"><ul><li><a name="IDAZRYR"></a>its first child is a <tt>name</tt>
+element</li><li><a name="IDA4RYR"></a>the first child of the containing
+<tt>element</tt> element is a <tt>name</tt>
+element</li><li><a name="IDAFSYR"></a>the value of the <tt>a:defaultValue</tt>
+attribute matches the pattern contained in the
+<tt>attribute</tt> element</li><li><a name="IDAMSYR"></a>the pattern in the <tt>attribute</tt>
+element does not contain a <tt>data</tt> or
+<tt>value</tt> element with a context-dependent datatype; a
+context-dependent datatype is one for which there is a string for
+which the datatypeAllows function (defined in <a href="#spec" title="[RELAX NG]">[RELAX NG]</a>)
+returns both true and false according to the context</li><li><a name="IDAYSYR"></a>any ancestor that is a <tt>choice</tt>
+element has one child that is an <tt>empty</tt>
+element</li><li><a name="IDA5SYR"></a>it has at least one <tt>choice</tt>
+ancestor</li><li><a name="IDAETYR"></a>if the containing definition competes with another
+definition, then that other definition also contains an
+<tt>attribute</tt> element with the same name and with an
+<tt>a:defaultValue</tt> attribute with the same
+value.  A definition<pre class="programlisting">&lt;define name="<i><tt>ln1</tt></i>"&gt;
+  &lt;element&gt;
+    <i><tt>nc1</tt></i>
+    <i><tt>p1</tt></i>
+  &lt;/element&gt;
+&lt;/define&gt;</pre><p>competes with a definition</p><pre class="programlisting">&lt;define name="<i><tt>ln2</tt></i>"&gt;
+  &lt;element&gt;
+    <i><tt>nc2</tt></i>
+    <i><tt>p2</tt></i>
+  &lt;/element&gt;
+&lt;/define&gt;</pre><p>if there is a name <i><tt>n</tt></i> that belongs to
+both <i><tt>nc1</tt></i> and
+<i><tt>nc2</tt></i>.</p></li></ul></div><p>Schema simplification as defined in <a href="#spec" title="[RELAX NG]">[RELAX NG]</a>
+removes all foreign attributes as well as foreign elements.  However,
+when checking compatibility of a schema with this feature, schema
+simplification must preserve <tt>a:defaultValue</tt>
+attributes on <tt>attribute</tt> elements.</p><p>There is no soundness relationship for this feature.</p><p>The modification of the infoset for this feature adds attribute
+information items to element information items.  An attribute
+information item with [local name] <i><tt>x</tt></i>,
+[namespace name] <i><tt>y</tt></i> and [normalized value]
+<i><tt>z</tt></i> is added to an element information item
+<i><tt>e</tt></i>, if and only if:</p><div class="itemizedlist"><ul><li><a name="IDA2UYR"></a><i><tt>e</tt></i> does not already have any attribute
+information item with [local name] <i><tt>x</tt></i> and
+[namespace name] <i><tt>y</tt></i>, and</li><li><a name="IDAFVYR"></a>after schema simplification, the schema contains an
+<tt>attribute</tt> element with<div class="itemizedlist"><ul><li><a name="IDALVYR"></a>a <tt>name</tt> child with content
+<i><tt>x</tt></i> and an <tt>ns</tt> attribute
+with value <i><tt>y</tt></i>,</li><li><a name="IDAWVYR"></a>an <tt>a:defaultValue</tt>
+attribute with value <i><tt>z</tt></i>, and</li><li><a name="IDA3VYR"></a>a containing <tt>element</tt> element that
+has a <tt>name</tt> child with content equal to the [local
+name] of <i><tt>e</tt></i> and an <tt>ns</tt>
+attribute with value equal to the the [namespace name] of
+<i><tt>e</tt></i>.</li></ul></div></li></ul></div></div><div class="section"><a name="id"></a><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="id"></a>4. ID, IDREF and IDREFS</h2></div></div><p>A RELAX NG schema makes use of this feature by using datatypes.
+Each datatype is associated with an <i>ID-type</i>,
+which is one of ID, IDREF or IDREFS or null. The datatype library with
+URI</p><pre class="programlisting">http://relaxng.org/ns/compatibility/datatypes/1.0</pre><p>contains datatypes named <tt>ID</tt>,
+<tt>IDREF</tt> and <tt>IDREFS</tt> associated with
+ID-types of ID, IDREF and IDREFS respectively. The datatypes in other
+datatype libraries are associated with a null ID-type, unless the
+datatype library specifies otherwise.</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title"><a name="IDAAXYR"></a>Note</h3><p><a href="#guidelines" title="[Guidelines]">[Guidelines]</a> recommends that the
+<tt>ID</tt>, <tt>IDREF</tt> and
+<tt>IDREFS</tt> datatypes of <a href="#xmlschema-2" title="[W3C XML Schema Datatypes]">[W3C XML Schema Datatypes]</a>
+should have ID-types ID, IDREF, and IDREFS respectively.</p></div><p>A RELAX NG schema is compatible with this feature if and only
+if, after schema simplification, for each <tt>data</tt> or
+<tt>value</tt> element that specifies a datatype associated
+with a non-null ID-type, all of the following hold:</p><div class="itemizedlist"><ul><li><a name="IDAWXYR"></a>its parent is an <tt>attribute</tt>
+element</li><li><a name="IDA1XYR"></a>the first child of its <tt>attribute</tt>
+parent is a <tt>name</tt> element</li><li><a name="IDAFYYR"></a>the first child of the <tt>element</tt>
+ancestor is a <tt>name</tt> element</li><li><a name="IDAMYYR"></a> if its <tt>attribute</tt> parent has any
+competing <tt>attribute</tt> elements, then each such
+competing <tt>attribute</tt> element has a
+<tt>data</tt> or <tt>value</tt> child specifying a
+datatype associated with the same ID-type. Two attribute
+elements<pre class="programlisting">&lt;attribute&gt; <i><tt>nc1</tt></i> <i><tt>p1</tt></i> &lt;/attribute&gt;</pre><p>and</p><pre class="programlisting">&lt;attribute&gt; <i><tt>nc2</tt></i> <i><tt>p2</tt></i> &lt;/attribute&gt;</pre><p>compete if and only if the containing definitions compete and
+there is a name <i><tt>n</tt></i> that belongs to both
+<i><tt>nc1</tt></i> and <i><tt>nc2</tt></i>.  Note
+that a definition competes with itself.</p></li></ul></div><p>Thus, a RELAX NG schema that is compatible with this feature
+implies a mapping from element/attribute name pairs onto an ID-type,
+and hence a mapping from attributes in the instance onto
+ID-types.</p><p>An instance is sound for this feature with respect to a
+compatible RELAX NG schema if and only if</p><div class="itemizedlist"><ul><li><a name="IDAWZYR"></a>when the value of each attribute in the instance whose
+ID-type is not null is split into a sequence of whitespace-separated
+tokens, the length of the sequence is 1 if the ID-type is ID or IDREF
+and greater than or equal to 1 if the ID-type is
+IDREFS, and</li><li><a name="IDAZZYR"></a>no two distinct tokens in attributes of ID-type ID
+have the same value, and</li><li><a name="IDA2ZYR"></a>for each token in an attribute of ID-type IDREF or
+IDREFS, there is a token in an attribute of ID-type ID with the same
+value</li></ul></div><p>The modification of the infoset for this feature changes the
+[attribute type] property of attribute information items to
+<tt>ID</tt>, <tt>IDREF</tt> or
+<tt>IDREFS</tt> according to the ID-type of the attribute
+and modifies the [normalized value] by applying the
+normalizeWhiteSpace function.</p><p>The semantics needed for RELAX NG validation are defined for
+the datatype library</p><pre class="programlisting">http://relaxng.org/ns/compatibility/datatypes/1.0</pre><p>as follows:</p><div class="itemizedlist"><ul><li><a name="IDAP0YR"></a>for <tt>ID</tt> and <tt>IDREF</tt>
+a string is an allowed representation if it is a single NCName (as
+defined in <a href="#xml-names" title="[XML Namespaces]">[XML Namespaces]</a>) with optional leading and
+trailing whitespace; for <tt>IDREFS</tt> a string is an
+allowed representation if it is a a whitespace-separated list of one
+or more NCNames;</li><li><a name="IDA10YR"></a>values are tested for equality in the same way as for
+the builtin <tt>token</tt> datatype</li></ul></div></div><div class="section"><a name="IDAC1YR"></a><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="IDAC1YR"></a>5. Documentation</h2></div></div><p>The <tt>a:documentation</tt> element can be used to
+specify human-readable documentation.  The functionality provided by
+an <tt>a:documentation</tt> element in a RELAX NG schema
+would be provided by a comment in an XML 1.0 DTD.  The
+<tt>a:documentation</tt> element contains text specifying
+documentation. It can also have namespace-qualified attributes such as
+<tt>xml:lang</tt>.</p><p>If an <tt>a:documentation</tt> element does not have a
+preceding sibling element from the RELAX NG namespace, then the
+specified documentation applies to the parent element.  Otherwise, the
+specified documentation applies to the nearest preceding sibling
+element from the RELAX NG namespace.  There may be multiple
+<tt>a:documentation</tt> elements specifying documentation
+that apply to the same RELAX NG element.</p><p>A correct RELAX NG schema is compatible with this feature if and
+only if, for each <tt>a:documentation</tt> element, all of
+the following hold:</p><div class="itemizedlist"><ul><li><a name="IDA01YR"></a>it does not have any child elements</li><li><a name="IDA31YR"></a>it does not have any attribute whose namespace URI is
+the empty string, the RELAX NG namespace URI or the compatibility
+annotations namespace URI</li><li><a name="IDAA2YR"></a>if it has a preceding sibling element from the RELAX
+NG namespace, then the nearest such preceding sibling element is an
+element that does not allow child elements
+(i.e. <tt>value</tt>, <tt>param</tt> or
+<tt>name</tt>)</li></ul></div><p>There is no soundness relationship for this feature.</p><p>There is no infoset modification for this feature.</p></div><div class="appendix"><h2 class="title" style="clear: both"><a name="IDAP2YR"></a>A. RELAX NG schema</h2><p>A RELAX NG schema that is compatible with the features of this
+specification must, in addition to being valid with respect to the
+RELAX NG schema for RELAX NG specified in <a href="#spec" title="[RELAX NG]">[RELAX NG]</a>, be
+valid with respect to the following schema:</p><pre>&lt;grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+  xmlns:rng="http://relaxng.org/ns/structure/1.0"&gt;
+
+  &lt;start&gt;
+    &lt;choice&gt;
+      &lt;ref name="<a href="#:normal">normal</a>"/&gt;
+      &lt;ref name="<a href="#:attribute">attribute</a>"/&gt;
+      &lt;ref name="<a href="#:atomic">atomic</a>"/&gt;
+    &lt;/choice&gt;
+  &lt;/start&gt;
+
+  <a name=":normal"></a>&lt;define name="normal"&gt;
+    &lt;element&gt;
+      &lt;nsName ns="http://relaxng.org/ns/structure/1.0"&gt;
+        &lt;except&gt;
+          &lt;name&gt;rng:attribute&lt;/name&gt;
+          &lt;name&gt;rng:value&lt;/name&gt;
+          &lt;name&gt;rng:param&lt;/name&gt;
+          &lt;name&gt;rng:name&lt;/name&gt;
+        &lt;/except&gt;
+      &lt;/nsName&gt;
+      &lt;ref name="<a href="#:normalAtts">normalAtts</a>"/&gt;
+      &lt;ref name="<a href="#:normalContent">normalContent</a>"/&gt;
+    &lt;/element&gt;
+  &lt;/define&gt;
+
+  <a name=":attribute"></a>&lt;define name="attribute"&gt;
+    &lt;element name="rng:attribute"&gt;
+      &lt;ref name="<a href="#:normalAtts">normalAtts</a>"/&gt;
+      &lt;optional&gt;
+        &lt;attribute name="a:defaultValue"&gt;
+          &lt;text/&gt;
+        &lt;/attribute&gt;
+      &lt;/optional&gt;
+      &lt;ref name="<a href="#:normalContent">normalContent</a>"/&gt;
+    &lt;/element&gt;
+  &lt;/define&gt;
+
+  <a name=":atomic"></a>&lt;define name="atomic"&gt;
+    &lt;element&gt;
+      &lt;choice&gt;
+        &lt;name&gt;rng:value&lt;/name&gt;
+        &lt;name&gt;rng:param&lt;/name&gt;
+        &lt;name&gt;rng:name&lt;/name&gt;
+      &lt;/choice&gt;
+      &lt;ref name="<a href="#:normalAtts">normalAtts</a>"/&gt;
+      &lt;text/&gt;
+    &lt;/element&gt;
+  &lt;/define&gt;
+
+  <a name=":normalAtts"></a>&lt;define name="normalAtts"&gt;
+    &lt;zeroOrMore&gt;
+      &lt;attribute&gt;
+        &lt;anyName&gt;
+          &lt;except&gt;
+            &lt;nsName ns="http://relaxng.org/ns/compatibility/annotations/1.0"/&gt;
+          &lt;/except&gt;
+        &lt;/anyName&gt;
+        &lt;text/&gt;
+      &lt;/attribute&gt;
+    &lt;/zeroOrMore&gt;
+  &lt;/define&gt;
+
+  <a name=":normalContent"></a>&lt;define name="normalContent"&gt;
+    &lt;interleave&gt;
+      &lt;zeroOrMore&gt;
+        &lt;ref name="<a href="#:foreign">foreign</a>"/&gt;
+      &lt;/zeroOrMore&gt;
+      &lt;group&gt;
+        &lt;zeroOrMore&gt;
+          &lt;ref name="<a href="#:doc">doc</a>"/&gt;
+        &lt;/zeroOrMore&gt;
+        &lt;zeroOrMore&gt;
+          &lt;choice&gt;
+            &lt;group&gt;
+              &lt;ref name="<a href="#:atomic">atomic</a>"/&gt;
+              &lt;zeroOrMore&gt;
+                &lt;ref name="<a href="#:doc">doc</a>"/&gt;
+              &lt;/zeroOrMore&gt;
+            &lt;/group&gt;
+            &lt;ref name="<a href="#:attribute">attribute</a>"/&gt;
+            &lt;ref name="<a href="#:normal">normal</a>"/&gt;
+          &lt;/choice&gt;
+        &lt;/zeroOrMore&gt;
+      &lt;/group&gt;
+    &lt;/interleave&gt;
+  &lt;/define&gt;
+
+  <a name=":foreign"></a>&lt;define name="foreign"&gt;
+    &lt;element&gt;
+      &lt;anyName&gt;
+        &lt;except&gt;
+          &lt;nsName ns="http://relaxng.org/ns/structure/1.0"/&gt;
+          &lt;nsName ns="http://relaxng.org/ns/compatibility/annotations/1.0"/&gt;
+        &lt;/except&gt;
+      &lt;/anyName&gt;
+      &lt;ref name="<a href="#:any">any</a>"/&gt;
+    &lt;/element&gt;
+  &lt;/define&gt;
+
+  <a name=":any"></a>&lt;define name="any"&gt;
+    &lt;zeroOrMore&gt;
+      &lt;choice&gt;
+        &lt;attribute&gt;
+          &lt;anyName/&gt;
+          &lt;text/&gt;
+        &lt;/attribute&gt;
+        &lt;element&gt;
+          &lt;anyName/&gt;
+          &lt;ref name="<a href="#:any">any</a>"/&gt;
+        &lt;/element&gt;
+        &lt;text/&gt;
+      &lt;/choice&gt;
+    &lt;/zeroOrMore&gt;
+  &lt;/define&gt;
+
+  <a name=":doc"></a>&lt;define name="doc"&gt;
+    &lt;element name="a:documentation"&gt;
+      &lt;zeroOrMore&gt;
+        &lt;attribute&gt;
+          &lt;anyName&gt;
+            &lt;except&gt;
+              &lt;nsName ns="http://relaxng.org/ns/structure/1.0"/&gt;
+              &lt;nsName ns="http://relaxng.org/ns/compatibility/annotations/1.0"/&gt;
+              &lt;nsName ns=""/&gt;
+            &lt;/except&gt;
+          &lt;/anyName&gt;
+          &lt;text/&gt;
+        &lt;/attribute&gt;
+      &lt;/zeroOrMore&gt;
+      &lt;text/&gt;
+    &lt;/element&gt;
+  &lt;/define&gt;
+
+&lt;/grammar&gt;
+</pre></div><div id="IDA12YR" class="bibliography"><div class="titlepage"><div><h2 class="title"><a name="IDA12YR"></a>References</h2></div></div><dl><dt>Guidelines</dt><dd id="guidelines" class="bibliomixed"><a name="guidelines"></a>James Clark, Kohsuke
+KAWAGUCHI, editors.  <span class="citetitle"><i><a href="http://www.oasis-open.org/committees/relax-ng/xsd.html" target="_top">Guidelines
+for using W3C XML Schema Datatypes with RELAX NG</a></i></span>.
+OASIS, 2001.</dd><dt>RELAX NG</dt><dd id="spec" class="bibliomixed"><a name="spec"></a>James Clark, Makoto
+MURATA, editors.  <span class="citetitle"><i><a href="http://www.oasis-open.org/committees/relax-ng/spec.html" target="_top">RELAX NG
+Specification</a></i></span>.  OASIS, 2001.</dd><dt>W3C XML Schema Datatypes</dt><dd id="xmlschema-2" class="bibliomixed"><a name="xmlschema-2"></a>Paul V. Biron, Ashok Malhotra, editors.
+<span class="citetitle"><i><a href="http://www.w3.org/TR/xmlschema-2/" target="_top">XML Schema Part 2: Datatypes</a></i></span>.
+W3C (World Wide Web Consortium), 2001.</dd><dt>XML 1.0</dt><dd id="xml-rec" class="bibliomixed"><a name="xml-rec"></a>Tim Bray,
+Jean Paoli, and
+C. M. Sperberg-McQueen, Eve Maler, editors.
+<span class="citetitle"><i><a href="http://www.w3.org/TR/REC-xml" target="_top">Extensible Markup
+Language (XML) 1.0 Second Edition</a></i></span>.
+W3C (World Wide Web Consortium), 2000.</dd><dt>XML Infoset</dt><dd id="infoset" class="bibliomixed"><a name="infoset"></a>John Cowan, Richard Tobin,
+editors.
+<span class="citetitle"><i><a href="http://www.w3.org/TR/xml-infoset/" target="_top">XML
+Information Set</a></i></span>.
+W3C (World Wide Web Consortium), 2001.</dd><dt>XML Namespaces</dt><dd id="xml-names" class="bibliomixed"><a name="xml-names"></a>Tim Bray,
+Dave Hollander,
+and Andrew Layman, editors.
+<span class="citetitle"><i><a href="http://www.w3.org/TR/REC-xml-names/" target="_top">Namespaces in
+XML</a></i></span>.
+W3C (World Wide Web Consortium), 1999.</dd></dl></div></div></body></html>
