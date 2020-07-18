@@ -862,8 +862,8 @@ a <code>choice</code> of the second operands of all top-level
 
 <p>Dongwon Lee, Murali Mani, Makoto Murata. <i>Reasoning about XML
 Schema Languages using Formal Language Theory</i>. 2000. See <a
-href="http://citeseer.nj.nec.com/lee00reasoning.html"
->http://citeseer.nj.nec.com/lee00reasoning.html</a>.</p>
+href="http://citeseer.ist.psu.edu/lee00reasoning.html"
+>http://citeseer.ist.psu.edu/lee00reasoning.html</a>.</p>
 
 <p>Janusz A. Brzozowski. <i>Derivatives of Regular
 Expressions</i>. Journal of the ACM, Volume 11, Issue 4, 1964.</p>
@@ -871,8 +871,8 @@ Expressions</i>. Journal of the ACM, Volume 11, Issue 4, 1964.</p>
 <p>Mark Hopkins. <i>Regular Expression Package</i>. <a
 href="http://compilers.iecc.com/comparch/article/94-02-109">Posted</a>
 to comp.compilers, 1994.  Available from <a
-href="ftp://iecc.com/pub/file/regex.tar.gz"
->ftp://iecc.com/pub/file/regex.tar.gz</a>.</p>
+href="ftp://ftp.iecc.com/pub/file/regex.tar.gz"
+>ftp://ftp.iecc.com/pub/file/regex.tar.gz</a>.</p>
 
 </div>
 
