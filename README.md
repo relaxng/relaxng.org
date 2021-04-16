@@ -8,7 +8,7 @@ Added the OASIS RelaxNG specification as DocBook with transformations and build 
 
 Generate the RelaxNG specification from src/main/resources/xsl via command-line at project root calling:
 
-    mvn clean
+    mvn clean install
 
 Requires [Maven and its requirements](https://maven.apache.org/download.cgi) installed.
 The deliverables are created within target/generated-resources/xml/xslt.
