@@ -54,9 +54,13 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <!-- https://www.mojohaus.org/xml-maven-plugin/transformation.html --> 
                     <transformationSets>
                         <transformationSet>
                             <dir>src/main/resources/xsl/spec</dir>
+                            <includes>
+                                <include>*.xml</include>
+                            </includes>                         
                             <stylesheet>src/test/resources/xsl/specprod/spec.xsl</stylesheet>
                             <!-- https://www.saxonica.com/html/documentation/xsl-elements/output.html -->
                             <outputProperties>                            		
@@ -77,6 +81,9 @@
                         </transformationSet>
                         <transformationSet>
                             <dir>src/main/resources/xsl/compatibility</dir>
+                            <includes>
+                                <include>*.xml</include>
+                            </includes>                            
                             <stylesheet>src/test/resources/xsl/specprod/spec.xsl</stylesheet>
                             <!-- https://www.saxonica.com/html/documentation/xsl-elements/output.html -->
                             <outputProperties>                            		

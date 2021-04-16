@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE article [
 <!-- ELEMENT declarations work around MSXML bug. -->
 <!ELEMENT section ANY>
@@ -10,7 +10,7 @@
 ]>
 <article status="Committee Specification">
 <articleinfo>
-<releaseinfo>$Id: compatibility.xml,v 1.27 2001/12/02 12:14:16 jjc Exp $</releaseinfo>
+<releaseinfo>$Id: compatibility.xml,v 1.28 2002/02/28 jjc Exp $</releaseinfo>
 <title>RELAX NG DTD Compatibility</title>
 <authorgroup>
 <editor>
@@ -26,9 +26,9 @@
   </affiliation>
 </editor>
 </authorgroup>
-<pubdate>3 December 2001</pubdate>
+<pubdate>28 February 2002</pubdate>
 <releaseinfo role="meta">
-$Id: compatibility.xml,v 1.27 2001/12/02 12:14:16 jjc Exp $
+$Id: compatibility.xml,v 1.27 2002/02/28  jjc Exp $
 </releaseinfo>
 
 <copyright><year>2001</year><holder>OASIS</holder></copyright>
@@ -73,7 +73,7 @@ may be sent to <ulink
 url="mailto:relax-ng-comment@lists.oasis-open.org"
 >relax-ng-comment@lists.oasis-open.org</ulink>.</para>
 
-<para>A list of known errors in this document is available at <ulink
+<para>A list of known errors was applied to this document <ulink
 url="http://www.oasis-open.org/committees/relax-ng/compatibility-20011203-errata.html"
 >http://www.oasis-open.org/committees/relax-ng/compatibility-20011203-errata.html</ulink
 >.</para>
@@ -90,8 +90,8 @@ are not supported directly by RELAX NG.</para>
 
 <revhistory>
 <revision>
-  <revnumber>Committee Specification</revnumber>
-  <date>3 December 2001</date>
+  <revnumber>Committee Specification </revnumber>
+  <date>3 December 2001 (plus Errata: 28 February 2002)</date>
 </revision>
 <revision>
   <revnumber>Committee Specification</revnumber>
@@ -519,7 +519,7 @@ element</para></listitem>
 parent is a <literal>name</literal> element</para></listitem>
 
 <listitem><para>the first child of the <literal>element</literal>
-ancestor is a <literal>name</literal> element</para></listitem>
+parent and the descendants of this first <literal>child</literal> are either <literal>choice</literal> or <literal>name</literal> elements</para></listitem>
 
 <listitem><para> if its <literal>attribute</literal> parent has any
 competing <literal>attribute</literal> elements, then each such

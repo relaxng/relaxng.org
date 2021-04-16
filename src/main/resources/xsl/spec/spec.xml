@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE article [
 <!-- ELEMENT declarations work around MSXML bug. -->
 <!ELEMENT section ANY>
@@ -11,7 +11,7 @@
 <article status="Committee Specification" xmlns:p="http://relaxng.org/ns/proofsystem">
 
 <articleinfo>
-<releaseinfo>$Id: spec.xml,v 1.159 2001/12/02 12:12:12 jjc Exp $</releaseinfo>
+<releaseinfo>$Id: spec.xml,v 1.160 2002/06/06 jjc Exp $</releaseinfo>
 <title>RELAX NG Specification</title>
 <authorgroup>
 <editor>
@@ -27,9 +27,9 @@
   </affiliation>
 </editor>
 </authorgroup>
-<pubdate>3 December 2001</pubdate>
+<pubdate>6 June 2002</pubdate>
 <releaseinfo role="meta">
-$Id: spec.xml,v 1.159 2001/12/02 12:12:12 jjc Exp $
+$Id: spec.xml,v 1.160 2002/06/06 jjc Exp $
 </releaseinfo>
 
 <copyright><year>2001</year><holder>OASIS</holder></copyright>
@@ -74,7 +74,7 @@ may be sent to <ulink
 url="mailto:relax-ng-comment@lists.oasis-open.org"
 >relax-ng-comment@lists.oasis-open.org</ulink>.</para>
 
-<para>A list of known errors in this document is available at <ulink
+<para>A list of known errors was applied to this document <ulink
 url="http://www.oasis-open.org/committees/relax-ng/spec-20011203-errata.html"
 >http://www.oasis-open.org/committees/relax-ng/spec-20011203-errata.html</ulink
 >.</para>
@@ -92,7 +92,7 @@ an XML document.</para>
 <revhistory>
 <revision>
   <revnumber>Committee Specification</revnumber>
-  <date>3 December 2001</date>
+  <date>3 December 2001 (plus Errata: 6 June 2002)</date>
 </revision>
 <revision>
   <revnumber>Committee Specification</revnumber>
@@ -473,7 +473,7 @@ document in <xref linkend="data-model-example"/>.</para>
          xmlns:a="http://relaxng.org/ns/annotation/1.0"
          xmlns:ex1="http://www.example.com/n1"
          xmlns:ex2="http://www.example.com/n2">
-  <a:documentation>A foo element.</a:document>
+  <a:documentation>A foo element.</a:documentation>
   <element name="ex1:bar1">
     <empty/>
   </element>
@@ -633,7 +633,7 @@ recursively applying the rules from this subsection and from previous
 subsections of this section.  This must not result in a loop. In other
 words, the transformation of the <literal>grammar</literal> element
 must not require the dereferencing of an <literal>include</literal>
-attribute with an <literal>href</literal> attribute with the same
+element with an <literal>href</literal> attribute with the same
 value.</para>
 
 <para>Define the <firstterm>components</firstterm> of an element to
@@ -793,7 +793,7 @@ interleaving with a <literal>text</literal> element:</para>
 <title><literal>optional</literal> element</title>
 
 <para>An <literal>optional</literal> element is transformed into
-a choice with <literal>empty</literal>:</para>
+a <literal>choice</literal> element with one child being the child of the <literal>optional</literal> element and the other child being <literal>empty</literal>:</para>
 
 <programlisting>&lt;optional> <replaceable>p</replaceable> &lt;/optional></programlisting>
 
@@ -806,9 +806,7 @@ a choice with <literal>empty</literal>:</para>
 <section>
 <title><literal>zeroOrMore</literal> element</title>
 
-<para>A <literal>zeroOrMore</literal> element is transformed into a choice
-between <literal>oneOrMore</literal> and
-<literal>empty</literal>:</para>
+<para>A <literal>zeroOrMore</literal> element is transformed into a <literal>choice</literal> element with one child being an &lt;oneOrMore> <replaceable>p</replaceable> &lt;/oneOrMore> element and the other child being an <literal>empty</literal> element, where <replaceable>p</replaceable> is the child of the <literal>literal>zeroOrMore</literal> element:</para>
 
 <programlisting>&lt;zeroOrMore> <replaceable>p</replaceable> &lt;/zeroOrMore></programlisting>
 
