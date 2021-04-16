@@ -1,0 +1,696 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE article [
+<!-- ELEMENT declarations work around MSXML bug. -->
+<!ELEMENT section ANY>
+<!ATTLIST section id ID #IMPLIED>
+<!ELEMENT appendix ANY>
+<!ATTLIST appendix id ID #IMPLIED>
+<!ELEMENT bibliomixed ANY>
+<!ATTLIST bibliomixed id ID #IMPLIED>
+]>
+<article status="Committee Specification">
+<articleinfo>
+<releaseinfo>$Id: compatibility.xml,v 1.27 2001/12/02 12:14:16 jjc Exp $</releaseinfo>
+<title>RELAX NG DTD Compatibility</title>
+<authorgroup>
+<editor>
+  <firstname>James</firstname><surname>Clark</surname>
+  <affiliation>
+    <address><email>jjc@jclark.com</email></address>
+  </affiliation>
+</editor>
+<editor>
+  <surname>MURATA</surname><firstname>Makoto</firstname>
+  <affiliation>
+    <address><email>EB2M-MRT@asahi-net.or.jp</email></address>
+  </affiliation>
+</editor>
+</authorgroup>
+<pubdate>3 December 2001</pubdate>
+<releaseinfo role="meta">
+$Id: compatibility.xml,v 1.27 2001/12/02 12:14:16 jjc Exp $
+</releaseinfo>
+
+<copyright><year>2001</year><holder>OASIS</holder></copyright>
+
+<legalnotice>
+
+<para>Copyright &#169; The Organization for the Advancement of
+Structured Information Standards [OASIS] 2001. All Rights
+Reserved.</para>
+
+<para>This document and translations of it may be copied and furnished
+to others, and derivative works that comment on or otherwise explain
+it or assist in its implementation may be prepared, copied, published
+and distributed, in whole or in part, without restriction of any kind,
+provided that the above copyright notice and this paragraph are
+included on all such copies and derivative works. However, this
+document itself may not be modified in any way, such as by removing
+the copyright notice or references to OASIS, except as needed for the
+purpose of developing OASIS specifications, in which case the
+procedures for copyrights defined in the OASIS Intellectual Property
+Rights document must be followed, or as required to translate it into
+languages other than English.</para>
+
+<para>The limited permissions granted above are perpetual and will not
+be revoked by OASIS or its successors or assigns.</para>
+
+<para>This document and the information contained herein is provided
+on an <quote>AS IS</quote> basis and OASIS DISCLAIMS ALL WARRANTIES,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE
+USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY
+IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR
+PURPOSE.</para>
+
+</legalnotice>
+
+<legalnotice role="status"><title>Status of this Document</title>
+
+<para>This Committee Specification was approved for publication by the
+OASIS RELAX NG technical committee.  It is a stable document which
+represents the consensus of the committee.  Comments on this document
+may be sent to <ulink
+url="mailto:relax-ng-comment@lists.oasis-open.org"
+>relax-ng-comment@lists.oasis-open.org</ulink>.</para>
+
+<para>A list of known errors in this document is available at <ulink
+url="http://www.oasis-open.org/committees/relax-ng/compatibility-20011203-errata.html"
+>http://www.oasis-open.org/committees/relax-ng/compatibility-20011203-errata.html</ulink
+>.</para>
+
+</legalnotice>
+
+<abstract>
+<para>This specification defines datatypes and annotations for use in
+<xref linkend="spec"/> schemas.  The purpose of these datatypes and
+annotations is to support some of the features of XML 1.0 DTDs that
+are not supported directly by RELAX NG.</para>
+
+</abstract>
+
+<revhistory>
+<revision>
+  <revnumber>Committee Specification</revnumber>
+  <date>3 December 2001</date>
+</revision>
+<revision>
+  <revnumber>Committee Specification</revnumber>
+  <date>7 September 2001</date>
+</revision>
+</revhistory>
+</articleinfo>
+
+<section>
+<title>Introduction</title>
+
+<para>RELAX NG <xref linkend="spec"/> provides two mechanisms for
+extensibility:</para>
+
+<itemizedlist>
+<listitem><para>RELAX NG schemas can reference external
+libraries of datatypes;</para></listitem>
+<listitem><para>in a RELAX NG schema, RELAX NG-defined elements can be
+annotated with child elements and attributes from other
+namespaces.</para></listitem>
+</itemizedlist>
+
+<para>The goal of this specification is to facilitate transition from
+XML 1.0 DTDs to RELAX NG schemas by using these extensibility
+mechanisms to support some of the features of XML 1.0 DTDs that are
+not supported by RELAX NG.</para>
+
+<para>The annotations defined in this specification have the namespace
+URI:</para>
+
+<programlisting>http://relaxng.org/ns/compatibility/annotations/1.0</programlisting>
+
+<para>This rest of this specification follows the convention of using
+the prefix <literal>a</literal> to refer to this namespace URI.</para>
+
+<para>Annotations with the above namespace URI can be used in
+conjunction with annotations with other namespace URIs.  Annotations
+with other namespace URIs are allowed wherever <xref linkend="spec"/>
+specifies that they are allowed.</para>
+
+<section>
+<title>Example</title>
+
+<para>The following DTD</para>
+
+<programlisting><![CDATA[<!DOCTYPE employees [
+<!-- A list of employees. -->
+<!ELEMENT employees (employee*)>
+<!-- An individual employee. -->
+<!ELEMENT employee (#PCDATA)>
+<!ATTLIST employee
+  id ID #REQUIRED
+  manages IDREFS #IMPLIED
+  managedBy IDREF #IMPLIED
+  country (US|JP) "US"
+>
+]>]]></programlisting>
+
+<para>could be translated to the following RELAX NG schema:</para>
+
+<programlisting><![CDATA[<element name="employees"
+    xmlns="http://relaxng.org/ns/structure/1.0"
+    xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+    datatypeLibrary="http://relaxng.org/ns/compatibility/datatypes/1.0">
+  <a:documentation>A list of employees.</a:documentation>
+  <zeroOrMore>
+    <element name="employee">
+      <a:documentation>An individual employee.</a:documentation>
+      <attribute name="id">
+        <data type="ID"/>
+      </attribute> 
+      <optional>
+        <attribute name="manages">
+          <data type="IDREFS"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="managedBy">
+          <data type="IDREF"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="country" a:defaultValue="US">
+          <choice>
+            <value>US</value>
+            <value>JP</value>
+          </choice>
+        </attribute>
+      </optional>
+      <text/>
+    </element>
+  </zeroOrMore>
+</element>]]></programlisting>
+
+</section>
+
+<section>
+<title>Infoset modification</title>
+
+<para>RELAX NG itself performs only validation: it does not change the
+infoset <xref linkend="infoset"/> of an XML document.  Most of the
+features of XML 1.0 DTDs that are not supported by RELAX NG involve
+modification to the infoset.  In XML 1.0, validation and infoset
+modification are combined in a monolithic XML processor.  It is a goal
+of this specification to provide a clean separation between validation
+and infoset modification, so that a wide variety of implementation
+scenarios are possible. In particular, it should be possible to make
+the infoset modifications either before performing RELAX NG validation
+or after performing RELAX NG validation or without performing RELAX NG
+validation at all.  It should also be possible for an implementation
+of this specification not to modify the infoset at all and instead
+provide the application with a description of the modifications
+implied by the annotations, independently of any particular
+instance.</para>
+
+<para>This specification does not provide any support for features of
+XML 1.0 DTDs, such as entity declarations, that cannot be cleanly
+separated from validation.</para>
+
+</section>
+
+<section>
+<title>Ambiguity</title>
+
+<para>In an XML 1.0 document that is valid with respect to a DTD, each
+element or attribute in the instance has a unique corresponding
+element or attribute declaration in the DTD.  With RELAX NG this is
+not always the case: it may be ambiguous which
+<literal>element</literal> or <literal>attribute</literal> pattern any
+particular element or attribute in the instance matches.  In addition,
+it is non-trivial to determine when a RELAX NG schema is ambiguous.  A
+further complication is that even when cases where it is not
+ambiguous, it may require multiple passes or lookahead to determine
+which <literal>element</literal> or <literal>attribute</literal>
+pattern a particular element or attribute matches.  Detecting this
+situation is also non-trivial.</para>
+
+<para>Some features of XML 1.0 DTDs, in particular default attribute
+values and ID/IDREF/IDREFS validation, depend crucially on this
+unambiguous correspondence between elements or attributes in the
+instance and their corresponding declarations.  In order to support
+these features in RELAX NG schemas by means of datatypes and
+annotations, it is therefore necessary to impose restrictions on the
+use of these datatypes and annotations.  The goals in framing these
+restrictions were as follows:</para>
+
+<orderedlist>
+
+<listitem><para>It must be possible to determine whether a schema
+satisfies the restrictions independently of any particular
+instance.</para></listitem>
+
+<listitem><para>Processing of the instance must not require lookahead
+or multiple passes.</para></listitem>
+
+<listitem><para>The modified infoset must be XML 1.0 compatible: it
+must be an infoset that could have been produced by a validating XML
+1.0 parser for some DTD.</para></listitem>
+
+<listitem><para>Implementation of the restrictions should be
+straightforward.</para></listitem>
+
+<listitem><para>The restrictions should not be any more restrictive
+than necessary.</para></listitem>
+
+</orderedlist>
+
+</section>
+
+
+</section>
+
+
+<section>
+<title>Conformance</title>
+
+<para>This specification defines three features:</para>
+
+<itemizedlist>
+<listitem><para>attribute default values</para></listitem>
+<listitem><para>ID/IDREF/IDREFS</para></listitem>
+<listitem><para>documentation</para></listitem>
+</itemizedlist>
+
+<para>Conformance is defined separately for each feature.  A
+conformant implementation can support any combination of features. For
+each feature, this specification defines</para>
+
+<itemizedlist>
+<listitem><para>a <firstterm>compatibility</firstterm> property; this
+is a property that may hold for a correct RELAX NG schema; it is
+analogous to correctness for RELAX NG;</para></listitem>
+
+<listitem><para>a <firstterm>soundness</firstterm> relationship; this
+is a relationship that may hold between a RELAX NG schema for which
+the compatibility property holds and an XML instance; it is analogous
+to validity for RELAX NG;</para></listitem>
+
+<listitem><para>for an instance and schema between which the soundness
+relationship holds, a modification of the infoset of the instance;
+there is nothing analogous to this in RELAX NG.</para></listitem>
+
+</itemizedlist>
+
+<para>For each feature, there are two levels of conformance.</para>
+
+<orderedlist>
+
+<listitem><para>Level 1 is similar to RELAX NG conformance.  It has
+two parts: determining whether the compatibility property holds of a
+schema, and determining whether the soundness relationship holds
+between a compatible schema and an instance.</para></listitem>
+
+<listitem><para>Level 2 requires that an implementation provide
+information about the modification of the infoset defined for the
+feature.  An implementation can provide the application either with a
+modified infoset or with sufficient information that would allow the
+application to modify the infoset itself.</para></listitem>
+
+</orderedlist>
+
+<para>The following table shows which aspects of conformance are
+applicable to each feature:</para>
+
+<informaltable frame="all">
+<tgroup cols="4">
+<thead>
+<row>
+  <entry>Feature</entry>
+  <entry>Compatibility</entry>
+  <entry>Soundness</entry>
+  <entry>Infoset modification</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>attribute default values</entry>
+  <entry>yes</entry>
+  <entry>no</entry>
+  <entry>yes</entry>
+</row>
+<row>
+  <entry>ID/IDREF/IDREFS</entry>
+  <entry>yes</entry>
+  <entry>yes</entry>
+  <entry>yes</entry>
+</row>
+<row>
+  <entry>documentation</entry>
+  <entry>yes</entry>
+  <entry>no</entry>
+  <entry>no</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+
+<para>A conformant implementation may support different features at
+different levels.</para>
+
+<para>A conformant implementation may be an integral part of a RELAX
+NG validator or may be a separate software module.</para>
+
+<para>Note that compatibility does not affect RELAX NG correctness.
+Thus, a conforming RELAX NG validator is required to be able to
+validate an instance against a correct RELAX NG schema even if that
+schema is not compatible with one or more of the features defined in
+this specification. Furthermore, soundness is completely independent
+of validity. A conforming RELAX NG validator must be able to determine
+whether an instance is valid with respect to a correct RELAX NG schema
+regardless of whether it is sound with respect to that schema for any
+of the features defined in this specifcation. A conforming
+implementation of a feature defined by this specification must be able
+to determine whether a instance is sound with respect to a compatible
+schema, regardless of whether the instance is valid with respect to
+that schema.</para>
+
+</section>
+
+<section id="default-value">
+<title>Attribute default values</title>
+
+<para>This feature is specified by an annotation attribute. An
+<literal>a:defaultValue</literal> attribute on a RELAX NG
+<literal>attribute</literal> element specifies the default value for
+the attribute.</para>
+
+<para>A correct RELAX NG schema is compatible with this feature if
+after schema simplification, for each <literal>attribute</literal>
+element that has an <literal>a:defaultValue</literal> attribute, all
+of the following hold:</para>
+
+<itemizedlist>
+
+<listitem><para>its first child is a <literal>name</literal>
+element</para></listitem>
+
+<listitem><para>the first child of the containing
+<literal>element</literal> element is a <literal>name</literal>
+element</para></listitem>
+
+<listitem><para>the value of the <literal>a:defaultValue</literal>
+attribute matches the pattern contained in the
+<literal>attribute</literal> element</para></listitem>
+
+<listitem><para>the pattern in the <literal>attribute</literal>
+element does not contain a <literal>data</literal> or
+<literal>value</literal> element with a context-dependent datatype; a
+context-dependent datatype is one for which there is a string for
+which the datatypeAllows function (defined in <xref linkend="spec"/>)
+returns both true and false according to the context</para></listitem>
+
+<listitem><para>any ancestor that is a <literal>choice</literal>
+element has one child that is an <literal>empty</literal>
+element</para></listitem>
+
+<listitem><para>it has at least one <literal>choice</literal>
+ancestor</para></listitem>
+
+<listitem><para>if the containing definition competes with another
+definition, then that other definition also contains an
+<literal>attribute</literal> element with the same name and with an
+<literal>a:defaultValue</literal> attribute with the same
+value.  A definition</para>
+
+<programlisting>&lt;define name="<replaceable>ln1</replaceable>"&gt;
+  &lt;element&gt;
+    <replaceable>nc1</replaceable>
+    <replaceable>p1</replaceable>
+  &lt;/element&gt;
+&lt;/define&gt;</programlisting>
+
+<para>competes with a definition</para>
+ 
+<programlisting>&lt;define name="<replaceable>ln2</replaceable>"&gt;
+  &lt;element&gt;
+    <replaceable>nc2</replaceable>
+    <replaceable>p2</replaceable>
+  &lt;/element&gt;
+&lt;/define&gt;</programlisting>
+
+<para>if there is a name <replaceable>n</replaceable> that belongs to
+both <replaceable>nc1</replaceable> and
+<replaceable>nc2</replaceable>.</para></listitem>
+
+</itemizedlist>
+
+<para>Schema simplification as defined in <xref linkend="spec"/>
+removes all foreign attributes as well as foreign elements.  However,
+when checking compatibility of a schema with this feature, schema
+simplification must preserve <literal>a:defaultValue</literal>
+attributes on <literal>attribute</literal> elements.</para>
+
+<para>There is no soundness relationship for this feature.</para>
+
+<para>The modification of the infoset for this feature adds attribute
+information items to element information items.  An attribute
+information item with [local name] <replaceable>x</replaceable>,
+[namespace name] <replaceable>y</replaceable> and [normalized value]
+<replaceable>z</replaceable> is added to an element information item
+<replaceable>e</replaceable>, if and only if:</para>
+
+<itemizedlist>
+
+<listitem><para><replaceable>e</replaceable> does not already have any attribute
+information item with [local name] <replaceable>x</replaceable> and
+[namespace name] <replaceable>y</replaceable>, and</para></listitem>
+
+<listitem><para>after schema simplification, the schema contains an
+<literal>attribute</literal> element with</para>
+
+<itemizedlist>
+
+<listitem><para>a <literal>name</literal> child with content
+<replaceable>x</replaceable> and an <literal>ns</literal> attribute
+with value <replaceable>y</replaceable>,</para></listitem>
+
+<listitem><para>an <literal>a:defaultValue</literal>
+attribute with value <replaceable>z</replaceable>, and</para></listitem>
+
+<listitem><para>a containing <literal>element</literal> element that
+has a <literal>name</literal> child with content equal to the [local
+name] of <replaceable>e</replaceable> and an <literal>ns</literal>
+attribute with value equal to the the [namespace name] of
+<replaceable>e</replaceable>.</para></listitem>
+
+</itemizedlist></listitem>
+
+</itemizedlist>
+
+</section>
+
+<section id="id">
+<title>ID, IDREF and IDREFS</title>
+
+<para>A RELAX NG schema makes use of this feature by using datatypes.
+Each datatype is associated with an <firstterm>ID-type</firstterm>,
+which is one of ID, IDREF or IDREFS or null. The datatype library with
+URI</para>
+
+<programlisting>http://relaxng.org/ns/compatibility/datatypes/1.0</programlisting>
+
+<para>contains datatypes named <literal>ID</literal>,
+<literal>IDREF</literal> and <literal>IDREFS</literal> associated with
+ID-types of ID, IDREF and IDREFS respectively. The datatypes in other
+datatype libraries are associated with a null ID-type, unless the
+datatype library specifies otherwise.</para>
+
+<note><para><xref linkend="guidelines"/> recommends that the
+<literal>ID</literal>, <literal>IDREF</literal> and
+<literal>IDREFS</literal> datatypes of <xref linkend="xmlschema-2"/>
+should have ID-types ID, IDREF, and IDREFS respectively.</para></note>
+
+<para>A RELAX NG schema is compatible with this feature if and only
+if, after schema simplification, for each <literal>data</literal> or
+<literal>value</literal> element that specifies a datatype associated
+with a non-null ID-type, all of the following hold:</para>
+
+<itemizedlist>
+
+<listitem><para>its parent is an <literal>attribute</literal>
+element</para></listitem>
+
+<listitem><para>the first child of its <literal>attribute</literal>
+parent is a <literal>name</literal> element</para></listitem>
+
+<listitem><para>the first child of the <literal>element</literal>
+ancestor is a <literal>name</literal> element</para></listitem>
+
+<listitem><para> if its <literal>attribute</literal> parent has any
+competing <literal>attribute</literal> elements, then each such
+competing <literal>attribute</literal> element has a
+<literal>data</literal> or <literal>value</literal> child specifying a
+datatype associated with the same ID-type. Two attribute
+elements</para>
+
+<programlisting>&lt;attribute&gt; <replaceable>nc1</replaceable> <replaceable>p1</replaceable> &lt;/attribute&gt;</programlisting>
+
+<para>and</para>
+
+<programlisting>&lt;attribute&gt; <replaceable>nc2</replaceable> <replaceable>p2</replaceable> &lt;/attribute&gt;</programlisting>
+
+<para>compete if and only if the containing definitions compete and
+there is a name <replaceable>n</replaceable> that belongs to both
+<replaceable>nc1</replaceable> and <replaceable>nc2</replaceable>.  Note
+that a definition competes with itself.</para>
+</listitem>
+
+</itemizedlist>
+
+<para>Thus, a RELAX NG schema that is compatible with this feature
+implies a mapping from element/attribute name pairs onto an ID-type,
+and hence a mapping from attributes in the instance onto
+ID-types.</para>
+
+<para>An instance is sound for this feature with respect to a
+compatible RELAX NG schema if and only if</para>
+
+<itemizedlist>
+
+<listitem><para>when the value of each attribute in the instance whose
+ID-type is not null is split into a sequence of whitespace-separated
+tokens, the length of the sequence is 1 if the ID-type is ID or IDREF
+and greater than or equal to 1 if the ID-type is
+IDREFS, and</para></listitem>
+
+<listitem><para>no two distinct tokens in attributes of ID-type ID
+have the same value, and</para></listitem>
+
+<listitem><para>for each token in an attribute of ID-type IDREF or
+IDREFS, there is a token in an attribute of ID-type ID with the same
+value</para></listitem>
+
+</itemizedlist>
+
+<para>The modification of the infoset for this feature changes the
+[attribute type] property of attribute information items to
+<literal>ID</literal>, <literal>IDREF</literal> or
+<literal>IDREFS</literal> according to the ID-type of the attribute
+and modifies the [normalized value] by applying the
+normalizeWhiteSpace function.</para>
+
+<para>The semantics needed for RELAX NG validation are defined for
+the datatype library</para>
+
+<programlisting>http://relaxng.org/ns/compatibility/datatypes/1.0</programlisting>
+
+
+<para>as follows:</para>
+
+<itemizedlist>
+
+<listitem><para>for <literal>ID</literal> and <literal>IDREF</literal>
+a string is an allowed representation if it is a single NCName (as
+defined in <xref linkend="xml-names"/>) with optional leading and
+trailing whitespace; for <literal>IDREFS</literal> a string is an
+allowed representation if it is a a whitespace-separated list of one
+or more NCNames;</para></listitem>
+
+<listitem><para>values are tested for equality in the same way as for
+the builtin <literal>token</literal> datatype</para></listitem>
+
+</itemizedlist>
+
+</section>
+
+<section>
+<title>Documentation</title>
+
+<para>The <literal>a:documentation</literal> element can be used to
+specify human-readable documentation.  The functionality provided by
+an <literal>a:documentation</literal> element in a RELAX NG schema
+would be provided by a comment in an XML 1.0 DTD.  The
+<literal>a:documentation</literal> element contains text specifying
+documentation. It can also have namespace-qualified attributes such as
+<literal>xml:lang</literal>.</para>
+
+<para>If an <literal>a:documentation</literal> element does not have a
+preceding sibling element from the RELAX NG namespace, then the
+specified documentation applies to the parent element.  Otherwise, the
+specified documentation applies to the nearest preceding sibling
+element from the RELAX NG namespace.  There may be multiple
+<literal>a:documentation</literal> elements specifying documentation
+that apply to the same RELAX NG element.</para>
+
+<para>A correct RELAX NG schema is compatible with this feature if and
+only if, for each <literal>a:documentation</literal> element, all of
+the following hold:</para>
+
+<itemizedlist>
+<listitem><para>it does not have any child elements</para></listitem>
+
+<listitem><para>it does not have any attribute whose namespace URI is
+the empty string, the RELAX NG namespace URI or the compatibility
+annotations namespace URI</para></listitem>
+
+<listitem><para>if it has a preceding sibling element from the RELAX
+NG namespace, then the nearest such preceding sibling element is an
+element that does not allow child elements
+(i.e. <literal>value</literal>, <literal>param</literal> or
+<literal>name</literal>)</para></listitem>
+
+</itemizedlist>
+
+<para>There is no soundness relationship for this feature.</para>
+
+<para>There is no infoset modification for this feature.</para>
+ 
+</section>
+
+<appendix>
+<title>RELAX NG schema</title>
+
+<para>A RELAX NG schema that is compatible with the features of this
+specification must, in addition to being valid with respect to the
+RELAX NG schema for RELAX NG specified in <xref linkend="spec"/>, be
+valid with respect to the following schema:</para>
+
+<rngref src="compatibility.rng"/>
+
+</appendix>
+
+<bibliography><title>References</title>
+
+<bibliomixed id="spec"><abbrev>RELAX NG</abbrev>James Clark, Makoto
+MURATA, editors.  <citetitle><ulink
+url="http://www.oasis-open.org/committees/relax-ng/spec.html">RELAX NG
+Specification</ulink></citetitle>.  OASIS, 2001.</bibliomixed>
+
+<bibliomixed id="guidelines"><abbrev>Guidelines</abbrev>James Clark, Kohsuke
+KAWAGUCHI, editors.  <citetitle><ulink
+url="http://www.oasis-open.org/committees/relax-ng/xsd.html">Guidelines
+for using W3C XML Schema Datatypes with RELAX NG</ulink></citetitle>.
+OASIS, 2001.</bibliomixed>
+
+<bibliomixed id="xml-rec"><abbrev>XML 1.0</abbrev>Tim Bray,
+Jean Paoli, and
+C. M. Sperberg-McQueen, Eve Maler, editors.
+<citetitle><ulink url="http://www.w3.org/TR/REC-xml">Extensible Markup
+Language (XML) 1.0 Second Edition</ulink></citetitle>.
+W3C (World Wide Web Consortium), 2000.</bibliomixed>
+
+<bibliomixed id="xml-names"><abbrev>XML Namespaces</abbrev>Tim Bray,
+Dave Hollander,
+and Andrew Layman, editors.
+<citetitle><ulink url="http://www.w3.org/TR/REC-xml-names/">Namespaces in
+XML</ulink></citetitle>.
+W3C (World Wide Web Consortium), 1999.</bibliomixed>
+
+<bibliomixed id="infoset"><abbrev>XML Infoset</abbrev>John Cowan, Richard Tobin,
+editors.
+<citetitle><ulink url="http://www.w3.org/TR/xml-infoset/">XML
+Information Set</ulink></citetitle>.
+W3C (World Wide Web Consortium), 2001.</bibliomixed>
+
+<bibliomixed id="xmlschema-2"><abbrev>W3C XML Schema Datatypes</abbrev>Paul V. Biron, Ashok Malhotra, editors.
+<citetitle><ulink url="http://www.w3.org/TR/xmlschema-2/">XML Schema Part 2: Datatypes</ulink></citetitle>.
+W3C (World Wide Web Consortium), 2001.</bibliomixed>
+
+</bibliography>
+
+</article>
