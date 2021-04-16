@@ -1,6 +1,6 @@
 # relaxng.org
 
-## Update History
+## History
 
 ### 16 April 2021
 
