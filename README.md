@@ -4,9 +4,10 @@
 
 ### 16 April 2021
 
-Added the OASIS RelaxNG specification as DocBook with transformations and build taken from the [ZIP of OASIS email list](https://lists.oasis-open.org/archives/relax-ng/200112/msg00002.html. ).
+Added the OASIS RelaxNG specification as DocBook with transformations taken from the [ZIP of the OASIS email list](https://lists.oasis-open.org/archives/relax-ng/200112/msg00002.html. ).
 
-Generate the RelaxNG specification from src/main/resources/xsl via command-line at project root calling:
+
+Added an XSL transform environment to generate the RelaxNG specification from src/main/resources/xsl via command-line at project root calling:
 
     mvn clean install
 
