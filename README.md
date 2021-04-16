@@ -7,7 +7,9 @@
 Added the OASIS RelaxNG specification as DocBook with transformations and build taken from the [ZIP of OASIS email list](https://lists.oasis-open.org/archives/relax-ng/200112/msg00002.html. ).
 
 Generate the RelaxNG specification from src/main/resources/xsl via command-line at project root calling:
- 'mvn clean'
+
+    mvn clean
+
 Requires [Maven and its requirements](https://maven.apache.org/download.cgi) installed.
 The deliverables are created within target/generated-resources/xml/xslt.
 The tr.css and oasis.png files need to be copied from root directory aside from generated output to receive the full visual experience!
