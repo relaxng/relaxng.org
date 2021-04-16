@@ -75,6 +75,26 @@
                                 </fileMapper>
                             </fileMappers>
                         </transformationSet>
+                        <transformationSet>
+                            <dir>src/main/resources/xsl/compatibility</dir>
+                            <stylesheet>src/test/resources/xsl/specprod/spec.xsl</stylesheet>
+                            <!-- https://www.saxonica.com/html/documentation/xsl-elements/output.html -->
+                            <outputProperties>                            		
+                                <outputProperty>
+                                    <name>omit-xml-declaration</name>
+                                    <value>yes</value>
+                                </outputProperty>
+                                <outputProperty>
+                                    <name>version</name>
+                                    <value>5</value>
+                                </outputProperty>
+                            </outputProperties>
+                            <fileMappers>
+                                <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
+                                    <targetExtension>.html</targetExtension>
+                                </fileMapper>
+                            </fileMappers>
+                        </transformationSet>                        
                     </transformationSets>
                 </configuration>
                 <dependencies>
@@ -121,7 +141,7 @@
                 </dependencies>
             </plugin>                
             ?>
-            
+
         </plugins>
     </build>
 </project>
