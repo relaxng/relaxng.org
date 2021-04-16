@@ -2,9 +2,9 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="1.0">
 
-<!-- This stylesheet is a customization of the DocBook XSL Stylesheets -->
-<!-- See http://sourceforge.net/projects/docbook/ -->
-<xsl:import href="../../docbook/xsl/html/docbook.xsl"/>
+<!-- The docbook.xsl stylesheet is from  -->
+<!-- https://cdn.docbook.org/release/xsl-nons/current/html/docbook.xsl -->
+<xsl:import href="..\docbook-xsl-nons-snapshot\html\docbook.xsl"/>  
 <xsl:include href="titlepage.xsl"/>
 
 <!-- ============================================================ -->

@@ -1,0 +1,682 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<article xmlns="http://docbook.org/ns/docbook" version="5.0">
+<info>
+<abstract>
+<para><emphasis role="strong">Note:</emphasis> This
+            document lists changes only since the 1.79.1 release.
+	  </para></abstract>
+</info><title>Changes since the 1.79.1 release</title>
+
+<section xml:id="Vsnapshot">
+<title>Release Notes: snapshot</title>
+<para>The following is a list of changes that have been made
+        since the 1.79.1 release.</para>
+
+<section xml:id="Vsnapshot_Gentext">
+<title>Gentext</title>
+<para>The following changes have been made to the
+            <filename>gentext</filename> code
+            since the 1.79.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Norman Walsh: dsssl/dsssl.dsl; xsl/dsssl.xsl; xsl/xsl.xsl</literal></para><screen><phrase role="commit-message">Fix http://cdn... to https://cdn...</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: .gitignore; Makefile; README; dsssl/dsssl.dsl; dtd/l10n.dtd; locale/Auditloca⋯</literal></para><screen><phrase role="commit-message">Changing JDK to OpenJDK as an attempt to get CI running again</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: .gitignore; Makefile; README; dsssl/dsssl.dsl; dtd/l10n.dtd; locale/Auditloca⋯</literal></para><screen><phrase role="commit-message">Merge pull request #148 from tgraham-antenna/patch-1</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>andrewcarver: .gitignore; Makefile; README; dsssl/dsssl.dsl; dtd/l10n.dtd; locale/Auditloc⋯</literal></para><screen><phrase role="commit-message">Clean up trivial param-name mismatch</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: .gitignore; Makefile; README; dsssl/dsssl.dsl; dtd/l10n.dtd; locale/Auditloc⋯</literal></para><screen><phrase role="commit-message">Publish releases only on tags; use docbook-ci</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: .gitignore; Makefile; README; dsssl/dsssl.dsl; dtd/l10n.dtd; locale/Auditloc⋯</literal></para><screen><phrase role="commit-message">Merge pull request #125 from ndw/fix-warning</phrase></screen>
+</listitem>
+</itemizedlist>
+</section><!--end of Gentext changes for snapshot-->
+
+<section xml:id="Vsnapshot_Common">
+<title>Common</title>
+<para>The following changes have been made to the
+            <filename>common</filename> code
+            since the 1.79.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Norman Walsh: xsl/autoidx-kimber.xsl; xsl/autoidx-kosek.xsl; xsl/charmap.xsl; xsl/common.x⋯</literal></para><screen><phrase role="commit-message">Fix http://cdn... to https://cdn...</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/addns.xsl; xsl/autoidx-kimber.xsl; xsl/auto⋯</literal></para><screen><phrase role="commit-message">Changing JDK to OpenJDK as an attempt to get CI running again</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/addns.xsl; xsl/autoidx-kimber.xsl; xsl/auto⋯</literal></para><screen><phrase role="commit-message">Merge pull request #148 from tgraham-antenna/patch-1</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>andrewcarver: xsl/.gitignore; xsl/Makefile; xsl/addns.xsl; xsl/autoidx-kimber.xsl; xsl/aut⋯</literal></para><screen><phrase role="commit-message">Clean up trivial param-name mismatch</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/addns.xsl; xsl/autoidx-kimber.xsl; xsl/aut⋯</literal></para><screen><phrase role="commit-message">Publish releases only on tags; use docbook-ci</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/addns.xsl; xsl/autoidx-kimber.xsl; xsl/aut⋯</literal></para><screen><phrase role="commit-message">Merge pull request #125 from ndw/fix-warning</phrase></screen>
+</listitem>
+</itemizedlist>
+</section><!--end of Common changes for snapshot-->
+
+<section xml:id="Vsnapshot_FO">
+<title>FO</title>
+<para>The following changes have been made to the
+            <filename>fo</filename> code
+            since the 1.79.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Robert Stayton: xsl/axf.xsl; xsl/docbook.xsl; xsl/fop1.xsl; xsl/xep.xsl</literal></para><screen><phrase role="commit-message"><tag>keyword</tag> metadata now removes duplicates and is sorted</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Robert Stayton: xsl/xref.xsl</literal></para><screen><phrase role="commit-message">fix bug #189 to resolve ambiguous matches in mode xref-to</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Tony Graham: xsl/highlight.xsl</literal></para><screen><phrase role="commit-message">Corrected attribute set for 'xslthl:<tag>annotation</tag>'.</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Tony Graham: xsl/highlight.xsl</literal></para><screen><phrase role="commit-message">Use attribute sets to style highlighted text</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Tony Graham: xsl/axf.xsl</literal></para><screen><phrase role="commit-message">Add 'user-axf-document-information' named template</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Tony Graham: xsl/axf.xsl</literal></para><screen><phrase role="commit-message">Add back the 'd:' in element names</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Tony Graham: xsl/axf.xsl</literal></para><screen><phrase role="commit-message">Discard empty keywords, de-dupe and sort remainder</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Robert Stayton: xsl/pagesetup.xsl</literal></para><screen><phrase role="commit-message">fix bug #147 precedence does not apply to side regions</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/admon.xsl; xsl/annotations.xsl; xsl/autoidx-kimber.xsl; xsl/autoidx-kose⋯</literal></para><screen><phrase role="commit-message">Fix http://cdn... to https://cdn...</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/admon.xsl; xsl/annotations.xsl; xsl/autoidx⋯</literal></para><screen><phrase role="commit-message">Changing JDK to OpenJDK as an attempt to get CI running again</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/admon.xsl; xsl/annotations.xsl; xsl/autoidx⋯</literal></para><screen><phrase role="commit-message">Merge pull request #148 from tgraham-antenna/patch-1</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>andrewcarver: xsl/.gitignore; xsl/Makefile; xsl/admon.xsl; xsl/annotations.xsl; xsl/autoid⋯</literal></para><screen><phrase role="commit-message">Clean up trivial param-name mismatch</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Robert Stayton: xsl/inline.xsl</literal></para><screen><phrase role="commit-message">fix bug #133 <tag>Citation</tag> linking to <tag>abbrev</tag> should ignore whitespace</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/admon.xsl; xsl/annotations.xsl; xsl/autoid⋯</literal></para><screen><phrase role="commit-message">Publish releases only on tags; use docbook-ci</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/admon.xsl; xsl/annotations.xsl; xsl/autoid⋯</literal></para><screen><phrase role="commit-message">Merge pull request #125 from ndw/fix-warning</phrase></screen>
+</listitem>
+</itemizedlist>
+</section><!--end of FO changes for snapshot-->
+
+<section xml:id="Vsnapshot_HTML">
+<title>HTML</title>
+<para>The following changes have been made to the
+            <filename>html</filename> code
+            since the 1.79.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Robert Stayton: xsl/xref.xsl</literal></para><screen><phrase role="commit-message">fix bug #189 to resolve ambiguous matches in mode xref-to</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Peter Fleck: xsl/graphics.xsl</literal></para><screen><phrase role="commit-message">Add webp as valid format in is.graphic.extension</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/admon.xsl; xsl/autoidx-kimber.xsl; xsl/autoidx-kosek.xsl; xsl/autoidx-ng⋯</literal></para><screen><phrase role="commit-message">Fix http://cdn... to https://cdn...</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/autoidx.xsl</literal></para><screen><phrase role="commit-message"><tag>Reference</tag> to <tag>indexterm</tag> location specified by zone is not rendered if there is nested <tag>phrase</tag> (<tag>secondary</tag>, <tag>tertiary</tag>, ...)</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/admon.xsl; xsl/annotations.xsl; xsl/autoidx⋯</literal></para><screen><phrase role="commit-message">Changing JDK to OpenJDK as an attempt to get CI running again</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/admon.xsl; xsl/annotations.xsl; xsl/autoidx⋯</literal></para><screen><phrase role="commit-message">Merge pull request #148 from tgraham-antenna/patch-1</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>andrewcarver: xsl/.gitignore; xsl/Makefile; xsl/admon.xsl; xsl/annotations.xsl; xsl/autoid⋯</literal></para><screen><phrase role="commit-message">Clean up trivial param-name mismatch</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Robert Stayton: xsl/inline.xsl</literal></para><screen><phrase role="commit-message">fix bug #133 <tag>Citation</tag> linking to <tag>abbrev</tag> should ignore whitespace</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/admon.xsl; xsl/annotations.xsl; xsl/autoid⋯</literal></para><screen><phrase role="commit-message">Publish releases only on tags; use docbook-ci</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/admon.xsl; xsl/annotations.xsl; xsl/autoid⋯</literal></para><screen><phrase role="commit-message">Merge pull request #125 from ndw/fix-warning</phrase></screen>
+</listitem>
+</itemizedlist>
+</section><!--end of HTML changes for snapshot-->
+
+<section xml:id="Vsnapshot_Manpages">
+<title>Manpages</title>
+<para>The following changes have been made to the
+            <filename>manpages</filename> code
+            since the 1.79.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Robert Stayton: xsl/lists.xsl</literal></para><screen><phrase role="commit-message">fix bug #145 to support @numeration on <tag>orderedlist</tag></phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/block.xsl; xsl/charmap.groff.xsl; xsl/docbook.xsl; xsl/endnotes.xsl; xsl⋯</literal></para><screen><phrase role="commit-message">Fix http://cdn... to https://cdn...</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/.gitignore; xsl/ChangeLog.20020917; xsl/Makefile; xsl/block.xsl; xsl/buil⋯</literal></para><screen><phrase role="commit-message">Changing JDK to OpenJDK as an attempt to get CI running again</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/.gitignore; xsl/ChangeLog.20020917; xsl/Makefile; xsl/block.xsl; xsl/buil⋯</literal></para><screen><phrase role="commit-message">Merge pull request #148 from tgraham-antenna/patch-1</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>andrewcarver: xsl/.gitignore; xsl/ChangeLog.20020917; xsl/Makefile; xsl/block.xsl; xsl/bui⋯</literal></para><screen><phrase role="commit-message">Clean up trivial param-name mismatch</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/.gitignore; xsl/ChangeLog.20020917; xsl/Makefile; xsl/block.xsl; xsl/bui⋯</literal></para><screen><phrase role="commit-message">Publish releases only on tags; use docbook-ci</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/.gitignore; xsl/ChangeLog.20020917; xsl/Makefile; xsl/block.xsl; xsl/bui⋯</literal></para><screen><phrase role="commit-message">Merge pull request #125 from ndw/fix-warning</phrase></screen>
+</listitem>
+</itemizedlist>
+</section><!--end of Manpages changes for snapshot-->
+
+<section xml:id="Vsnapshot_Epub">
+<title>Epub</title>
+<para>The following changes have been made to the
+            <filename>epub</filename> code
+            since the 1.79.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Jirka Kosek: xsl/README; xsl/bin/dbtoepub; xsl/bin/lib/docbook.rb; xsl/bin/spec/.gitignore⋯</literal></para><screen><phrase role="commit-message">Changing JDK to OpenJDK as an attempt to get CI running again</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/README; xsl/bin/dbtoepub; xsl/bin/lib/docbook.rb; xsl/bin/spec/.gitignore⋯</literal></para><screen><phrase role="commit-message">Merge pull request #148 from tgraham-antenna/patch-1</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>andrewcarver: xsl/README; xsl/bin/dbtoepub; xsl/bin/lib/docbook.rb; xsl/bin/spec/.gitignor⋯</literal></para><screen><phrase role="commit-message">Clean up trivial param-name mismatch</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Shlomi Fish: xsl/bin/dbtoepub; xsl/bin/spec/epub_realbook_spec.rb; xsl/bin/spec/epub_regre⋯</literal></para><screen><phrase role="commit-message">Fix insecure tmpdir() creation.</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/README; xsl/bin/dbtoepub; xsl/bin/lib/docbook.rb; xsl/bin/spec/.gitignor⋯</literal></para><screen><phrase role="commit-message">Publish releases only on tags; use docbook-ci</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/README; xsl/bin/dbtoepub; xsl/bin/lib/docbook.rb; xsl/bin/spec/.gitignor⋯</literal></para><screen><phrase role="commit-message">Merge pull request #125 from ndw/fix-warning</phrase></screen>
+</listitem>
+</itemizedlist>
+</section><!--end of Epub changes for snapshot-->
+
+<section xml:id="Vsnapshot_HTMLHelp">
+<title>HTMLHelp</title>
+<para>The following changes have been made to the
+            <filename>htmlhelp</filename> code
+            since the 1.79.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/htmlhelp-common.xsl; xsl/htm⋯</literal></para><screen><phrase role="commit-message">Changing JDK to OpenJDK as an attempt to get CI running again</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/htmlhelp-common.xsl; xsl/htm⋯</literal></para><screen><phrase role="commit-message">Merge pull request #148 from tgraham-antenna/patch-1</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>andrewcarver: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/htmlhelp-common.xsl; xsl/ht⋯</literal></para><screen><phrase role="commit-message">Clean up trivial param-name mismatch</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/htmlhelp-common.xsl; xsl/ht⋯</literal></para><screen><phrase role="commit-message">Publish releases only on tags; use docbook-ci</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/htmlhelp-common.xsl; xsl/ht⋯</literal></para><screen><phrase role="commit-message">Merge pull request #125 from ndw/fix-warning</phrase></screen>
+</listitem>
+</itemizedlist>
+</section><!--end of HTMLHelp changes for snapshot-->
+
+<section xml:id="Vsnapshot_Eclipse">
+<title>Eclipse</title>
+<para>The following changes have been made to the
+            <filename>eclipse</filename> code
+            since the 1.79.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Norman Walsh: xsl/eclipse.xsl; xsl/eclipse3.xsl</literal></para><screen><phrase role="commit-message">Fix http://cdn... to https://cdn...</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/eclipse.xsl; xsl/eclipse3.xs⋯</literal></para><screen><phrase role="commit-message">Changing JDK to OpenJDK as an attempt to get CI running again</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/eclipse.xsl; xsl/eclipse3.xs⋯</literal></para><screen><phrase role="commit-message">Merge pull request #148 from tgraham-antenna/patch-1</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>andrewcarver: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/eclipse.xsl; xsl/eclipse3.x⋯</literal></para><screen><phrase role="commit-message">Clean up trivial param-name mismatch</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/eclipse.xsl; xsl/eclipse3.x⋯</literal></para><screen><phrase role="commit-message">Publish releases only on tags; use docbook-ci</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/eclipse.xsl; xsl/eclipse3.x⋯</literal></para><screen><phrase role="commit-message">Merge pull request #125 from ndw/fix-warning</phrase></screen>
+</listitem>
+</itemizedlist>
+</section><!--end of Eclipse changes for snapshot-->
+
+<section xml:id="Vsnapshot_JavaHelp">
+<title>JavaHelp</title>
+<para>The following changes have been made to the
+            <filename>javahelp</filename> code
+            since the 1.79.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Norman Walsh: xsl/javahelp.xsl</literal></para><screen><phrase role="commit-message">Fix http://cdn... to https://cdn...</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/javahelp.xsl</literal></para><screen><phrase role="commit-message">Changing JDK to OpenJDK as an attempt to get CI running again</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/javahelp.xsl</literal></para><screen><phrase role="commit-message">Merge pull request #148 from tgraham-antenna/patch-1</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>andrewcarver: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/javahelp.xsl</literal></para><screen><phrase role="commit-message">Clean up trivial param-name mismatch</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/javahelp.xsl</literal></para><screen><phrase role="commit-message">Publish releases only on tags; use docbook-ci</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/javahelp.xsl</literal></para><screen><phrase role="commit-message">Merge pull request #125 from ndw/fix-warning</phrase></screen>
+</listitem>
+</itemizedlist>
+</section><!--end of JavaHelp changes for snapshot-->
+
+<section xml:id="Vsnapshot_Roundtrip">
+<title>Roundtrip</title>
+<para>The following changes have been made to the
+            <filename>roundtrip</filename> code
+            since the 1.79.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Norman Walsh: xsl/dbk2ooo.xsl; xsl/dbk2pages.xsl; xsl/dbk2wordml.xsl; xsl/dbk2wp.xsl; xsl/⋯</literal></para><screen><phrase role="commit-message">Fix http://cdn... to https://cdn...</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/blocks-spec.xml; xsl/blocks2dbk.dtd; xsl/bl⋯</literal></para><screen><phrase role="commit-message">Changing JDK to OpenJDK as an attempt to get CI running again</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/blocks-spec.xml; xsl/blocks2dbk.dtd; xsl/bl⋯</literal></para><screen><phrase role="commit-message">Merge pull request #148 from tgraham-antenna/patch-1</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>andrewcarver: xsl/.gitignore; xsl/Makefile; xsl/blocks-spec.xml; xsl/blocks2dbk.dtd; xsl/b⋯</literal></para><screen><phrase role="commit-message">Clean up trivial param-name mismatch</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/blocks-spec.xml; xsl/blocks2dbk.dtd; xsl/b⋯</literal></para><screen><phrase role="commit-message">Publish releases only on tags; use docbook-ci</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/blocks-spec.xml; xsl/blocks2dbk.dtd; xsl/b⋯</literal></para><screen><phrase role="commit-message">Merge pull request #125 from ndw/fix-warning</phrase></screen>
+</listitem>
+</itemizedlist>
+</section><!--end of Roundtrip changes for snapshot-->
+
+<section xml:id="Vsnapshot_Slides">
+<title>Slides</title>
+<para>The following changes have been made to the
+            <filename>slides</filename> code
+            since the 1.79.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Norman Walsh: xsl/schema/relaxng/slides.rnc</literal></para><screen><phrase role="commit-message">Fix URI for DocBook schema</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/images/callouts/Makefile</literal></para><screen><phrase role="commit-message">Fix the convert error in the SVG construction</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/fo/param.xweb; xsl/xhtml/param.xweb</literal></para><screen><phrase role="commit-message">Fix http://cdn... to https://cdn...</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: .gitignore; Makefile; VERSION; files/s5/index-osf.html; files/s5/index-xoxo.h⋯</literal></para><screen><phrase role="commit-message">Changing JDK to OpenJDK as an attempt to get CI running again</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: .gitignore; Makefile; VERSION; files/s5/index-osf.html; files/s5/index-xoxo.h⋯</literal></para><screen><phrase role="commit-message">Merge pull request #148 from tgraham-antenna/patch-1</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>andrewcarver: .gitignore; Makefile; VERSION; files/s5/index-osf.html; files/s5/index-xoxo.⋯</literal></para><screen><phrase role="commit-message">Clean up trivial param-name mismatch</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: .gitignore; Makefile; VERSION; files/s5/index-osf.html; files/s5/index-xoxo.⋯</literal></para><screen><phrase role="commit-message">Publish releases only on tags; use docbook-ci</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: .gitignore; Makefile; VERSION; files/s5/index-osf.html; files/s5/index-xoxo.⋯</literal></para><screen><phrase role="commit-message">Merge pull request #125 from ndw/fix-warning</phrase></screen>
+</listitem>
+</itemizedlist>
+</section><!--end of Slides changes for snapshot-->
+
+<section xml:id="Vsnapshot_Website">
+<title>Website</title>
+<para>The following changes have been made to the
+            <filename>website</filename> code
+            since the 1.79.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Norman Walsh: xsl/param.xweb; xsl/website-targets.xsl; xsl/xbel.xsl</literal></para><screen><phrase role="commit-message">Fix http://cdn... to https://cdn...</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: .gitignore; AUTHORS; BUGS; INSTALL; Makefile; README; RELEASE-NOTES.xml; TODO⋯</literal></para><screen><phrase role="commit-message">Changing JDK to OpenJDK as an attempt to get CI running again</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: .gitignore; AUTHORS; BUGS; INSTALL; Makefile; README; RELEASE-NOTES.xml; TODO⋯</literal></para><screen><phrase role="commit-message">Merge pull request #148 from tgraham-antenna/patch-1</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>andrewcarver: .gitignore; AUTHORS; BUGS; INSTALL; Makefile; README; RELEASE-NOTES.xml; TOD⋯</literal></para><screen><phrase role="commit-message">Clean up trivial param-name mismatch</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: .gitignore; AUTHORS; BUGS; INSTALL; Makefile; README; RELEASE-NOTES.xml; TOD⋯</literal></para><screen><phrase role="commit-message">Publish releases only on tags; use docbook-ci</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: .gitignore; AUTHORS; BUGS; INSTALL; Makefile; README; RELEASE-NOTES.xml; TOD⋯</literal></para><screen><phrase role="commit-message">Merge pull request #125 from ndw/fix-warning</phrase></screen>
+</listitem>
+</itemizedlist>
+</section><!--end of Website changes for snapshot-->
+
+<section xml:id="Vsnapshot_Webhelp">
+<title>Webhelp</title>
+<para>The following changes have been made to the
+            <filename>webhelp</filename> code
+            since the 1.79.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Norman Walsh: xsl/docsrc/readme.xml</literal></para><screen><phrase role="commit-message">Fix http://cdn... to https://cdn...</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/LICENSE; xsl/Makefile; xsl/Makefile.param; xsl/Makefile.sample; xsl/build⋯</literal></para><screen><phrase role="commit-message">Changing JDK to OpenJDK as an attempt to get CI running again</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/LICENSE; xsl/Makefile; xsl/Makefile.param; xsl/Makefile.sample; xsl/build⋯</literal></para><screen><phrase role="commit-message">Merge pull request #148 from tgraham-antenna/patch-1</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>andrewcarver: xsl/LICENSE; xsl/Makefile; xsl/Makefile.param; xsl/Makefile.sample; xsl/buil⋯</literal></para><screen><phrase role="commit-message">Clean up trivial param-name mismatch</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/LICENSE; xsl/Makefile; xsl/Makefile.param; xsl/Makefile.sample; xsl/buil⋯</literal></para><screen><phrase role="commit-message">Publish releases only on tags; use docbook-ci</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/LICENSE; xsl/Makefile; xsl/Makefile.param; xsl/Makefile.sample; xsl/buil⋯</literal></para><screen><phrase role="commit-message">Merge pull request #125 from ndw/fix-warning</phrase></screen>
+</listitem>
+</itemizedlist>
+</section><!--end of Webhelp changes for snapshot-->
+
+<section xml:id="Vsnapshot_Params">
+<title>Params</title>
+<para>The following changes have been made to the
+            <filename>params</filename> code
+            since the 1.79.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Robert Stayton: xsl/compact.list.item.spacing.xml</literal></para><screen><phrase role="commit-message">another fix for issue #138 vertical <parameter>alignment</parameter> of list items</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Robert Stayton: xsl/list.item.spacing.xml</literal></para><screen><phrase role="commit-message">fix issue #137 vertical <parameter>alignment</parameter> of list items</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Robert Stayton: xsl/side.region.precedence.xml</literal></para><screen><phrase role="commit-message">fix bug #147 precedence does not apply to side regions</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/annotation.graphic.close.xml; xsl/annotation.graphic.open.xml; xsl/annot⋯</literal></para><screen><phrase role="commit-message">Fix http://cdn... to https://cdn...</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/abstract.notitle.enabled.xml; xsl/abstract.properties.xml; xsl/abstract.t⋯</literal></para><screen><phrase role="commit-message">Changing JDK to OpenJDK as an attempt to get CI running again</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/abstract.notitle.enabled.xml; xsl/abstract.properties.xml; xsl/abstract.t⋯</literal></para><screen><phrase role="commit-message">Merge pull request #148 from tgraham-antenna/patch-1</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>andrewcarver: xsl/abstract.notitle.enabled.xml; xsl/abstract.properties.xml; xsl/abstract.⋯</literal></para><screen><phrase role="commit-message">Clean up trivial param-name mismatch</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/abstract.notitle.enabled.xml; xsl/abstract.properties.xml; xsl/abstract.⋯</literal></para><screen><phrase role="commit-message">Publish releases only on tags; use docbook-ci</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/abstract.notitle.enabled.xml; xsl/abstract.properties.xml; xsl/abstract.⋯</literal></para><screen><phrase role="commit-message">Merge pull request #125 from ndw/fix-warning</phrase></screen>
+</listitem>
+</itemizedlist>
+</section><!--end of Params changes for snapshot-->
+
+<section xml:id="Vsnapshot_Highlighting">
+<title>Highlighting</title>
+<para>The following changes have been made to the
+            <filename>highlighting</filename> code
+            since the 1.79.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Tony Graham: xsl/common.xsl</literal></para><screen><phrase role="commit-message">Extension <tag>function</tag> instead of Saxon6 &lt;saxon:script&gt;</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/common.xsl</literal></para><screen><phrase role="commit-message">Fix http://cdn... to https://cdn...</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/README; xsl/bourne-hl.xml; xsl/c-hl.xml; xsl/cmake-hl.xml; xsl/common.xsl⋯</literal></para><screen><phrase role="commit-message">Changing JDK to OpenJDK as an attempt to get CI running again</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/README; xsl/bourne-hl.xml; xsl/c-hl.xml; xsl/cmake-hl.xml; xsl/common.xsl⋯</literal></para><screen><phrase role="commit-message">Merge pull request #148 from tgraham-antenna/patch-1</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>andrewcarver: xsl/README; xsl/bourne-hl.xml; xsl/c-hl.xml; xsl/cmake-hl.xml; xsl/common.xs⋯</literal></para><screen><phrase role="commit-message">Clean up trivial param-name mismatch</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/README; xsl/bourne-hl.xml; xsl/c-hl.xml; xsl/cmake-hl.xml; xsl/common.xs⋯</literal></para><screen><phrase role="commit-message">Publish releases only on tags; use docbook-ci</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/README; xsl/bourne-hl.xml; xsl/c-hl.xml; xsl/cmake-hl.xml; xsl/common.xs⋯</literal></para><screen><phrase role="commit-message">Merge pull request #125 from ndw/fix-warning</phrase></screen>
+</listitem>
+</itemizedlist>
+</section><!--end of Highlighting changes for snapshot-->
+
+<section xml:id="Vsnapshot_Profiling">
+<title>Profiling</title>
+<para>The following changes have been made to the
+            <filename>profiling</filename> code
+            since the 1.79.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Jirka Kosek: xsl/profile-mode.xsl; xsl/profile.xsl; xsl/strip-attributes.xsl; xsl/xsl2prof⋯</literal></para><screen><phrase role="commit-message">Changing JDK to OpenJDK as an attempt to get CI running again</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/profile-mode.xsl; xsl/profile.xsl; xsl/strip-attributes.xsl; xsl/xsl2prof⋯</literal></para><screen><phrase role="commit-message">Merge pull request #148 from tgraham-antenna/patch-1</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>andrewcarver: xsl/profile-mode.xsl; xsl/profile.xsl; xsl/strip-attributes.xsl; xsl/xsl2pro⋯</literal></para><screen><phrase role="commit-message">Clean up trivial param-name mismatch</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/profile-mode.xsl; xsl/profile.xsl; xsl/strip-attributes.xsl; xsl/xsl2pro⋯</literal></para><screen><phrase role="commit-message">Publish releases only on tags; use docbook-ci</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/profile-mode.xsl; xsl/profile.xsl; xsl/strip-attributes.xsl; xsl/xsl2pro⋯</literal></para><screen><phrase role="commit-message">Merge pull request #125 from ndw/fix-warning</phrase></screen>
+</listitem>
+</itemizedlist>
+</section><!--end of Profiling changes for snapshot-->
+
+<section xml:id="Vsnapshot_Lib">
+<title>Lib</title>
+<para>The following changes have been made to the
+            <filename>lib</filename> code
+            since the 1.79.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Norman Walsh: xsl/lib.xweb</literal></para><screen><phrase role="commit-message">Fix http://cdn... to https://cdn...</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/lib.xweb</literal></para><screen><phrase role="commit-message">Changing JDK to OpenJDK as an attempt to get CI running again</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/lib.xweb</literal></para><screen><phrase role="commit-message">Merge pull request #148 from tgraham-antenna/patch-1</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>andrewcarver: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/lib.xweb</literal></para><screen><phrase role="commit-message">Clean up trivial param-name mismatch</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/lib.xweb</literal></para><screen><phrase role="commit-message">Publish releases only on tags; use docbook-ci</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/lib.xweb</literal></para><screen><phrase role="commit-message">Merge pull request #125 from ndw/fix-warning</phrase></screen>
+</listitem>
+</itemizedlist>
+</section><!--end of Lib changes for snapshot-->
+
+<section xml:id="Vsnapshot_Tools">
+<title>Tools</title>
+<para>The following changes have been made to the
+            <filename>tools</filename> code
+            since the 1.79.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Norman Walsh: xsl/make/Makefile.DocBook; xsl/make/Makefile.combine; xsl/xsl/build/dblatex-⋯</literal></para><screen><phrase role="commit-message">Fix http://cdn... to https://cdn...</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/bin/docbook-xsl-update; xsl/build-shared.xml; xsl/lib/ant-contrib-1.0b3.j⋯</literal></para><screen><phrase role="commit-message">Changing JDK to OpenJDK as an attempt to get CI running again</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/bin/docbook-xsl-update; xsl/build-shared.xml; xsl/lib/ant-contrib-1.0b3.j⋯</literal></para><screen><phrase role="commit-message">Merge pull request #148 from tgraham-antenna/patch-1</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>andrewcarver: xsl/bin/docbook-xsl-update; xsl/build-shared.xml; xsl/lib/ant-contrib-1.0b3.⋯</literal></para><screen><phrase role="commit-message">Clean up trivial param-name mismatch</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/bin/docbook-xsl-update; xsl/build-shared.xml; xsl/lib/ant-contrib-1.0b3.⋯</literal></para><screen><phrase role="commit-message">Publish releases only on tags; use docbook-ci</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/bin/docbook-xsl-update; xsl/build-shared.xml; xsl/lib/ant-contrib-1.0b3.⋯</literal></para><screen><phrase role="commit-message">Merge pull request #125 from ndw/fix-warning</phrase></screen>
+</listitem>
+</itemizedlist>
+</section><!--end of Tools changes for snapshot-->
+
+<section xml:id="Vsnapshot_Template">
+<title>Template</title>
+<para>The following changes have been made to the
+            <filename>template</filename> code
+            since the 1.79.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Norman Walsh: xsl/titlepage.xsl</literal></para><screen><phrase role="commit-message">Fix http://cdn... to https://cdn...</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/.gitignore; xsl/titlepage.xsl</literal></para><screen><phrase role="commit-message">Changing JDK to OpenJDK as an attempt to get CI running again</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/.gitignore; xsl/titlepage.xsl</literal></para><screen><phrase role="commit-message">Merge pull request #148 from tgraham-antenna/patch-1</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>andrewcarver: xsl/.gitignore; xsl/titlepage.xsl</literal></para><screen><phrase role="commit-message">Clean up trivial param-name mismatch</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/.gitignore; xsl/titlepage.xsl</literal></para><screen><phrase role="commit-message">Publish releases only on tags; use docbook-ci</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/.gitignore; xsl/titlepage.xsl</literal></para><screen><phrase role="commit-message">Merge pull request #125 from ndw/fix-warning</phrase></screen>
+</listitem>
+</itemizedlist>
+</section><!--end of Template changes for snapshot-->
+
+<section xml:id="Vsnapshot_Extensions">
+<title>Extensions</title>
+<para>The following changes have been made to the
+            <filename>extensions</filename> code
+            since the 1.79.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/build.xml</literal></para><screen><phrase role="commit-message">Changing JDK to OpenJDK as an attempt to get CI running again</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/build.xml</literal></para><screen><phrase role="commit-message">Merge pull request #148 from tgraham-antenna/patch-1</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>andrewcarver: xsl/.gitignore; xsl/Makefile; xsl/build.xml</literal></para><screen><phrase role="commit-message">Clean up trivial param-name mismatch</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/build.xml</literal></para><screen><phrase role="commit-message">Publish releases only on tags; use docbook-ci</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/build.xml</literal></para><screen><phrase role="commit-message">Merge pull request #125 from ndw/fix-warning</phrase></screen>
+</listitem>
+</itemizedlist>
+</section><!--end of Extensions changes for snapshot-->
+
+<section xml:id="Vsnapshot_XSL-Saxon">
+<title>XSL-Saxon</title>
+<para>The following changes have been made to the
+            <filename>xsl-saxon</filename> code
+            since the 1.79.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Norman Walsh: src/com/nwalsh/saxon/Windows1252.java</literal></para><screen><phrase role="commit-message">Fix http://cdn... to https://cdn...</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: .announcement-text; .gitignore; AUTHORS; BUGS; INSTALL; Makefile; README; VER⋯</literal></para><screen><phrase role="commit-message">Changing JDK to OpenJDK as an attempt to get CI running again</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: .announcement-text; .gitignore; AUTHORS; BUGS; INSTALL; Makefile; README; VER⋯</literal></para><screen><phrase role="commit-message">Merge pull request #148 from tgraham-antenna/patch-1</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>andrewcarver: .announcement-text; .gitignore; AUTHORS; BUGS; INSTALL; Makefile; README; VE⋯</literal></para><screen><phrase role="commit-message">Clean up trivial param-name mismatch</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: .announcement-text; .gitignore; AUTHORS; BUGS; INSTALL; Makefile; README; VE⋯</literal></para><screen><phrase role="commit-message">Publish releases only on tags; use docbook-ci</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: .announcement-text; .gitignore; AUTHORS; BUGS; INSTALL; Makefile; README; VE⋯</literal></para><screen><phrase role="commit-message">Merge pull request #125 from ndw/fix-warning</phrase></screen>
+</listitem>
+</itemizedlist>
+</section><!--end of XSL-Saxon changes for snapshot-->
+
+<section xml:id="Vsnapshot_XSL-Xalan">
+<title>XSL-Xalan</title>
+<para>The following changes have been made to the
+            <filename>xsl-xalan</filename> code
+            since the 1.79.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Jirka Kosek: .announcement-text; .gitignore; AUTHORS; BUGS; INSTALL; Makefile; README; VER⋯</literal></para><screen><phrase role="commit-message">Changing JDK to OpenJDK as an attempt to get CI running again</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: .announcement-text; .gitignore; AUTHORS; BUGS; INSTALL; Makefile; README; VER⋯</literal></para><screen><phrase role="commit-message">Merge pull request #148 from tgraham-antenna/patch-1</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>andrewcarver: .announcement-text; .gitignore; AUTHORS; BUGS; INSTALL; Makefile; README; VE⋯</literal></para><screen><phrase role="commit-message">Clean up trivial param-name mismatch</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: .announcement-text; .gitignore; AUTHORS; BUGS; INSTALL; Makefile; README; VE⋯</literal></para><screen><phrase role="commit-message">Publish releases only on tags; use docbook-ci</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: .announcement-text; .gitignore; AUTHORS; BUGS; INSTALL; Makefile; README; VE⋯</literal></para><screen><phrase role="commit-message">Merge pull request #125 from ndw/fix-warning</phrase></screen>
+</listitem>
+</itemizedlist>
+</section><!--end of XSL-Xalan changes for snapshot-->
+
+<section xml:id="Vsnapshot_XSL-libxslt">
+<title>XSL-libxslt</title>
+<para>The following changes have been made to the
+            <filename>xsl-libxslt</filename> code
+            since the 1.79.1 release.</para>
+<itemizedlist>
+<listitem>
+<para><literal>Jirka Kosek: python/.gitignore; python/README.LIBXSLT; python/docbook.py; python/xslt.py</literal></para><screen><phrase role="commit-message">Changing JDK to OpenJDK as an attempt to get CI running again</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Jirka Kosek: python/.gitignore; python/README.LIBXSLT; python/docbook.py; python/xslt.py</literal></para><screen><phrase role="commit-message">Merge pull request #148 from tgraham-antenna/patch-1</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>andrewcarver: python/.gitignore; python/README.LIBXSLT; python/docbook.py; python/xslt.py</literal></para><screen><phrase role="commit-message">Clean up trivial param-name mismatch</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: python/.gitignore; python/README.LIBXSLT; python/docbook.py; python/xslt.py</literal></para><screen><phrase role="commit-message">Publish releases only on tags; use docbook-ci</phrase></screen>
+</listitem>
+<listitem>
+<para><literal>Norman Walsh: python/.gitignore; python/README.LIBXSLT; python/docbook.py; python/xslt.py</literal></para><screen><phrase role="commit-message">Merge pull request #125 from ndw/fix-warning</phrase></screen>
+</listitem>
+</itemizedlist>
+</section><!--end of XSL-libxslt changes for snapshot-->
+
+</section>
+</article>

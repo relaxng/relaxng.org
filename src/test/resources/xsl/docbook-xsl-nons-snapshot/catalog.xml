@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <!-- XML Catalog file for DocBook XSL-NONS vsnapshot -->
+  <rewriteURI uriStartString="https://cdn.docbook.org/release/xsl-nons/current/" rewritePrefix="./"/>
+  <rewriteSystem systemIdStartString="https://cdn.docbook.org/release/xsl-nons/current/" rewritePrefix="./"/>
+  <rewriteURI uriStartString="https://cdn.docbook.org/release/xsl-nons/snapshot/" rewritePrefix="./"/>
+  <rewriteSystem systemIdStartString="https://cdn.docbook.org/release/xsl-nons/snapshot/" rewritePrefix="./"/>
+</catalog>

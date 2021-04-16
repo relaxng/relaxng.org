@@ -1,0 +1,865 @@
+Changes since the 1.79.1 release
+
+Note: This document lists changes only since the 1.79.1 release.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Table of Contents
+
+Release Notes: snapshot
+
+    Gentext
+    Common
+    FO
+    HTML
+    Manpages
+    Epub
+    HTMLHelp
+    Eclipse
+    JavaHelp
+    Roundtrip
+    Slides
+    Website
+    Webhelp
+    Params
+    Highlighting
+    Profiling
+    Lib
+    Tools
+    Template
+    Extensions
+    XSL-Saxon
+    XSL-Xalan
+    XSL-libxslt
+
+Release Notes: snapshot
+
+The following is a list of changes that have been made since the 1.79.1
+release.
+
+Gentext
+
+The following changes have been made to the gentext code since the 1.79.1
+release.
+
+  • Norman Walsh: dsssl/dsssl.dsl; xsl/dsssl.xsl; xsl/xsl.xsl
+
+    Fix http://cdn... to https://cdn...
+
+  • Jirka Kosek: .gitignore; Makefile; README; dsssl/dsssl.dsl; dtd/l10n.dtd;
+    locale/Auditloca⋯
+
+    Changing JDK to OpenJDK as an attempt to get CI running again
+
+  • Jirka Kosek: .gitignore; Makefile; README; dsssl/dsssl.dsl; dtd/l10n.dtd;
+    locale/Auditloca⋯
+
+    Merge pull request #148 from tgraham-antenna/patch-1
+
+  • andrewcarver: .gitignore; Makefile; README; dsssl/dsssl.dsl; dtd/l10n.dtd;
+    locale/Auditloc⋯
+
+    Clean up trivial param-name mismatch
+
+  • Norman Walsh: .gitignore; Makefile; README; dsssl/dsssl.dsl; dtd/l10n.dtd;
+    locale/Auditloc⋯
+
+    Publish releases only on tags; use docbook-ci
+
+  • Norman Walsh: .gitignore; Makefile; README; dsssl/dsssl.dsl; dtd/l10n.dtd;
+    locale/Auditloc⋯
+
+    Merge pull request #125 from ndw/fix-warning
+
+Common
+
+The following changes have been made to the common code since the 1.79.1
+release.
+
+  • Norman Walsh: xsl/autoidx-kimber.xsl; xsl/autoidx-kosek.xsl; xsl/
+    charmap.xsl; xsl/common.x⋯
+
+    Fix http://cdn... to https://cdn...
+
+  • Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/addns.xsl; xsl/
+    autoidx-kimber.xsl; xsl/auto⋯
+
+    Changing JDK to OpenJDK as an attempt to get CI running again
+
+  • Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/addns.xsl; xsl/
+    autoidx-kimber.xsl; xsl/auto⋯
+
+    Merge pull request #148 from tgraham-antenna/patch-1
+
+  • andrewcarver: xsl/.gitignore; xsl/Makefile; xsl/addns.xsl; xsl/
+    autoidx-kimber.xsl; xsl/aut⋯
+
+    Clean up trivial param-name mismatch
+
+  • Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/addns.xsl; xsl/
+    autoidx-kimber.xsl; xsl/aut⋯
+
+    Publish releases only on tags; use docbook-ci
+
+  • Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/addns.xsl; xsl/
+    autoidx-kimber.xsl; xsl/aut⋯
+
+    Merge pull request #125 from ndw/fix-warning
+
+FO
+
+The following changes have been made to the fo code since the 1.79.1 release.
+
+  • Robert Stayton: xsl/axf.xsl; xsl/docbook.xsl; xsl/fop1.xsl; xsl/xep.xsl
+
+    keyword metadata now removes duplicates and is sorted
+
+  • Robert Stayton: xsl/xref.xsl
+
+    fix bug #189 to resolve ambiguous matches in mode xref-to
+
+  • Tony Graham: xsl/highlight.xsl
+
+    Corrected attribute set for 'xslthl:annotation'.
+
+  • Tony Graham: xsl/highlight.xsl
+
+    Use attribute sets to style highlighted text
+
+  • Tony Graham: xsl/axf.xsl
+
+    Add 'user-axf-document-information' named template
+
+  • Tony Graham: xsl/axf.xsl
+
+    Add back the 'd:' in element names
+
+  • Tony Graham: xsl/axf.xsl
+
+    Discard empty keywords, de-dupe and sort remainder
+
+  • Robert Stayton: xsl/pagesetup.xsl
+
+    fix bug #147 precedence does not apply to side regions
+
+  • Norman Walsh: xsl/admon.xsl; xsl/annotations.xsl; xsl/autoidx-kimber.xsl;
+    xsl/autoidx-kose⋯
+
+    Fix http://cdn... to https://cdn...
+
+  • Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/admon.xsl; xsl/
+    annotations.xsl; xsl/autoidx⋯
+
+    Changing JDK to OpenJDK as an attempt to get CI running again
+
+  • Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/admon.xsl; xsl/
+    annotations.xsl; xsl/autoidx⋯
+
+    Merge pull request #148 from tgraham-antenna/patch-1
+
+  • andrewcarver: xsl/.gitignore; xsl/Makefile; xsl/admon.xsl; xsl/
+    annotations.xsl; xsl/autoid⋯
+
+    Clean up trivial param-name mismatch
+
+  • Robert Stayton: xsl/inline.xsl
+
+    fix bug #133 Citation linking to abbrev should ignore whitespace
+
+  • Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/admon.xsl; xsl/
+    annotations.xsl; xsl/autoid⋯
+
+    Publish releases only on tags; use docbook-ci
+
+  • Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/admon.xsl; xsl/
+    annotations.xsl; xsl/autoid⋯
+
+    Merge pull request #125 from ndw/fix-warning
+
+HTML
+
+The following changes have been made to the html code since the 1.79.1 release.
+
+  • Robert Stayton: xsl/xref.xsl
+
+    fix bug #189 to resolve ambiguous matches in mode xref-to
+
+  • Peter Fleck: xsl/graphics.xsl
+
+    Add webp as valid format in is.graphic.extension
+
+  • Norman Walsh: xsl/admon.xsl; xsl/autoidx-kimber.xsl; xsl/autoidx-kosek.xsl;
+    xsl/autoidx-ng⋯
+
+    Fix http://cdn... to https://cdn...
+
+  • Jirka Kosek: xsl/autoidx.xsl
+
+    Reference to indexterm location specified by zone is not rendered if there is nested phrase (secondary, tertiary, ...)
+
+  • Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/admon.xsl; xsl/
+    annotations.xsl; xsl/autoidx⋯
+
+    Changing JDK to OpenJDK as an attempt to get CI running again
+
+  • Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/admon.xsl; xsl/
+    annotations.xsl; xsl/autoidx⋯
+
+    Merge pull request #148 from tgraham-antenna/patch-1
+
+  • andrewcarver: xsl/.gitignore; xsl/Makefile; xsl/admon.xsl; xsl/
+    annotations.xsl; xsl/autoid⋯
+
+    Clean up trivial param-name mismatch
+
+  • Robert Stayton: xsl/inline.xsl
+
+    fix bug #133 Citation linking to abbrev should ignore whitespace
+
+  • Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/admon.xsl; xsl/
+    annotations.xsl; xsl/autoid⋯
+
+    Publish releases only on tags; use docbook-ci
+
+  • Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/admon.xsl; xsl/
+    annotations.xsl; xsl/autoid⋯
+
+    Merge pull request #125 from ndw/fix-warning
+
+Manpages
+
+The following changes have been made to the manpages code since the 1.79.1
+release.
+
+  • Robert Stayton: xsl/lists.xsl
+
+    fix bug #145 to support @numeration on orderedlist
+
+  • Norman Walsh: xsl/block.xsl; xsl/charmap.groff.xsl; xsl/docbook.xsl; xsl/
+    endnotes.xsl; xsl⋯
+
+    Fix http://cdn... to https://cdn...
+
+  • Jirka Kosek: xsl/.gitignore; xsl/ChangeLog.20020917; xsl/Makefile; xsl/
+    block.xsl; xsl/buil⋯
+
+    Changing JDK to OpenJDK as an attempt to get CI running again
+
+  • Jirka Kosek: xsl/.gitignore; xsl/ChangeLog.20020917; xsl/Makefile; xsl/
+    block.xsl; xsl/buil⋯
+
+    Merge pull request #148 from tgraham-antenna/patch-1
+
+  • andrewcarver: xsl/.gitignore; xsl/ChangeLog.20020917; xsl/Makefile; xsl/
+    block.xsl; xsl/bui⋯
+
+    Clean up trivial param-name mismatch
+
+  • Norman Walsh: xsl/.gitignore; xsl/ChangeLog.20020917; xsl/Makefile; xsl/
+    block.xsl; xsl/bui⋯
+
+    Publish releases only on tags; use docbook-ci
+
+  • Norman Walsh: xsl/.gitignore; xsl/ChangeLog.20020917; xsl/Makefile; xsl/
+    block.xsl; xsl/bui⋯
+
+    Merge pull request #125 from ndw/fix-warning
+
+Epub
+
+The following changes have been made to the epub code since the 1.79.1 release.
+
+  • Jirka Kosek: xsl/README; xsl/bin/dbtoepub; xsl/bin/lib/docbook.rb; xsl/bin/
+    spec/.gitignore⋯
+
+    Changing JDK to OpenJDK as an attempt to get CI running again
+
+  • Jirka Kosek: xsl/README; xsl/bin/dbtoepub; xsl/bin/lib/docbook.rb; xsl/bin/
+    spec/.gitignore⋯
+
+    Merge pull request #148 from tgraham-antenna/patch-1
+
+  • andrewcarver: xsl/README; xsl/bin/dbtoepub; xsl/bin/lib/docbook.rb; xsl/bin
+    /spec/.gitignor⋯
+
+    Clean up trivial param-name mismatch
+
+  • Shlomi Fish: xsl/bin/dbtoepub; xsl/bin/spec/epub_realbook_spec.rb; xsl/bin/
+    spec/epub_regre⋯
+
+    Fix insecure tmpdir() creation.
+
+  • Norman Walsh: xsl/README; xsl/bin/dbtoepub; xsl/bin/lib/docbook.rb; xsl/bin
+    /spec/.gitignor⋯
+
+    Publish releases only on tags; use docbook-ci
+
+  • Norman Walsh: xsl/README; xsl/bin/dbtoepub; xsl/bin/lib/docbook.rb; xsl/bin
+    /spec/.gitignor⋯
+
+    Merge pull request #125 from ndw/fix-warning
+
+HTMLHelp
+
+The following changes have been made to the htmlhelp code since the 1.79.1
+release.
+
+  • Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/
+    htmlhelp-common.xsl; xsl/htm⋯
+
+    Changing JDK to OpenJDK as an attempt to get CI running again
+
+  • Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/
+    htmlhelp-common.xsl; xsl/htm⋯
+
+    Merge pull request #148 from tgraham-antenna/patch-1
+
+  • andrewcarver: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/
+    htmlhelp-common.xsl; xsl/ht⋯
+
+    Clean up trivial param-name mismatch
+
+  • Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/
+    htmlhelp-common.xsl; xsl/ht⋯
+
+    Publish releases only on tags; use docbook-ci
+
+  • Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/
+    htmlhelp-common.xsl; xsl/ht⋯
+
+    Merge pull request #125 from ndw/fix-warning
+
+Eclipse
+
+The following changes have been made to the eclipse code since the 1.79.1
+release.
+
+  • Norman Walsh: xsl/eclipse.xsl; xsl/eclipse3.xsl
+
+    Fix http://cdn... to https://cdn...
+
+  • Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/eclipse.xsl;
+    xsl/eclipse3.xs⋯
+
+    Changing JDK to OpenJDK as an attempt to get CI running again
+
+  • Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/eclipse.xsl;
+    xsl/eclipse3.xs⋯
+
+    Merge pull request #148 from tgraham-antenna/patch-1
+
+  • andrewcarver: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/eclipse.xsl;
+    xsl/eclipse3.x⋯
+
+    Clean up trivial param-name mismatch
+
+  • Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/eclipse.xsl;
+    xsl/eclipse3.x⋯
+
+    Publish releases only on tags; use docbook-ci
+
+  • Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/eclipse.xsl;
+    xsl/eclipse3.x⋯
+
+    Merge pull request #125 from ndw/fix-warning
+
+JavaHelp
+
+The following changes have been made to the javahelp code since the 1.79.1
+release.
+
+  • Norman Walsh: xsl/javahelp.xsl
+
+    Fix http://cdn... to https://cdn...
+
+  • Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/javahelp.xsl
+
+    Changing JDK to OpenJDK as an attempt to get CI running again
+
+  • Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/javahelp.xsl
+
+    Merge pull request #148 from tgraham-antenna/patch-1
+
+  • andrewcarver: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/javahelp.xsl
+
+    Clean up trivial param-name mismatch
+
+  • Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/javahelp.xsl
+
+    Publish releases only on tags; use docbook-ci
+
+  • Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/javahelp.xsl
+
+    Merge pull request #125 from ndw/fix-warning
+
+Roundtrip
+
+The following changes have been made to the roundtrip code since the 1.79.1
+release.
+
+  • Norman Walsh: xsl/dbk2ooo.xsl; xsl/dbk2pages.xsl; xsl/dbk2wordml.xsl; xsl/
+    dbk2wp.xsl; xsl/⋯
+
+    Fix http://cdn... to https://cdn...
+
+  • Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/blocks-spec.xml; xsl/
+    blocks2dbk.dtd; xsl/bl⋯
+
+    Changing JDK to OpenJDK as an attempt to get CI running again
+
+  • Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/blocks-spec.xml; xsl/
+    blocks2dbk.dtd; xsl/bl⋯
+
+    Merge pull request #148 from tgraham-antenna/patch-1
+
+  • andrewcarver: xsl/.gitignore; xsl/Makefile; xsl/blocks-spec.xml; xsl/
+    blocks2dbk.dtd; xsl/b⋯
+
+    Clean up trivial param-name mismatch
+
+  • Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/blocks-spec.xml; xsl/
+    blocks2dbk.dtd; xsl/b⋯
+
+    Publish releases only on tags; use docbook-ci
+
+  • Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/blocks-spec.xml; xsl/
+    blocks2dbk.dtd; xsl/b⋯
+
+    Merge pull request #125 from ndw/fix-warning
+
+Slides
+
+The following changes have been made to the slides code since the 1.79.1
+release.
+
+  • Norman Walsh: xsl/schema/relaxng/slides.rnc
+
+    Fix URI for DocBook schema
+
+  • Norman Walsh: xsl/images/callouts/Makefile
+
+    Fix the convert error in the SVG construction
+
+  • Norman Walsh: xsl/fo/param.xweb; xsl/xhtml/param.xweb
+
+    Fix http://cdn... to https://cdn...
+
+  • Jirka Kosek: .gitignore; Makefile; VERSION; files/s5/index-osf.html; files/
+    s5/index-xoxo.h⋯
+
+    Changing JDK to OpenJDK as an attempt to get CI running again
+
+  • Jirka Kosek: .gitignore; Makefile; VERSION; files/s5/index-osf.html; files/
+    s5/index-xoxo.h⋯
+
+    Merge pull request #148 from tgraham-antenna/patch-1
+
+  • andrewcarver: .gitignore; Makefile; VERSION; files/s5/index-osf.html; files
+    /s5/index-xoxo.⋯
+
+    Clean up trivial param-name mismatch
+
+  • Norman Walsh: .gitignore; Makefile; VERSION; files/s5/index-osf.html; files
+    /s5/index-xoxo.⋯
+
+    Publish releases only on tags; use docbook-ci
+
+  • Norman Walsh: .gitignore; Makefile; VERSION; files/s5/index-osf.html; files
+    /s5/index-xoxo.⋯
+
+    Merge pull request #125 from ndw/fix-warning
+
+Website
+
+The following changes have been made to the website code since the 1.79.1
+release.
+
+  • Norman Walsh: xsl/param.xweb; xsl/website-targets.xsl; xsl/xbel.xsl
+
+    Fix http://cdn... to https://cdn...
+
+  • Jirka Kosek: .gitignore; AUTHORS; BUGS; INSTALL; Makefile; README;
+    RELEASE-NOTES.xml; TODO⋯
+
+    Changing JDK to OpenJDK as an attempt to get CI running again
+
+  • Jirka Kosek: .gitignore; AUTHORS; BUGS; INSTALL; Makefile; README;
+    RELEASE-NOTES.xml; TODO⋯
+
+    Merge pull request #148 from tgraham-antenna/patch-1
+
+  • andrewcarver: .gitignore; AUTHORS; BUGS; INSTALL; Makefile; README;
+    RELEASE-NOTES.xml; TOD⋯
+
+    Clean up trivial param-name mismatch
+
+  • Norman Walsh: .gitignore; AUTHORS; BUGS; INSTALL; Makefile; README;
+    RELEASE-NOTES.xml; TOD⋯
+
+    Publish releases only on tags; use docbook-ci
+
+  • Norman Walsh: .gitignore; AUTHORS; BUGS; INSTALL; Makefile; README;
+    RELEASE-NOTES.xml; TOD⋯
+
+    Merge pull request #125 from ndw/fix-warning
+
+Webhelp
+
+The following changes have been made to the webhelp code since the 1.79.1
+release.
+
+  • Norman Walsh: xsl/docsrc/readme.xml
+
+    Fix http://cdn... to https://cdn...
+
+  • Jirka Kosek: xsl/LICENSE; xsl/Makefile; xsl/Makefile.param; xsl/
+    Makefile.sample; xsl/build⋯
+
+    Changing JDK to OpenJDK as an attempt to get CI running again
+
+  • Jirka Kosek: xsl/LICENSE; xsl/Makefile; xsl/Makefile.param; xsl/
+    Makefile.sample; xsl/build⋯
+
+    Merge pull request #148 from tgraham-antenna/patch-1
+
+  • andrewcarver: xsl/LICENSE; xsl/Makefile; xsl/Makefile.param; xsl/
+    Makefile.sample; xsl/buil⋯
+
+    Clean up trivial param-name mismatch
+
+  • Norman Walsh: xsl/LICENSE; xsl/Makefile; xsl/Makefile.param; xsl/
+    Makefile.sample; xsl/buil⋯
+
+    Publish releases only on tags; use docbook-ci
+
+  • Norman Walsh: xsl/LICENSE; xsl/Makefile; xsl/Makefile.param; xsl/
+    Makefile.sample; xsl/buil⋯
+
+    Merge pull request #125 from ndw/fix-warning
+
+Params
+
+The following changes have been made to the params code since the 1.79.1
+release.
+
+  • Robert Stayton: xsl/compact.list.item.spacing.xml
+
+    another fix for issue #138 vertical alignment of list items
+
+  • Robert Stayton: xsl/list.item.spacing.xml
+
+    fix issue #137 vertical alignment of list items
+
+  • Robert Stayton: xsl/side.region.precedence.xml
+
+    fix bug #147 precedence does not apply to side regions
+
+  • Norman Walsh: xsl/annotation.graphic.close.xml; xsl/
+    annotation.graphic.open.xml; xsl/annot⋯
+
+    Fix http://cdn... to https://cdn...
+
+  • Jirka Kosek: xsl/abstract.notitle.enabled.xml; xsl/abstract.properties.xml;
+    xsl/abstract.t⋯
+
+    Changing JDK to OpenJDK as an attempt to get CI running again
+
+  • Jirka Kosek: xsl/abstract.notitle.enabled.xml; xsl/abstract.properties.xml;
+    xsl/abstract.t⋯
+
+    Merge pull request #148 from tgraham-antenna/patch-1
+
+  • andrewcarver: xsl/abstract.notitle.enabled.xml; xsl/
+    abstract.properties.xml; xsl/abstract.⋯
+
+    Clean up trivial param-name mismatch
+
+  • Norman Walsh: xsl/abstract.notitle.enabled.xml; xsl/
+    abstract.properties.xml; xsl/abstract.⋯
+
+    Publish releases only on tags; use docbook-ci
+
+  • Norman Walsh: xsl/abstract.notitle.enabled.xml; xsl/
+    abstract.properties.xml; xsl/abstract.⋯
+
+    Merge pull request #125 from ndw/fix-warning
+
+Highlighting
+
+The following changes have been made to the highlighting code since the 1.79.1
+release.
+
+  • Tony Graham: xsl/common.xsl
+
+    Extension function instead of Saxon6 <saxon:script>
+
+  • Norman Walsh: xsl/common.xsl
+
+    Fix http://cdn... to https://cdn...
+
+  • Jirka Kosek: xsl/README; xsl/bourne-hl.xml; xsl/c-hl.xml; xsl/cmake-hl.xml;
+    xsl/common.xsl⋯
+
+    Changing JDK to OpenJDK as an attempt to get CI running again
+
+  • Jirka Kosek: xsl/README; xsl/bourne-hl.xml; xsl/c-hl.xml; xsl/cmake-hl.xml;
+    xsl/common.xsl⋯
+
+    Merge pull request #148 from tgraham-antenna/patch-1
+
+  • andrewcarver: xsl/README; xsl/bourne-hl.xml; xsl/c-hl.xml; xsl/
+    cmake-hl.xml; xsl/common.xs⋯
+
+    Clean up trivial param-name mismatch
+
+  • Norman Walsh: xsl/README; xsl/bourne-hl.xml; xsl/c-hl.xml; xsl/
+    cmake-hl.xml; xsl/common.xs⋯
+
+    Publish releases only on tags; use docbook-ci
+
+  • Norman Walsh: xsl/README; xsl/bourne-hl.xml; xsl/c-hl.xml; xsl/
+    cmake-hl.xml; xsl/common.xs⋯
+
+    Merge pull request #125 from ndw/fix-warning
+
+Profiling
+
+The following changes have been made to the profiling code since the 1.79.1
+release.
+
+  • Jirka Kosek: xsl/profile-mode.xsl; xsl/profile.xsl; xsl/
+    strip-attributes.xsl; xsl/xsl2prof⋯
+
+    Changing JDK to OpenJDK as an attempt to get CI running again
+
+  • Jirka Kosek: xsl/profile-mode.xsl; xsl/profile.xsl; xsl/
+    strip-attributes.xsl; xsl/xsl2prof⋯
+
+    Merge pull request #148 from tgraham-antenna/patch-1
+
+  • andrewcarver: xsl/profile-mode.xsl; xsl/profile.xsl; xsl/
+    strip-attributes.xsl; xsl/xsl2pro⋯
+
+    Clean up trivial param-name mismatch
+
+  • Norman Walsh: xsl/profile-mode.xsl; xsl/profile.xsl; xsl/
+    strip-attributes.xsl; xsl/xsl2pro⋯
+
+    Publish releases only on tags; use docbook-ci
+
+  • Norman Walsh: xsl/profile-mode.xsl; xsl/profile.xsl; xsl/
+    strip-attributes.xsl; xsl/xsl2pro⋯
+
+    Merge pull request #125 from ndw/fix-warning
+
+Lib
+
+The following changes have been made to the lib code since the 1.79.1 release.
+
+  • Norman Walsh: xsl/lib.xweb
+
+    Fix http://cdn... to https://cdn...
+
+  • Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/lib.xweb
+
+    Changing JDK to OpenJDK as an attempt to get CI running again
+
+  • Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/lib.xweb
+
+    Merge pull request #148 from tgraham-antenna/patch-1
+
+  • andrewcarver: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/lib.xweb
+
+    Clean up trivial param-name mismatch
+
+  • Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/lib.xweb
+
+    Publish releases only on tags; use docbook-ci
+
+  • Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/build.xml; xsl/lib.xweb
+
+    Merge pull request #125 from ndw/fix-warning
+
+Tools
+
+The following changes have been made to the tools code since the 1.79.1
+release.
+
+  • Norman Walsh: xsl/make/Makefile.DocBook; xsl/make/Makefile.combine; xsl/xsl
+    /build/dblatex-⋯
+
+    Fix http://cdn... to https://cdn...
+
+  • Jirka Kosek: xsl/bin/docbook-xsl-update; xsl/build-shared.xml; xsl/lib/
+    ant-contrib-1.0b3.j⋯
+
+    Changing JDK to OpenJDK as an attempt to get CI running again
+
+  • Jirka Kosek: xsl/bin/docbook-xsl-update; xsl/build-shared.xml; xsl/lib/
+    ant-contrib-1.0b3.j⋯
+
+    Merge pull request #148 from tgraham-antenna/patch-1
+
+  • andrewcarver: xsl/bin/docbook-xsl-update; xsl/build-shared.xml; xsl/lib/
+    ant-contrib-1.0b3.⋯
+
+    Clean up trivial param-name mismatch
+
+  • Norman Walsh: xsl/bin/docbook-xsl-update; xsl/build-shared.xml; xsl/lib/
+    ant-contrib-1.0b3.⋯
+
+    Publish releases only on tags; use docbook-ci
+
+  • Norman Walsh: xsl/bin/docbook-xsl-update; xsl/build-shared.xml; xsl/lib/
+    ant-contrib-1.0b3.⋯
+
+    Merge pull request #125 from ndw/fix-warning
+
+Template
+
+The following changes have been made to the template code since the 1.79.1
+release.
+
+  • Norman Walsh: xsl/titlepage.xsl
+
+    Fix http://cdn... to https://cdn...
+
+  • Jirka Kosek: xsl/.gitignore; xsl/titlepage.xsl
+
+    Changing JDK to OpenJDK as an attempt to get CI running again
+
+  • Jirka Kosek: xsl/.gitignore; xsl/titlepage.xsl
+
+    Merge pull request #148 from tgraham-antenna/patch-1
+
+  • andrewcarver: xsl/.gitignore; xsl/titlepage.xsl
+
+    Clean up trivial param-name mismatch
+
+  • Norman Walsh: xsl/.gitignore; xsl/titlepage.xsl
+
+    Publish releases only on tags; use docbook-ci
+
+  • Norman Walsh: xsl/.gitignore; xsl/titlepage.xsl
+
+    Merge pull request #125 from ndw/fix-warning
+
+Extensions
+
+The following changes have been made to the extensions code since the 1.79.1
+release.
+
+  • Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/build.xml
+
+    Changing JDK to OpenJDK as an attempt to get CI running again
+
+  • Jirka Kosek: xsl/.gitignore; xsl/Makefile; xsl/build.xml
+
+    Merge pull request #148 from tgraham-antenna/patch-1
+
+  • andrewcarver: xsl/.gitignore; xsl/Makefile; xsl/build.xml
+
+    Clean up trivial param-name mismatch
+
+  • Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/build.xml
+
+    Publish releases only on tags; use docbook-ci
+
+  • Norman Walsh: xsl/.gitignore; xsl/Makefile; xsl/build.xml
+
+    Merge pull request #125 from ndw/fix-warning
+
+XSL-Saxon
+
+The following changes have been made to the xsl-saxon code since the 1.79.1
+release.
+
+  • Norman Walsh: src/com/nwalsh/saxon/Windows1252.java
+
+    Fix http://cdn... to https://cdn...
+
+  • Jirka Kosek: .announcement-text; .gitignore; AUTHORS; BUGS; INSTALL;
+    Makefile; README; VER⋯
+
+    Changing JDK to OpenJDK as an attempt to get CI running again
+
+  • Jirka Kosek: .announcement-text; .gitignore; AUTHORS; BUGS; INSTALL;
+    Makefile; README; VER⋯
+
+    Merge pull request #148 from tgraham-antenna/patch-1
+
+  • andrewcarver: .announcement-text; .gitignore; AUTHORS; BUGS; INSTALL;
+    Makefile; README; VE⋯
+
+    Clean up trivial param-name mismatch
+
+  • Norman Walsh: .announcement-text; .gitignore; AUTHORS; BUGS; INSTALL;
+    Makefile; README; VE⋯
+
+    Publish releases only on tags; use docbook-ci
+
+  • Norman Walsh: .announcement-text; .gitignore; AUTHORS; BUGS; INSTALL;
+    Makefile; README; VE⋯
+
+    Merge pull request #125 from ndw/fix-warning
+
+XSL-Xalan
+
+The following changes have been made to the xsl-xalan code since the 1.79.1
+release.
+
+  • Jirka Kosek: .announcement-text; .gitignore; AUTHORS; BUGS; INSTALL;
+    Makefile; README; VER⋯
+
+    Changing JDK to OpenJDK as an attempt to get CI running again
+
+  • Jirka Kosek: .announcement-text; .gitignore; AUTHORS; BUGS; INSTALL;
+    Makefile; README; VER⋯
+
+    Merge pull request #148 from tgraham-antenna/patch-1
+
+  • andrewcarver: .announcement-text; .gitignore; AUTHORS; BUGS; INSTALL;
+    Makefile; README; VE⋯
+
+    Clean up trivial param-name mismatch
+
+  • Norman Walsh: .announcement-text; .gitignore; AUTHORS; BUGS; INSTALL;
+    Makefile; README; VE⋯
+
+    Publish releases only on tags; use docbook-ci
+
+  • Norman Walsh: .announcement-text; .gitignore; AUTHORS; BUGS; INSTALL;
+    Makefile; README; VE⋯
+
+    Merge pull request #125 from ndw/fix-warning
+
+XSL-libxslt
+
+The following changes have been made to the xsl-libxslt code since the 1.79.1
+release.
+
+  • Jirka Kosek: python/.gitignore; python/README.LIBXSLT; python/docbook.py;
+    python/xslt.py
+
+    Changing JDK to OpenJDK as an attempt to get CI running again
+
+  • Jirka Kosek: python/.gitignore; python/README.LIBXSLT; python/docbook.py;
+    python/xslt.py
+
+    Merge pull request #148 from tgraham-antenna/patch-1
+
+  • andrewcarver: python/.gitignore; python/README.LIBXSLT; python/docbook.py;
+    python/xslt.py
+
+    Clean up trivial param-name mismatch
+
+  • Norman Walsh: python/.gitignore; python/README.LIBXSLT; python/docbook.py;
+    python/xslt.py
+
+    Publish releases only on tags; use docbook-ci
+
+  • Norman Walsh: python/.gitignore; python/README.LIBXSLT; python/docbook.py;
+    python/xslt.py
+
+    Merge pull request #125 from ndw/fix-warning
+
