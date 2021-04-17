@@ -27,7 +27,7 @@
   </affiliation>
 </editor>
 </authorgroup>
-<pubdate>6 June 2002</pubdate>
+<pubdate>3 December 2001 (plus Errata: 6 June 2002)</pubdate>
 <releaseinfo role="meta">
 $Id: spec.xml,v 1.160 2002/06/06 jjc Exp $
 </releaseinfo>
@@ -608,7 +608,7 @@ element is transformed by recursively applying the rules from this
 subsection and from previous subsections of this section. This must
 not result in a loop. In other words, the transformation of the
 referenced element must not require the dereferencing of an
-<literal>externalRef</literal> attribute with an
+<literal>externalRef</literal> element with an
 <literal>href</literal> attribute with the same value.</para>
 
 <para>Any <literal>ns</literal> attribute on the
@@ -806,7 +806,7 @@ a <literal>choice</literal> element with one child being the child of the <liter
 <section>
 <title><literal>zeroOrMore</literal> element</title>
 
-<para>A <literal>zeroOrMore</literal> element is transformed into a <literal>choice</literal> element with one child being an &lt;oneOrMore> <replaceable>p</replaceable> &lt;/oneOrMore> element and the other child being an <literal>empty</literal> element, where <replaceable>p</replaceable> is the child of the <literal>literal>zeroOrMore</literal> element:</para>
+<para>A <literal>zeroOrMore</literal> element is transformed into a <literal>choice</literal> element with one child being an <literal>&lt;oneOrMore></literal> <replaceable>p</replaceable> <literal>&lt;/oneOrMore></literal> element and the other child being an <literal>empty</literal> element, where <replaceable>p</replaceable> is the child of the <literal>zeroOrMore</literal> element:</para>
 
 <programlisting>&lt;zeroOrMore> <replaceable>p</replaceable> &lt;/zeroOrMore></programlisting>
 
